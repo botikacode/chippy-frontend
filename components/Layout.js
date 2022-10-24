@@ -11,17 +11,9 @@ const Layout = ({ children }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     backgroundColor: "#D8D8D8",
     flex: 1,
-    alignItems: "center",
-  },
-  title: {
-    color: "#D8D8D8",
-    fontSize: 20,
-    textAlign: "center",
-    marginTop: 10,
-  },
+  }
 });
 
 export default Layout;

@@ -9,36 +9,32 @@ import AccountScreen from './screens/AccountScreen';
 
 const Tab = createBottomTabNavigator();
 
+const screenOptions = ({ route }) => ({
+  tabBarActiveTintColor: '#2471A3',
+  tabBarInactiveTintColor: '#2471A3',
+  headerShown: false,
+  tabBarShowLabel: false,
+  tabBarAccessibilityLabel: false,
+  tabBarIcon: ({ focused, color, size }) => {
+    let iconName;
+    if (route.name === "JobsScreen") {
+      iconName = focused ? 'home' : 'home-outline';
+
+    } else if (route.name === "ChatScreen") {
+      iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline';
+
+    } else if (route.name === "AccountScreen") {
+      iconName = focused ? 'person-circle' : 'person-circle-outline';
+    }
+    // You can return any component that you like here!
+    return <Ionicons name={iconName} size={size} color={color} />;
+  },
+})
+
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName={"JobsScreen"}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            let rn = route.name;
-
-            if (rn === "JobsScreen") {
-              iconName = focused ? 'home' : 'home-outline';
-
-            } else if (rn === "ChatScreen") {
-              iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline';
-
-            } else if (rn === "AccountScreen") {
-              iconName = focused ? 'person-circle' : 'person-circle-outline';
-            }
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'grey',
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 70 }
-        }}>
-
+      <Tab.Navigator initialRouteName={"JobsScreen"} screenOptions={screenOptions}>
         <Tab.Screen name="ChatScreen" component={ChatScreen} />
         <Tab.Screen name="JobsScreen" component={JobsScreen} />
         <Tab.Screen name="AccountScreen" component={AccountScreen} />
