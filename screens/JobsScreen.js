@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { View } from 'react-native'
-import {getJobs} from '../api'
+import {getJobs} from '../db/jobsApi'
 
 import Layout from '../components/Layout'
 import JobList from '../components/JobList'
