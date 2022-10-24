@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
-
+//a
 const JobItem = ({job}) => {
   return (
     <View style = {styles.itemMainContainer}>
