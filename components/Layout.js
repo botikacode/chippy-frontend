@@ -4,14 +4,14 @@ import { View, StatusBar, StyleSheet } from "react-native";
 const Layout = ({ children }) => {
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#00FFFF" />
+      <StatusBar backgroundColor="#2471A3" />
       {children}
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#D8D8D8",
+    backgroundColor: "#FDFEFE",
     flex: 1,
   }
 });

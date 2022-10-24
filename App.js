@@ -14,7 +14,7 @@ const screenOptions = ({ route }) => ({
   tabBarInactiveTintColor: '#2471A3',
   headerShown: false,
   tabBarShowLabel: false,
-  tabBarAccessibilityLabel: false,
+  tabBarAccessibilityLabel: 'false',
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
     if (route.name === "JobsScreen") {
