@@ -4,6 +4,7 @@ import {getJobs} from '../db/jobsApi'
 
 import Layout from '../components/Layout'
 import JobList from '../components/JobList'
+import SearchFilter from '../components/SearchFilter'
 
 const JobsScreen = () => {
 
@@ -20,6 +21,7 @@ const JobsScreen = () => {
 
   return (
     <Layout>
+      <SearchFilter/>
       <JobList jobs={jobs}/>
     </Layout>
   )
