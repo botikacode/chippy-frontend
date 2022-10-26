@@ -16,9 +16,9 @@ export const saveCustomer = async (newCustomer) => {
       body: JSON.stringify(newCustomer),
     });
     return await res.json();
-  };
+};
 
-  export const getCustomer = async (CustomerId) => {
+export const getCustomer = async (CustomerId) => {
     const res = await fetch(`${API}/${CustomerId}`);
     return await res.json();
-  };
+};
