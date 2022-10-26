@@ -1,5 +1,5 @@
 export {host} from '../config'
-const API = host + '/customers'
+const API = 'http://localhost:3000' + '/customers'
 
 export const getCustomers = async () => {
   const res = await fetch(API)
