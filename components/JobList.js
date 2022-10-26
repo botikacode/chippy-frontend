@@ -11,7 +11,8 @@ const JobList = ({jobs, filteredJobs}) => {
     
     return (
         <FlatList
-            data={filteredJobs}
+            //data={filteredJobs}
+            data={filteredJobs && filteredJobs.length > 0 ? filteredJobs : jobs}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />
