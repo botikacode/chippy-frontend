@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FDFEFE",
     flex: 1,
   }
 });

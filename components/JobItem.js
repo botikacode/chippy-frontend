@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
-//a
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 const JobItem = ({job}) => {
   return (
     <View style = {styles.itemMainContainer}>
@@ -10,13 +11,25 @@ const JobItem = ({job}) => {
       <View style={styles.itemLeftContainer}>
         <Text style={styles.itemTitle}>{job.title}</Text>
         <Text style={styles.itemText}>{job.description}</Text>
-        <Text style={styles.itemPrice}>{job.price}€</Text>
+        <View style={styles.itemFooter }>
+          <Text style={styles.itemText}><Ionicons name="star" style={{ color: 'yellow' }}/>{'(Val.)'}</Text>
+          <Text style={styles.itemText}><Ionicons name="time-outline" style={{ color: 'lightblue' }}/>{'(Tiem.)'}</Text>
+          <Text style={styles.itemText}><Ionicons name="cash" style={{ color: '#C3FF67' }}/>{job.price}€</Text>
+        </View>
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  itemFooter:{
+    marginTop: 20,
+    display: 'flex',
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    alignItems: 'center'
+  },
   itemImage:{
     width: 80,
     height:80,
