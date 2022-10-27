@@ -1,21 +1,44 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableHighlight } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import React, {useEffect, useState} from 'react'
+import UploadImageScreen from '../screens/UploadImageScreen';
+
+import {getCustomer} from '../db/customersApi'
+import Layout from '../components/Layout'
+import JobList from '../components/JobList'
+import SearchFilter from '../components/SearchFilter'
 
 
-const AccountScreen = () => {
-  const [text, onChangeText] = React.useState("Useless Text");
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const AccountScreen = ({ navigation }) => {
+  const [customer, setData] = useState([])
+
+
+
+  const loadCustomer = async () =>{
+    const data = await getCustomer(1) // Insertar aquí la id del User logeado
+    setData(data)
+  }
+
+  const Stack = createNativeStackNavigator();
+
+  useEffect(() =>{
+    loadCustomer()
+  }, [])
+
+  var myImage = getImageUrl(customer);
+
   return (
+
   <View>
     <View style = {styles.imageNameContainer}>
-    <TouchableHighlight onPress={() => alert('Pressed!')}>
-      <Image source={require('../assets/accountImage.jpg')} style = {styles.itemImage}/>
-    </TouchableHighlight>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
+    <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
+      <Image source={myImage} style = {styles.itemImage}/>
+    </TouchableOpacity>
+    <Text style={styles.input}>{customer.firstName} {customer.lastName}</Text>
     </View>
+
+
 
     <View style={styles.dogPortrait}>
       <View style={styles.line}/>
@@ -28,6 +51,15 @@ const AccountScreen = () => {
     </View>
   </View>
   )
+}
+
+function getImageUrl(customer){
+  var myImage = require('../assets/accountImage.jpg')
+
+  if(customer.image && customer.image != 'URLImage'){
+    myImage = require('../assets/'+customer.image);
+  }
+  return myImage;
 }
 
 const styles = StyleSheet.create({
@@ -56,11 +88,11 @@ itemImage:{
   borderRadius:100,
 },
 input: {
+  fontSize: 25,
   borderRadius: 10,
   MarginRight: 100,
   height: 40,
-  margin: 40,
-  borderWidth: 1,
+  margin: 30,
   flex: 1,
   padding: 10,
 },
@@ -82,4 +114,3 @@ commentTextTitle: {
 });
 
 export default AccountScreen
-
