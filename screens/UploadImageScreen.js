@@ -19,9 +19,6 @@ const UploadImageScreen = () => {
   )
 }
 
-const onPressLearnMore = () => {
-  console.log("HEY");
-}
 const styles = StyleSheet.create({
 imageContainer: {
   justifyContent: 'center',
