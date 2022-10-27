@@ -22,19 +22,6 @@ const UploadImageScreen = () => {
 const onPressLearnMore = () => {
   console.log("HEY");
 }
-/*
-useEffect(() =>{
-  loadJobs()
-}, [])
-
-return (
-  <Layout>
-    <SearchFilter/>
-    <JobList jobs={jobs}/>
-  </Layout>
-)
-}
-*/
 const styles = StyleSheet.create({
 imageContainer: {
   justifyContent: 'center',
