@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { View } from 'react-native'
 import {getJobs} from '../db/jobsApi'
 
 import Layout from '../components/Layout'
