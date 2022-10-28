@@ -3,7 +3,7 @@ import React from 'react'
 
 import JobItem from './JobItem'
 
-const JobList = ({jobs}) => {
+const JobList = ({jobs, filteredJobs}) => {
     
     const renderItem = ({ item }) => {
         return <JobItem job={item}/>;
@@ -11,7 +11,8 @@ const JobList = ({jobs}) => {
     
     return (
         <FlatList
-            data={jobs}
+            //data={filteredJobs}
+            data={filteredJobs && filteredJobs.length > 0 ? filteredJobs : jobs}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />
