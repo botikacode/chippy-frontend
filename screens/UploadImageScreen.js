@@ -9,7 +9,6 @@ const UploadImageScreen = () => {
       </View>
       <View style={styles.button}>
         <Button
-        onPress={onPressLearnMore}
         title="Upload Image"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
