@@ -9,6 +9,8 @@ const JobsScreen = () => {
 
   const [jobs, setJobs] = useState([])
 
+  const [filteredJobs, setFilteredJobs] = useState(jobs)
+
   const loadJobs = async () =>{
     const data = await getJobs()
     setJobs(data)
@@ -20,8 +22,8 @@ const JobsScreen = () => {
 
   return (
     <Layout>
-      <SearchFilter/>
-      <JobList jobs={jobs}/>
+      <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
+      <JobList jobs={jobs} filteredJobs={filteredJobs}/>
     </Layout>
   )
 }

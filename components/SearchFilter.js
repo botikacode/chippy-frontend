@@ -1,15 +1,27 @@
 import { View, TextInput, StyleSheet} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const buscar = (text) => {
-    console.log(text)
-}
+const SearchFilter = ({jobs, setFilteredJobs}) => {
 
-const SearchFilter = () => {
-    const [text, setText] = React.useState("");
+    const [jobsInputValue, setJobsInputValue] = React.useState("")
     
+    const handleChange = (event) => {
+        const newJobsInputValue = event.target.value
+        setJobsInputValue(newJobsInputValue)
+        const listaFiltradaAUX = jobs.filter(job => job.title.toLowerCase().includes(newJobsInputValue.toString().toLowerCase()))
+        let listaFiltrada;
+        if(!listaFiltradaAUX){
+            console.log('No hay lista')
+            listaFiltrada = jobs;
+        }else{
+            listaFiltrada = listaFiltradaAUX
+        }
+        setFilteredJobs(listaFiltrada)
+        console.log(listaFiltrada)
+    }
+
     return (
-        <TextInput onChangeText={newText => setText(newText)} onChange={buscar(text)} value={text}  placeholder='Buscar Tarea' style={styles.itemSearch}></TextInput>
+        <TextInput onChange={handleChange} value={jobsInputValue}  placeholder='Buscar Tarea' style={styles.itemSearch}></TextInput>
     )
 }
 
