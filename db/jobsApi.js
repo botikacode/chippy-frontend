@@ -52,7 +52,7 @@ export const getPetsJob = async (id) => {
 export const setPetJob = async (jobID, petID) => {
   const object = () => {
     const jobId = jobID
-    const petId = petID 
+    const petId = petID
   }
   const res = await fetch(API + '-Pets', {
     method: "POST",
