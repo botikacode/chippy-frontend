@@ -30,26 +30,9 @@ button:{
   justifyContent: 'center',
   alignItems: 'center'
 },
-line: {
-  borderWidth: 0.1,
-  borderColor:'black',
-  margin:10
-},
-dogPortrait: {
-  padding: 20
-},
 itemImage:{
   width: 250,
   height: 250,
-},
-input: {
-  fontSize: 25,
-  borderRadius: 10,
-  MarginRight: 100,
-  height: 40,
-  margin: 30,
-  flex: 1,
-  padding: 10,
 }
 });
 
