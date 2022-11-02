@@ -11,7 +11,7 @@ import ChatScreen from '../screens/ChatScreen';
 import AccountScreen from '../screens/AccountScreen';
 
 
-function TabNavigator() {
+function TabNavigator({navigation,route}) {
 
   const Tab = createBottomTabNavigator();
 
@@ -38,9 +38,9 @@ function TabNavigator() {
   
   return(
     <Tab.Navigator initialRouteName={"JobsScreen"} screenOptions={screenOptions}>
-        <Tab.Screen name="ChatScreen" component={ChatScreen} />
-        <Tab.Screen name="JobsScreen" component={JobsScreen} />
-        <Tab.Screen name="AccountScreen" component={AccountScreen} />
+        <Tab.Screen name="ChatScreen" initialParams={{ idSesion: route.params.idSesion }} component={ChatScreen} />
+        <Tab.Screen name="JobsScreen" initialParams={{ idSesion: route.params.idSesion }} component={JobsScreen} />
+        <Tab.Screen name="AccountScreen" initialParams={{ idSesion: route.params.idSesion }} component={AccountScreen} />
     </Tab.Navigator>
   );
 }
