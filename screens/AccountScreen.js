@@ -73,7 +73,7 @@ function getImageUrl(customer){
   var myImage = require('../assets/accountImage.jpg')
 
   if(customer.image && customer.image != 'URLImage'){
-    myImage = require('../assets/'+customer.image);
+    myImage = require('../assets/'+customer.image+'.jpg');
   }
   return myImage;
 }

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabNavigator from './components/TabNavigator';
+import UploadImageScreen from './screens/UploadImageScreen';
 
 import { Provider } from 'react-native-paper'
 import { theme } from './core/theme'
@@ -37,6 +38,7 @@ const App = () => {
             component={ResetPasswordScreen}
           />
           <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }}/>
+          <Stack.Screen name="UploadImageScreen" component={UploadImageScreen} options={{ title: 'Subir Imagen' }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>  );
