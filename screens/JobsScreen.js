@@ -5,10 +5,9 @@ import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
 
-const JobsScreen = ({ navigation, route }) => {
-  
-  const [jobs, setJobs] = useState([])
+const JobsScreen = () => {
 
+  const [jobs, setJobs] = useState([])
 
   const [filteredJobs, setFilteredJobs] = useState(jobs)
 

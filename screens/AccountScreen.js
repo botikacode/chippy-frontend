@@ -7,17 +7,16 @@ import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
 
-import Button from '../components/Button'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const AccountScreen = ({ navigation, route }) => {
+const AccountScreen = ({ navigation }) => {
   const [customer, setData] = useState([])
 
 
 
   const loadCustomer = async () =>{
-    const data = await getCustomer(route.params.idSesion) // Insertar aquí la id del User logeado
+    const data = await getCustomer(1) // Insertar aquí la id del User logeado
     setData(data)
   }
 
@@ -50,22 +49,7 @@ const AccountScreen = ({ navigation, route }) => {
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
     </View>
-
-    <View style={styles.outContainer}>
-    <Button
-        mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'StartScreen' }],
-          })
-        }
-      >
-        Cerrar sesión
-      </Button>
-    </View>
   </View>
-  
   )
 }
 
@@ -120,11 +104,8 @@ dogContainer: {
   padding:150,
   borderRadius: 6,
 },
-outContainer: {
-  marginTop:200,
-},
 commentContainer: {
-  
+
 },
 commentTextTitle: {
   fontSize: 20,
