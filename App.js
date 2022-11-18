@@ -7,7 +7,6 @@ import TabNavigator from './components/TabNavigator';
 import UploadImageScreen from './screens/UploadImageScreen';
 
 import { Provider } from 'react-native-paper'
-import { theme } from './core/theme'
 import {
   StartScreen,
   LoginScreen,
