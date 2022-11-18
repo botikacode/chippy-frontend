@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
-import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
-import Button from '../components/Button'
+import Button from 'react-native'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import {getCustomers} from '../db/customersApi'
@@ -63,7 +60,7 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <Background>
+    <Layout>
       <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Inicio de sesión</Header>
@@ -104,7 +101,7 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.link}>Registrarme</Text>
         </TouchableOpacity>
       </View>
-    </Background>
+    </Layout>
   )
 }
 
@@ -120,10 +117,8 @@ const styles = StyleSheet.create({
   },
   forgot: {
     fontSize: 13,
-    color: theme.colors.secondary,
   },
   link: {
     fontWeight: 'bold',
-    color: theme.colors.primary,
   },
 })

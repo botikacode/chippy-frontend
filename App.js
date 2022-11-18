@@ -6,15 +6,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './components/TabNavigator';
 import UploadImageScreen from './screens/UploadImageScreen';
 
-import { Provider } from 'react-native-paper'
-import {
-  StartScreen,
-  LoginScreen,
-  RegisterScreen,
-  ResetPasswordScreen,
-  Dashboard,
-  JobsScreen,
-} from './screens'
+import StartScreen from './screens/StartScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import Dashboard from './screens/Dashboard';
+import JobsScreen from './screens/JobsScreen';
 
 const Stack = createNativeStackNavigator();
 

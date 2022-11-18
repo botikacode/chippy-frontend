@@ -7,7 +7,7 @@ import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
 
-import Button from '../components/Button'
+import Button from 'react-native'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 

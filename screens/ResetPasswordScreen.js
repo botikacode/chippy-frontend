@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import Background from '../components/Background'
 import BackButton from '../components/BackButton'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
 import TextInput from '../components/TextInput'
-import Button from '../components/Button'
+import Button from 'react-native'
 import { emailValidator } from '../helpers/emailValidator'
+import Layout from '../components/Layout'
 
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -20,7 +20,7 @@ export default function ResetPasswordScreen({ navigation }) {
   }
 
   return (
-    <Background>
+    <Layout>
       <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Restaurar Password</Header>
@@ -44,6 +44,6 @@ export default function ResetPasswordScreen({ navigation }) {
       >
         Enviar Enlace
       </Button>
-    </Background>
+    </Layout>
   )
 }

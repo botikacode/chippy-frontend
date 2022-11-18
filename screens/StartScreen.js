@@ -1,13 +1,13 @@
 import React from 'react'
-import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
-import Button from '../components/Button'
+import Button from 'react-native'
 import Paragraph from '../components/Paragraph'
+import Layout from '../components/Layout'
 
 export default function StartScreen({ navigation }) {
   return (
-    <Background>
+    <Layout>
       <Logo />
       <Header>¡Bienvenido a Chippy!</Header>
       <Paragraph>
@@ -25,6 +25,6 @@ export default function StartScreen({ navigation }) {
       >
         Registrarme
       </Button>
-    </Background>
+    </Layout>
   )
 }
