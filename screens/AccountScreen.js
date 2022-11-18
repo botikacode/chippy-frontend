@@ -6,6 +6,8 @@ import {getCustomer} from '../db/customersApi'
 import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
+import Button from '../components/ButtonType0'
+import MyReqJobsScreen from '../screens/MyReqJobsScreen'
 
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -30,7 +32,7 @@ const AccountScreen = ({ navigation }) => {
 
   return (
 
-  <View>
+  <Layout>
     <View style = {styles.imageNameContainer}>
     <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
       <Image source={myImage} style = {styles.itemImage}/>
@@ -38,7 +40,11 @@ const AccountScreen = ({ navigation }) => {
     <Text style={styles.input}>{customer.firstName} {customer.lastName}</Text>
     </View>
 
-
+    <Button>
+    <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
+      <Text>{'Mis trabajos'}</Text>
+    </TouchableOpacity>
+    </Button>
 
     <View style={styles.dogPortrait}>
       <View style={styles.line}/>
@@ -49,7 +55,7 @@ const AccountScreen = ({ navigation }) => {
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
     </View>
-  </View>
+  </Layout>
   )
 }
 
