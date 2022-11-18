@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react'
 import UploadImageScreen from '../screens/UploadImageScreen';
 
 import {getCustomer} from '../db/customersApi'
+import {getComments} from '../db/commentsApi'
 import Layout from '../components/Layout'
-import JobList from '../components/JobList'
+import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
 
 
@@ -12,9 +13,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const AccountScreen = ({ navigation }) => {
   const [customer, setData] = useState([])
+  const [comments, setDataComments] = useState([])
+  const [filteredComments, setFilteredComments] = useState(comments)
 
-
-
+  const loadComments = async () =>{
+    const data = await getComments() // Insertar aquí la id del User logeado
+    setDataComments(data)
+  }
   const loadCustomer = async () =>{
     const data = await getCustomer(1) // Insertar aquí la id del User logeado
     setData(data)
@@ -25,9 +30,17 @@ const AccountScreen = ({ navigation }) => {
   useEffect(() =>{
     loadCustomer()
   }, [])
+  useEffect(() =>{
+    loadComments()
+  }, [])
+
 
   var myImage = getImageUrl(customer);
-
+/*
+<Layout>
+  <CommentsList comments={comments} filteredComments={comments}/>
+</Layout>
+*/
   return (
 
   <View>
@@ -48,6 +61,9 @@ const AccountScreen = ({ navigation }) => {
 
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
+      <Layout>
+        <CommentsList comments={comments} filteredComments={comments}/>
+      </Layout>
     </View>
   </View>
   )
