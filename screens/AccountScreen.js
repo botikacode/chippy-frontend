@@ -7,16 +7,17 @@ import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
 
+import Button from 'react-native'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const AccountScreen = ({ navigation }) => {
+const AccountScreen = ({ navigation, route }) => {
   const [customer, setData] = useState([])
 
 
 
   const loadCustomer = async () =>{
-    const data = await getCustomer(1) // Insertar aquí la id del User logeado
+    const data = await getCustomer(route.params.idSesion) // Insertar aquí la id del User logeado
     setData(data)
   }
 
@@ -49,7 +50,15 @@ const AccountScreen = ({ navigation }) => {
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
     </View>
+
+    <View style={styles.outContainer}>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
+          <Text style={styles.buttonText}>Cerrar sesión</Text>
+      </TouchableOpacity>
+    </View>
+
   </View>
+  
   )
 }
 
@@ -57,7 +66,7 @@ function getImageUrl(customer){
   var myImage = require('../assets/accountImage.jpg')
 
   if(customer.image && customer.image != 'URLImage'){
-    myImage = require('../assets/'+customer.image);
+    myImage = require('../assets/'+customer.image+'.jpg');
   }
   return myImage;
 }
@@ -96,6 +105,10 @@ input: {
   flex: 1,
   padding: 10,
 },
+buttonText: {
+  color: "#fff",
+  textAlign: "center",
+},
 dogContainer: {
   display: 'flex',
   flexDirection: "row",
@@ -104,8 +117,21 @@ dogContainer: {
   padding:150,
   borderRadius: 6,
 },
+outContainer: {
+  justifyContent: 'center',
+  alignItems: 'center',
+},
 commentContainer: {
-
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+buttonCeleste: {
+  paddingTop: 10,
+  paddingBottom: 10,
+  borderRadius: 5,
+  marginBottom: 3,
+  backgroundColor: "#0094FF",
+  width: "90%",
 },
 commentTextTitle: {
   fontSize: 20,
