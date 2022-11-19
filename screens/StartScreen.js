@@ -1,18 +1,21 @@
 import React from 'react'
 import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from 'react-native'
-import Paragraph from '../components/Paragraph'
 import Layout from '../components/Layout'
 
+import { TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
 export default function StartScreen({ navigation }) {
   return (
     <Layout>
       <Logo />
-      <Header>¡Bienvenido a Chippy!</Header>
-      <Paragraph>
-        
-      </Paragraph>
+      <Text style={styles.welcome} >¡Bienvenido a Chippy!</Text>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("LoginScreen")}>
+          <Text style={styles.buttonText}>Ya tengo una cuenta</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonBlanco} onPress={() => navigation.navigate("RegisterScreen")}>
+          <Text style={styles.buttonTextCeleste}>Registrarme</Text>
+      </TouchableOpacity>
+
+      {/* 
       <Button
         mode="contained"
         onPress={() => navigation.navigate('LoginScreen')}
@@ -24,7 +27,43 @@ export default function StartScreen({ navigation }) {
         onPress={() => navigation.navigate('RegisterScreen')}
       >
         Registrarme
-      </Button>
+      </Button> */}
+
     </Layout>
   )
 }
+
+const styles = StyleSheet.create({
+  
+  buttonCeleste: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 5,
+    marginBottom: 3,
+    backgroundColor: "#0094FF",
+    width: "90%",
+  },
+  buttonBlanco: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 5,
+    marginBottom: 3,
+    backgroundColor: "#fff",
+    width: "90%",
+  },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
+  },
+  buttonTextCeleste: {
+    color: "#0094FF",
+    textAlign: "center",
+  },
+  welcome:{
+    color: "#0094FF",
+    marginBottom: 20,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  
+})

@@ -3,37 +3,28 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import TabNavigator from './components/TabNavigator';
-import UploadImageScreen from './screens/UploadImageScreen';
-
 import StartScreen from './screens/StartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import Dashboard from './screens/Dashboard';
-import JobsScreen from './screens/JobsScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import TabNavigator from './components/TabNavigator';
+import UploadImageScreen from './screens/UploadImageScreen';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="StartScreen"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="StartScreen" component={StartScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen
-          name="ResetPasswordScreen"
-          component={ResetPasswordScreen}
-        />
+      <Stack.Navigator initialRouteName="StartScreen"> 
+        
+        <Stack.Screen options={{headerShown: false}} name="StartScreen" component={StartScreen} />
+        <Stack.Screen options={{title: " "}} name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen options={{title: " "}} name="RegisterScreen" component={RegisterScreen} />
+        <Stack.Screen options={{title: " "}} name="Dashboard" component={Dashboard} />
+        <Stack.Screen options={{title: " "}} name="ResetPasswordScreen" component={ResetPasswordScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="UploadImageScreen" component={UploadImageScreen} options={{ title: 'Subir Imagen' }} />
+        <Stack.Screen name="UploadImageScreen" component={UploadImageScreen} options={{ title: 'Subir Imagen' }} />  
       </Stack.Navigator>
     </NavigationContainer>);
 }

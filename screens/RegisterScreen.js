@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, TextInput } from 'react-native'
 import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from 'react-native'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
-import { nameValidator } from '../helpers/nameValidator'
+import Layout from '../components/Layout'
+// import { emailValidator } from '../helpers/emailValidator'
+// import { passwordValidator } from '../helpers/passwordValidator'
+// import { nameValidator } from '../helpers/nameValidator'
 import {getCustomers, saveCustomer} from '../db/customersApi'
 
 
 export default function RegisterScreen({ navigation, route}) {
-  const [name, setName] = useState({ value: '', error: '' })
+
+  /* const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   
@@ -59,11 +57,32 @@ export default function RegisterScreen({ navigation, route}) {
       index: 0,
       routes: [{ name: 'Dashboard' }],
     })
-  }
+  } */
 
   return (
     <Layout>
-      <BackButton goBack={navigation.goBack} />
+      <Logo />
+      <Text style={styles.crearCuenta} >Crear Cuenta</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nombre"
+        placeholderTextColor="#576574"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#576574"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Contraseña"
+        placeholderTextColor="#576574"
+      />
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("Dashboard")}>
+          <Text style={styles.buttonText}>Aceptar</Text>
+      </TouchableOpacity>
+      
+      {/* <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Crear cuenta</Header>
       <TextInput
@@ -107,7 +126,7 @@ export default function RegisterScreen({ navigation, route}) {
         <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
           <Text style={styles.link}>Iniciar sesión</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </Layout>
   )
 }
@@ -119,5 +138,34 @@ const styles = StyleSheet.create({
   },
   link: {
     fontWeight: 'bold',
+  },
+  crearCuenta:{
+    color: "#0094FF",
+    marginBottom: 10,
+    fontSize: 20,
+  },
+  input: {
+    width: "70%",
+    marginBottom: 7,
+    fontSize: 14,
+    borderWidth: 1,
+    borderColor: "#ced4da",
+    height: 30,
+    color: "#000000",
+    padding: 4,
+    borderRadius: 5,
+  }, 
+  buttonCeleste: {
+    paddingTop: 10,
+    marginTop: 24,
+    paddingBottom: 10,
+    borderRadius: 5,
+    marginBottom: 3,
+    backgroundColor: "#0094FF",
+    width: "50%",
+  },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
   },
 })

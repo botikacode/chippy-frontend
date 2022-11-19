@@ -52,18 +52,11 @@ const AccountScreen = ({ navigation, route }) => {
     </View>
 
     <View style={styles.outContainer}>
-    <Button
-        mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'StartScreen' }],
-          })
-        }
-      >
-        Cerrar sesión
-      </Button>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
+          <Text style={styles.buttonText}>Cerrar sesión</Text>
+      </TouchableOpacity>
     </View>
+
   </View>
   
   )
@@ -112,6 +105,10 @@ input: {
   flex: 1,
   padding: 10,
 },
+buttonText: {
+  color: "#fff",
+  textAlign: "center",
+},
 dogContainer: {
   display: 'flex',
   flexDirection: "row",
@@ -121,10 +118,20 @@ dogContainer: {
   borderRadius: 6,
 },
 outContainer: {
-  marginTop:200,
+  justifyContent: 'center',
+  alignItems: 'center',
 },
 commentContainer: {
-  
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+buttonCeleste: {
+  paddingTop: 10,
+  paddingBottom: 10,
+  borderRadius: 5,
+  marginBottom: 3,
+  backgroundColor: "#0094FF",
+  width: "90%",
 },
 commentTextTitle: {
   fontSize: 20,

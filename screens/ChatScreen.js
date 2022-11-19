@@ -3,8 +3,8 @@ import React from 'react'
 
 const ChatScreen = ({ navigation, route }) => {
   return (
-    <View>
-      <Text>{route.params.idSesion}</Text>
+    <View> 
+      <Text>chat off</Text>
     </View>
   )
 }
