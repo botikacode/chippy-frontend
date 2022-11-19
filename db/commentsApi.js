@@ -1,6 +1,10 @@
 export {host} from '../config'
 const API = 'http://localhost:3000' + '/comments'
 
+export const getUserComments = async (id) => {
+  const res = await fetch(`${API}/profile/${id}`)
+  return await res.json();
+};
 export const getComments = async () => {
   const res = await fetch(API)
   return await res.json();

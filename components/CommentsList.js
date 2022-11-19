@@ -3,7 +3,7 @@ import React from 'react'
 
 import Comment from './Comment'
 
-const CommentsList = ({comments, filteredComments}) => {
+const CommentsList = ({comments}) => {
 
     const renderItem = ({ item }) => {
         return <Comment com={item}/>;
@@ -12,7 +12,7 @@ const CommentsList = ({comments, filteredComments}) => {
     return (
         <FlatList
             //data={filteredJobs}
-            data={filteredComments && filteredComments.length > 0 ? filteredComments : comments}
+            data={comments}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />
