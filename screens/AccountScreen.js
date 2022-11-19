@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import UploadImageScreen from '../screens/UploadImageScreen';
 
@@ -34,6 +34,7 @@ const AccountScreen = ({ navigation, route }) => {
     loadComments()
   }, [])
 
+  console.log(route.params.idSesion);
 
   var myImage = getImageUrl(customer);
 
@@ -48,7 +49,7 @@ const AccountScreen = ({ navigation, route }) => {
 
   return (
 
-  <View>
+  <ScrollView>
     <View style = {styles.imageNameContainer}>
     <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
       <Image source={myImage} style = {styles.itemImage}/>
@@ -63,21 +64,16 @@ const AccountScreen = ({ navigation, route }) => {
       <View style={{padding: 100}}/>
       <View style={styles.line}/>
     </View>
-
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
-      <Layout>
-        <CommentsList comments={comments}/>
-      </Layout>
+      <View>
+          <CommentsList comments={comments}/>
+      </View>
     </View>
 
-    <View style={styles.outContainer}>
-      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
-          <Text style={styles.buttonText}>Cerrar sesión</Text>
-      </TouchableOpacity>
-    </View>
 
-  </View>
+
+  </ScrollView>
 
   )
 }
