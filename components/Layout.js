@@ -6,12 +6,15 @@ const Layout = ({ children }) => {
     <View style={styles.container}>
       <StatusBar backgroundColor="#2471A3" />
       {children}
-    </View>
+    </View> 
   );
 };
 const styles = StyleSheet.create({
   container: {
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
+    
   }
 });
 
