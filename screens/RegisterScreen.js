@@ -2,23 +2,23 @@ import React, {useEffect, useState} from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, TextInput } from 'react-native'
 import Logo from '../components/Logo'
 import Layout from '../components/Layout'
-// import { emailValidator } from '../helpers/emailValidator'
-// import { passwordValidator } from '../helpers/passwordValidator'
-// import { nameValidator } from '../helpers/nameValidator'
+import { emailValidator } from '../helpers/emailValidator'
+import { passwordValidator } from '../helpers/passwordValidator'
+import { nameValidator } from '../helpers/nameValidator'
 import {getCustomers, saveCustomer} from '../db/customersApi'
 
 
 export default function RegisterScreen({ navigation, route}) {
 
-  /* const [name, setName] = useState({ value: '', error: '' })
+  const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   
   
 
-  const handleSubmit = async (asd) => {
+  const handleSubmit = async (customer) => {
     try {
-      await saveCustomer(asd);
+      await saveCustomer(customer);
       navigation.navigate("Dashboard");
     } catch (error) {
       console.log(error);
@@ -51,41 +51,20 @@ export default function RegisterScreen({ navigation, route}) {
     isShelter: false,
   }
     
-    console.log(custom)
     handleSubmit(custom)
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })
-  } */
+    navigation.navigate('Dashboard')
+  } 
 
   return (
     <Layout>
       <Logo />
       <Text style={styles.crearCuenta} >Crear Cuenta</Text>
+      
+      <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Nombre"
         placeholderTextColor="#576574"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#576574"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        placeholderTextColor="#576574"
-      />
-      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("Dashboard")}>
-          <Text style={styles.buttonText}>Aceptar</Text>
-      </TouchableOpacity>
-      
-      {/* <BackButton goBack={navigation.goBack} />
-      <Logo />
-      <Header>Crear cuenta</Header>
-      <TextInput
         label="Nombre"
         returnKeyType="next"
         value={name.value}
@@ -93,7 +72,12 @@ export default function RegisterScreen({ navigation, route}) {
         error={!!name.error}
         errorText={name.error}
       />
+      {name.error ? <Text style={styles.error}>{name.error }</Text> : null}
+     
       <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="#576574"
         label="Email"
         returnKeyType="next"
         value={email.value}
@@ -105,7 +89,12 @@ export default function RegisterScreen({ navigation, route}) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
+      {email.error ? <Text style={styles.error}>{email.error }</Text> : null}
+     
       <TextInput
+        style={styles.input}
+        placeholder="Contraseña"
+        placeholderTextColor="#576574"
         label="Contraseña"
         returnKeyType="done"
         value={password.value}
@@ -114,19 +103,13 @@ export default function RegisterScreen({ navigation, route}) {
         errorText={password.error}
         secureTextEntry
       />
-      <Button
-        mode="contained"
-        onPress={onSignUpPressed}
-        style={{ marginTop: 24 }}
-      >
-        Aceptar
-      </Button>
-      <View style={styles.row}>
-        <Text>¿Ya tienes una cuenta? </Text>
-        <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
-          <Text style={styles.link}>Iniciar sesión</Text>
-        </TouchableOpacity>
-      </View> */}
+      {password.error ? <Text style={styles.error}>{password.error }</Text> : null}
+     
+       </View>
+      <TouchableOpacity style={styles.buttonCeleste}  onPress={onSignUpPressed}>
+          <Text style={styles.buttonText}>Aceptar</Text>
+      </TouchableOpacity>
+   
     </Layout>
   )
 }
@@ -146,7 +129,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "70%",
-    marginBottom: 7,
+    marginBottom: 4,
+    marginTop: 10,
     fontSize: 14,
     borderWidth: 1,
     borderColor: "#ced4da",
@@ -168,4 +152,15 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
   },
+  container: {
+    width: '100%',
+    marginVertical: 5,
+    alignItems: 'center',
+  },
+  error: {
+    fontSize: 10,
+    color: '#f13a59',
+    paddingBottom:5,
+  },
+
 })

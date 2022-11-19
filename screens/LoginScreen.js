@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { TouchableOpacity, StyleSheet, View, Text, TextInput} from 'react-native'
 
-// import { emailValidator } from '../helpers/emailValidator'
-// import { passwordValidator } from '../helpers/passwordValidator'
-// import {getCustomers} from '../db/customersApi'
+import { emailValidator } from '../helpers/emailValidator'
+import { passwordValidator } from '../helpers/passwordValidator'
+import {getCustomers} from '../db/customersApi'
 
 import Layout from '../components/Layout'
 import Logo from '../components/Logo'
@@ -12,7 +12,7 @@ import Logo from '../components/Logo'
 export default function LoginScreen({ navigation }) {
 
   
-  /* const [customers, setCustomers] = useState([])
+  const [customers, setCustomers] = useState([])
 
   const loadCustomers = async () =>{
 
@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
   
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-
+  
 
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value)
@@ -44,10 +44,10 @@ export default function LoginScreen({ navigation }) {
     customers.map((custom) => {
       if(custom.email === email.value && custom.password === password.value){
         navigation.navigate('TabNavigator', {
-          idSesion: custom.id,
+          idSesion: 1,
         })
       }else{
-        setEmail({ ...email, error: "Usuario incorrecto" })
+        setEmail({ ...email, error: "" })
         setPassword({ ...password, error: "Usuario incorrecto" })
         return
       }
@@ -56,24 +56,51 @@ export default function LoginScreen({ navigation }) {
 
     
   }
- */
   return (
     <Layout>
       <Logo />
       
       <Text style={styles.inicioSesion} >Inicio de sesión</Text>
+      
+      <View style={styles.container}>
       <TextInput
         style={styles.input}
+        label="email"
+        returnKeyType="next"
+        underlineColor="transparent"
+        mode="outlined"
         placeholder="Email"
-        placeholderTextColor="#576574"
-      />
+        value={email.value}
+        onChangeText={(text) => setEmail({ value: text, error: '' })}
+        error={!!email.error}
+        errorText={email.error}
+        autoCapitalize="nombre"
+        autoCompleteType="email"
+        textContentType="emailAddress"
+        keyboardType="email-address"
 
-      <Text style={{ color: "#0094FF"}} ></Text>
+        placeholderTextColor="#576574"
+        
+        
+      />
+      
+      {email.error ? <Text style={styles.error}>{email.error }</Text> : null}
+     
       <TextInput
         style={styles.input}
+        underlineColor="transparent"
+        mode="outlined"
         placeholder="Contraseña"
         placeholderTextColor="#576574"
-      />
+        returnKeyType="done"
+        value={password.value}
+        onChangeText={(text) => setPassword({ value: text, error: '' })}
+        error={!!password.error}
+        errorText={password.error}
+        secureTextEntry
+      /> 
+      {password.error ? <Text style={styles.error}>{password.error }</Text> : null}
+      </View>
 
       <View style={styles.forgotPassword}>
       <TouchableOpacity>
@@ -81,7 +108,7 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("TabNavigator")}>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("TabNavigator")} /* onPress={onLoginPressed} */>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
       </TouchableOpacity>
 
@@ -92,40 +119,10 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* <BackButton goBack={navigation.goBack} />
-      <Logo />
-      <Header>Inicio de sesión</Header>
-      <TextInput
-        label="email"
-        returnKeyType="next"
-        value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
-        error={!!email.error}
-        errorText={email.error}
-        autoCapitalize="nombre"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+      {/* reTextEntry
       />
-      <TextInput
-        label="contraseña"
-        returnKeyType="done"
-        value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: '' })}
-        error={!!password.error}
-        errorText={password.error}
-        secureTextEntry
-      />
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ResetPasswordScreen')}
-        >
-          <Text style={styles.forgot}>Olvidaste la contraseña?</Text>
-        </TouchableOpacity>
-      </View>
-      <Button mode="contained" onPress={onLoginPressed}>
-        Iniciar sesión
-      </Button>
+      
+      
       <View style={styles.row}>
         <Text>No tienes una cuenta? </Text>
         <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
@@ -181,6 +178,15 @@ const styles = StyleSheet.create({
     color: "#0094FF",
     marginBottom: 10,
     fontSize: 20,
+  },
+  container: {
+    width: '100%',
+    marginVertical: 5,
+    alignItems: 'center',
+  },
+  error: {
+    fontSize: 10,
+    color: '#f13a59'
   },
 
 })

@@ -15,19 +15,6 @@ export default function StartScreen({ navigation }) {
           <Text style={styles.buttonTextCeleste}>Registrarme</Text>
       </TouchableOpacity>
 
-      {/* 
-      <Button
-        mode="contained"
-        onPress={() => navigation.navigate('LoginScreen')}
-      >
-        Ya tengo una cuenta
-      </Button>
-      <Button
-        mode="outlined"
-        onPress={() => navigation.navigate('RegisterScreen')}
-      >
-        Registrarme
-      </Button> */}
 
     </Layout>
   )
