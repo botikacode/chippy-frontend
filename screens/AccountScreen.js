@@ -18,8 +18,11 @@ const AccountScreen = ({ navigation, route }) => {
   const [comments, setDataComments] = useState([])
 
   const loadComments = async () =>{
-    const data = await getUserComments(1)
-    setDataComments(data)
+    let user = await getCurrentUser()
+    if(user){
+      const data = await getUserComments(user)
+      setDataComments(data)
+    }
   }
   const loadCustomer = async () =>{
     let user = await getCurrentUser()
@@ -29,17 +32,6 @@ const AccountScreen = ({ navigation, route }) => {
     }
   }
 
-  const getLoggedUser = () =>{
-    AsyncStorage.getItem('USER', (err, value) => {
-      if (err) {
-          console.log(err)
-      } else {
-          return JSON.parse(value) // boolean false
-      }
-    })
-  }
-
-
   const Stack = createNativeStackNavigator();
 
   useEffect(() =>{
@@ -48,8 +40,6 @@ const AccountScreen = ({ navigation, route }) => {
   useEffect(() =>{
     loadComments()
   }, [])
-
-  console.log(route.params.idSesion);
 
   var myImage = getImageUrl(customer);
 

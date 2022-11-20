@@ -8,7 +8,7 @@ const Comment = ({com}) => {
   const [commentator, setData] = useState([])
 
   const loadCustomer = async () =>{
-    const data = await getCustomer(com.commentatorId) // Insertar aquí la id del User logeado
+    const data = await getCustomer(com.commentatorId)
     setData(data)
   }
 
@@ -26,13 +26,14 @@ const Comment = ({com}) => {
     }
     return myImage;
   }
-
+  console.log(commentator.firstName)
   return (
     <View style = {styles.itemMainContainer}>
       <View style = {styles.itemRightContainer}>
         <Image source={myImage} style = {styles.itemImage}/>
       </View>
       <View style={styles.itemLeftContainer}>
+        <Text style={styles.itemTitle}>{commentator.firstName} {commentator.lastName}</Text>
         <Text style={styles.itemText}>{com.content}</Text>
       </View>
     </View>
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemTitle: {
-    color:"#ffffff",
     fontSize: 16,
   },
   itemText: {
