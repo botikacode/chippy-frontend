@@ -7,6 +7,7 @@ import {getUserComments} from '../db/commentsApi'
 import Layout from '../components/Layout'
 import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
+import { getCurrentUser } from '../persistentData'
 
 import Button from 'react-native'
 
@@ -21,9 +22,23 @@ const AccountScreen = ({ navigation, route }) => {
     setDataComments(data)
   }
   const loadCustomer = async () =>{
-    const data = await getCustomer(route.params.idSesion) // Insertar aquí la id del User logeado
-    setData(data)
+    let user = await getCurrentUser()
+    if(user){
+      const data = await getCustomer(user) // Insertar aquí la id del User logeado
+      setData(data)
+    }
   }
+
+  const getLoggedUser = () =>{
+    AsyncStorage.getItem('USER', (err, value) => {
+      if (err) {
+          console.log(err)
+      } else {
+          return JSON.parse(value) // boolean false
+      }
+    })
+  }
+
 
   const Stack = createNativeStackNavigator();
 
@@ -82,7 +97,7 @@ function getImageUrl(customer){
   var myImage = require('../assets/accountImage.jpg')
 
   if(customer.image && customer.image != 'URLImage'){
-    myImage = require('../assets/'+customer.image+'.jpg');
+    myImage = require('../assets/'+customer.image);
   }
   return myImage;
 }
