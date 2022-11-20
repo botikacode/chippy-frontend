@@ -19,8 +19,6 @@ const AccountScreen = ({ navigation, route }) => {
 
   const loadCustomer = async () =>{
     let user = await getCurrentUser()
-    console.log("USER")
-    console.log(user)
     if(user){
       const data = await getCustomer(user) // Insertar aquí la id del User logeado
       setData(data)
