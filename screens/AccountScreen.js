@@ -6,6 +6,7 @@ import {getCustomer} from '../db/customersApi'
 import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
+import { getCurrentUser } from '../persistentData'
 
 import Button from 'react-native'
 
@@ -17,9 +18,23 @@ const AccountScreen = ({ navigation, route }) => {
 
 
   const loadCustomer = async () =>{
-    const data = await getCustomer(route.params.idSesion) // Insertar aquí la id del User logeado
-    setData(data)
+    let user = await getCurrentUser()
+    if(user){
+      const data = await getCustomer(user) // Insertar aquí la id del User logeado
+      setData(data)
+    }
   }
+
+  const getLoggedUser = () =>{
+    AsyncStorage.getItem('USER', (err, value) => {
+      if (err) {
+          console.log(err)
+      } else {
+          return JSON.parse(value) // boolean false
+      }
+    })
+  }
+
 
   const Stack = createNativeStackNavigator();
 
@@ -58,7 +73,7 @@ const AccountScreen = ({ navigation, route }) => {
     </View>
 
   </View>
-  
+
   )
 }
 
@@ -66,7 +81,7 @@ function getImageUrl(customer){
   var myImage = require('../assets/accountImage.jpg')
 
   if(customer.image && customer.image != 'URLImage'){
-    myImage = require('../assets/'+customer.image+'.jpg');
+    myImage = require('../assets/'+customer.image);
   }
   return myImage;
 }
