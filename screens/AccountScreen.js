@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import UploadImageScreen from '../screens/UploadImageScreen';
 
 import {getCustomer} from '../db/customersApi'
+import {getUserComments} from '../db/commentsApi'
 import Layout from '../components/Layout'
-import JobList from '../components/JobList'
+import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
 import { getCurrentUser } from '../persistentData'
 
@@ -14,9 +15,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const AccountScreen = ({ navigation, route }) => {
   const [customer, setData] = useState([])
+  const [comments, setDataComments] = useState([])
 
-
-
+  const loadComments = async () =>{
+    let user = await getCurrentUser()
+    if(user){
+      const data = await getUserComments(user)
+      setDataComments(data)
+    }
+  }
   const loadCustomer = async () =>{
     let user = await getCurrentUser()
     if(user){
@@ -25,28 +32,29 @@ const AccountScreen = ({ navigation, route }) => {
     }
   }
 
-  const getLoggedUser = () =>{
-    AsyncStorage.getItem('USER', (err, value) => {
-      if (err) {
-          console.log(err)
-      } else {
-          return JSON.parse(value) // boolean false
-      }
-    })
-  }
-
-
   const Stack = createNativeStackNavigator();
 
   useEffect(() =>{
     loadCustomer()
   }, [])
+  useEffect(() =>{
+    loadComments()
+  }, [])
 
   var myImage = getImageUrl(customer);
 
+  function getImageUrl(customer){
+    var myImage = require('../assets/accountImage.jpg')
+
+    if(customer.image && customer.image != 'URLImage'){
+      myImage = require('../assets/'+customer.image);
+    }
+    return myImage;
+  }
+
   return (
 
-  <View>
+  <ScrollView>
     <View style = {styles.imageNameContainer}>
     <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
       <Image source={myImage} style = {styles.itemImage}/>
@@ -61,18 +69,16 @@ const AccountScreen = ({ navigation, route }) => {
       <View style={{padding: 100}}/>
       <View style={styles.line}/>
     </View>
-
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
+      <View>
+          <CommentsList comments={comments}/>
+      </View>
     </View>
 
-    <View style={styles.outContainer}>
-      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
-          <Text style={styles.buttonText}>Cerrar sesión</Text>
-      </TouchableOpacity>
-    </View>
 
-  </View>
+
+  </ScrollView>
 
   )
 }
