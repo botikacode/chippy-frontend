@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import { TouchableOpacity, StyleSheet, View, Text, TextInput} from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Text, TextInput, Alert} from 'react-native'
 
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
-import {getCustomers} from '../db/customersApi'
+import {getCustomers, setActiveUser} from '../db/customersApi'
 
 import Layout from '../components/Layout'
 import Logo from '../components/Logo'
@@ -11,8 +11,10 @@ import Logo from '../components/Logo'
 
 export default function LoginScreen({ navigation }) {
 
-  
+
   const [customers, setCustomers] = useState([])
+
+  const [loggedCustomer, setLoggedCustomer] = useState([])
 
   const loadCustomers = async () =>{
 
@@ -20,14 +22,27 @@ export default function LoginScreen({ navigation }) {
     setCustomers(data)
   }
 
+  const loadLoggedCustomer = async (email, password) =>{
+
+    //const data = await setActiveUser(email, password)
+    const data = await setActiveUser(email, password)
+    //setLoggedCustomer(data)
+    if(data){
+      navigation.navigate('TabNavigator')
+    }else{
+      alert('Datos de login incorrectos');
+    }
+  }
+
+
+
   useEffect(() =>{
     loadCustomers()
   }, [])
 
-  
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-  
+
 
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value)
@@ -35,12 +50,12 @@ export default function LoginScreen({ navigation }) {
     if (emailError || passwordError) {
       console.log(emailError)
       console.log(passwordError)
-      
+
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
       return
     }
-    
+
     customers.map((custom) => {
       if(custom.email === email.value && custom.password === password.value){
         navigation.navigate('TabNavigator', {
@@ -51,19 +66,20 @@ export default function LoginScreen({ navigation }) {
         setPassword({ ...password, error: "Usuario incorrecto" })
         return
       }
-      
+
     })
 
-    
+
   }
   return (
     <Layout>
       <Logo />
-      
+
       <Text style={styles.inicioSesion} >Inicio de sesión</Text>
-      
+
       <View style={styles.container}>
       <TextInput
+        name="email"
         style={styles.input}
         label="email"
         returnKeyType="next"
@@ -80,12 +96,12 @@ export default function LoginScreen({ navigation }) {
         keyboardType="email-address"
 
         placeholderTextColor="#576574"
-        
-        
+
+
       />
-      
+
       {email.error ? <Text style={styles.error}>{email.error }</Text> : null}
-     
+
       <TextInput
         style={styles.input}
         underlineColor="transparent"
@@ -98,7 +114,7 @@ export default function LoginScreen({ navigation }) {
         error={!!password.error}
         errorText={password.error}
         secureTextEntry
-      /> 
+      />
       {password.error ? <Text style={styles.error}>{password.error }</Text> : null}
       </View>
 
@@ -108,7 +124,7 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("TabNavigator")} /* onPress={onLoginPressed} */>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => loadLoggedCustomer(email, password)} /* onPress={onLoginPressed} */>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
       </TouchableOpacity>
 
@@ -121,8 +137,8 @@ export default function LoginScreen({ navigation }) {
 
       {/* reTextEntry
       />
-      
-      
+
+
       <View style={styles.row}>
         <Text>No tienes una cuenta? </Text>
         <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
