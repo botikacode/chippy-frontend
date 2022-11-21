@@ -11,7 +11,7 @@ import ChatScreen from '../screens/ChatScreen';
 import AccountScreen from '../screens/AccountScreen';
 
 
-function TabNavigator() {
+function TabNavigator({navigation,route}) {
 
   const Tab = createBottomTabNavigator();
 
@@ -30,7 +30,8 @@ function TabNavigator() {
 
       } else if (route.name === "AccountScreen") {
         iconName = focused ? 'person-circle' : 'person-circle-outline';
-      }
+      } 
+
       // You can return any component that you like here!
       return <Ionicons name={iconName} size={size} color={color} />;
     },
@@ -39,8 +40,8 @@ function TabNavigator() {
   return(
     <Tab.Navigator initialRouteName={"JobsScreen"} screenOptions={screenOptions}>
         <Tab.Screen name="ChatScreen" component={ChatScreen} />
-        <Tab.Screen name="JobsScreen" component={JobsScreen} />
-        <Tab.Screen name="AccountScreen" component={AccountScreen} />
+        <Tab.Screen name="JobsScreen" initialParams={{ idSesion: 1 }}  /* initialParams={{ idSesion: route.params.idSesion }}  */component={JobsScreen} />
+        <Tab.Screen name="AccountScreen" initialParams={{ idSesion: 1 }} component={AccountScreen} /> 
     </Tab.Navigator>
   );
 }

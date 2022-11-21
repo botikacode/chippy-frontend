@@ -1,5 +1,6 @@
 export {host} from '../config'
 const API = 'http://localhost:3000' + '/customers'
+import { setCurrentUser } from '../persistentData'
 
 export const getCustomers = async () => {
   const res = await fetch(API)
@@ -10,7 +11,22 @@ export const getCustomer = async (id) => {
   const res = await fetch(`${API}/${id}`);
   return await res.json();
 };
+export const setActiveUser = async (email, password) => {
 
+  const res = await fetch(`${API}/${email.value}/${password.value}`)
+
+      let result;
+      try{
+        result = await res.json()
+      }catch(error){
+        return undefined
+      }
+
+      const jsonValue = JSON.stringify(result.id);
+      await setCurrentUser(jsonValue);
+
+      return true;
+}
 export const saveCustomer = async (object) => {
   const res = await fetch(API, {
     method: "POST",
