@@ -29,7 +29,7 @@ const JobsScreen = () => {
   return (
     <Layout>
       <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
-      <JobList jobs={jobs} filteredJobs={filteredJobs}/>
+      <JobList jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter}/>
       <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
       <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
     </Layout>

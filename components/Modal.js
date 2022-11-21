@@ -13,6 +13,31 @@ import RadioButton from './RadioButton'
 import {initialFilter} from '../data/initialFilter'
 
 const CustomModal = ({ modalVisible, setModalVisible, jobs, intermediateFilter, setIntermediateFilter, jobTypesResult, setFilter }) => {
+
+  const filterOcurrences = () =>{
+    let filterJobs = jobs;
+    let filterArray = [];
+    let empty;
+
+    if (filterJobs != undefined && typeof filterJobs === 'object'){
+        filterJobs.map((job) => {
+        if (intermediateFilter.jobType != '' && !job.jobType.includes(intermediateFilter.jobType)) {
+          return
+        }
+
+        filterArray.push(job)
+
+      })
+            if (filterArray.length > 0) {
+            filterJobs = filterArray;
+          }
+    } else {
+      filterJobs = false
+      empty= true
+    }
+    setIntermediateFilter(filterArray)
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -32,6 +57,7 @@ const CustomModal = ({ modalVisible, setModalVisible, jobs, intermediateFilter, 
         <Button title="Apply" onPress={() => {
           setModalVisible(!modalVisible)
           setFilter(intermediateFilter)
+          filterOcurrences()
         }} />
         <Button title="Clear" onPress={() => {
           setModalVisible(!modalVisible)
