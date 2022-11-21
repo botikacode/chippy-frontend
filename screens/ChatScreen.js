@@ -1,43 +1,106 @@
-import React from 'react'
+import { View, Text, StyleSheet, Button, Dimensions } from "react-native";
+import React, { useState } from "react";
+import { Messaje } from "../components/Messaje";
+import { InputText } from "primereact/inputtext";
 
-import { TextInput, TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import Layout from '../components/Layout';
+const fullWidth = Dimensions.get("window").width;
 
+// Cambiar
+const currentUser = 'Manolo';
+let contadorID = 5;
 
-const ChatScreen = ({ navigation, route }) => {
+const msgs = [
+  {
+    id: 1,
+    text: "Hola",
+    user: "Antonio",
+    date: "16/01/2022",
+  },
+  {
+    id: 2,
+    text: "Buenos días",
+    user: "Antonio",
+    date: "16/01/2022",
+  },
+  {
+    id: 3,
+    text: "Estoy interesado en tu anuncio",
+    user: "Antonio",
+    date: "16/01/2022",
+  },
+  {
+    id: 4,
+    text: "Buenos días Antonio",
+    user: currentUser,
+    date: new Date().toLocaleString(),
+  },
+];
+
+const ChatScreen = () => {
+  const [chatInputValue, setChatInputValue] = useState("");
+
+  const handleChange = (event) => {
+    const chatInputValue = event.target.value;
+    setChatInputValue(chatInputValue);
+  };
+
+  const clickEnviar = () => {
+    let newMsg = {
+      id: contadorID,
+      text: chatInputValue,
+      user: currentUser,
+      date: new Date().toLocaleString(),
+    };
+    contadorID = contadorID + 1;
+    msgs.push(newMsg);
+    setChatInputValue("");
+  };
+
   return (
-    <Layout> 
-      <TouchableOpacity style={styles.fabLocationBL}>
-          
-          <View style={styles.fab}>
-            <Text style={styles.fabText}>Tarea (+)</Text>
-          </View>
-      </TouchableOpacity>
-    </Layout>
-  )
-}
-
-
+    <View style={styles.height}>
+      <View style={styles.flex}>
+        {msgs.map((elem) => (
+          <Messaje data={elem} key={elem.id} currentUser={currentUser}></Messaje>
+        ))}
+      </View>
+      <View style={styles.viewInput}>
+        <InputText
+          style={styles.input}
+          value={chatInputValue}
+          onChange={handleChange}
+        ></InputText>
+        <Button
+          style={styles.enviar}
+          color="rgb(36, 113, 163)"
+          title="Enviar"
+          onPress={clickEnviar}
+        ></Button>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-  fabLocationBL: {
-    position: 'absolute',
-    bottom: 25,
-    right: 25
+  height: {
+    height: "100%",
   },
-  fab: {
-    backgroundColor: '#5856D6',
-    width: 80,
-    height: 45,
-    borderRadius: 100,
-    justifyContent: 'center'
+  flex: {
+    flex: 1,
   },
-  fabText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  viewInput: {
+    marginBottom: 5,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: fullWidth,
+  },
+  input: {
+    width: fullWidth - fullWidth / 5,
+  },
+  enviar: {
+    width: fullWidth / 5,
+    borderRadius: 5,
+  },
+});
 
-  }
-})
-export default ChatScreen
+export default ChatScreen;
