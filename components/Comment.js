@@ -26,7 +26,7 @@ const Comment = ({com}) => {
     }
     return myImage;
   }
-  console.log(commentator.firstName)
+  
   return (
     <View style = {styles.itemMainContainer}>
       <View style = {styles.itemRightContainer}>
