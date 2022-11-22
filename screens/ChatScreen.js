@@ -54,7 +54,7 @@ const ChatScreen = () => {
     contadorID = contadorID + 1;
     msgs.push(newMsg);
     setChatInputValue("");
-  };
+  };//
 
   return (
     <View style={styles.height}>
