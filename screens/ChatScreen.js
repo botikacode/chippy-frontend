@@ -1,43 +1,27 @@
 import { View, Text, StyleSheet, Button, Dimensions } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Messaje } from "../components/Messaje";
 import { InputText } from "primereact/inputtext";
+import {getMessages} from '../db/MessagesApi'
 
 const fullWidth = Dimensions.get("window").width;
 
 // Cambiar
-const currentUser = 'Manolo';
-let contadorID = 5;
-
-const msgs = [
-  {
-    id: 1,
-    text: "Hola",
-    user: "Antonio",
-    date: "16/01/2022",
-  },
-  {
-    id: 2,
-    text: "Buenos días",
-    user: "Antonio",
-    date: "16/01/2022",
-  },
-  {
-    id: 3,
-    text: "Estoy interesado en tu anuncio",
-    user: "Antonio",
-    date: "16/01/2022",
-  },
-  {
-    id: 4,
-    text: "Buenos días Antonio",
-    user: currentUser,
-    date: new Date().toLocaleString(),
-  },
-];
+const currentUser = 1;
 
 const ChatScreen = () => {
+
   const [chatInputValue, setChatInputValue] = useState("");
+  const [messages, setMessages] = useState([])
+
+  useEffect(() =>{
+    loadMessages()
+  }, [])
+
+  const loadMessages = async () =>{
+    const data = await getMessages()
+    setMessages(data)
+  }
 
   const handleChange = (event) => {
     const chatInputValue = event.target.value;
@@ -52,20 +36,19 @@ const ChatScreen = () => {
 
   const clickEnviar = () => {
     let newMsg = {
-      id: contadorID,
-      text: chatInputValue,
-      user: currentUser,
+      id: messages.length + 1,
+      content: chatInputValue,
+      userId: currentUser,
       date: new Date().toLocaleString(),
     };
-    contadorID = contadorID + 1;
-    msgs.push(newMsg);
+    setMessages(messages => [...messages, newMsg]);
     setChatInputValue("");
   };
 
   return (
     <View style={styles.height}>
       <View style={styles.flex}>
-        {msgs.map((elem) => (
+        {messages.map((elem) => (
           <Messaje data={elem} key={elem.id} currentUser={currentUser}></Messaje>
         ))}
       </View>

@@ -4,9 +4,9 @@ import { View, Text, StyleSheet } from 'react-native';
 export const Messaje = (props) => {
   return (
     <View style={styles.cuerpo}>
-      {props.data.user == 'Manolo' ?
-        <Text style={{...styles.msgs, ...styles.myMsgs}}>{props.data.text}</Text> :
-        <Text style={{...styles.msgs,...styles.otherMsgs}}><strong>{props.data.user}</strong>{ ': '+ props.data.text}</Text>}
+      {props.data.userId == props.currentUser ?
+        <Text style={{...styles.msgs, ...styles.myMsgs}}>{props.data.content}</Text> :
+        <Text style={{...styles.msgs,...styles.otherMsgs}}><strong>{props.data.userId}</strong>{ ': '+ props.data.content}</Text>}
     </View>
   )}
 
