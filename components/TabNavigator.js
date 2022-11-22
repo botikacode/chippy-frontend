@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import JobsScreen from '../screens/JobsScreen';
 import ChatScreen from '../screens/ChatScreen';
 import AccountScreen from '../screens/AccountScreen';
+import AddPet from '../screens/AddPet';
 
 
 function TabNavigator({navigation,route}) {
