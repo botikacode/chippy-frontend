@@ -45,7 +45,7 @@ const CustomModal = ({ modalVisible, setModalVisible, jobs, intermediateFilter, 
       visible={modalVisible}
       style={{ flex: 1 }}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
+        console.log('Modal has been closed.');
         setModalVisible(!modalVisible);
       }}>
       <SafeAreaView style={{ flex: 1, padding: 20 }}>
