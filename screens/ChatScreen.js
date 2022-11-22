@@ -29,7 +29,7 @@ const ChatScreen = () => {
     // Obtener los mensajes cada 5s
     const interval = setInterval(() => {
       console.log('Cargando mensajes...');
-      loadMessages();
+      //loadMessages();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
