@@ -24,10 +24,10 @@ export const Messaje = (props) => {
     myMsgs:{
       backgroundColor:'white',
       color:'rgb(36, 113, 163)', 
+      alignSelf:'flex-end'
     },
     otherMsgs:{
       backgroundColor:'rgb(36, 113, 163)',
       color:'white',
-      alignSelf:'flex-end'
     }
 });

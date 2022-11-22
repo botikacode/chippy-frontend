@@ -44,6 +44,12 @@ const ChatScreen = () => {
     setChatInputValue(chatInputValue);
   };
 
+  const handleKeyDown = (e) => {
+    if(e.nativeEvent.key == "Enter"){
+      clickEnviar();
+    }
+  }
+
   const clickEnviar = () => {
     let newMsg = {
       id: contadorID,
@@ -54,7 +60,7 @@ const ChatScreen = () => {
     contadorID = contadorID + 1;
     msgs.push(newMsg);
     setChatInputValue("");
-  };//
+  };
 
   return (
     <View style={styles.height}>
@@ -68,6 +74,7 @@ const ChatScreen = () => {
           style={styles.input}
           value={chatInputValue}
           onChange={handleChange}
+          onKeyPress={handleKeyDown}
         ></InputText>
         <Button
           style={styles.enviar}
