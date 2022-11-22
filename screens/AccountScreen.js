@@ -55,12 +55,19 @@ const AccountScreen = ({ navigation, route }) => {
   return (
 
   <ScrollView>
+
     <View style = {styles.imageNameContainer}>
     <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
       <Image source={myImage} style = {styles.itemImage}/>
     </TouchableOpacity>
     <Text style={styles.input}>{customer.firstName} {customer.lastName}</Text>
     </View>
+    <View style={styles.commentContainer}>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
+          <Text style={styles.buttonText}>Cerrar sesión</Text>
+      </TouchableOpacity>
+    </View>
+
     <View style={styles.dogPortrait}>
       <View style={styles.line}/>
       <View style={{padding: 100}}/>
@@ -153,7 +160,9 @@ buttonCeleste: {
   borderRadius: 5,
   marginBottom: 3,
   backgroundColor: "#0094FF",
-  width: "90%",
+  width: "50%",
+  justifyContent: 'center',
+  alignItems: 'center',
 },
 commentTextTitle: {
   fontSize: 20,
