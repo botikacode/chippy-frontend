@@ -3,16 +3,23 @@ import React from 'react'
 
 import JobItem from './JobItem'
 
-const JobList = ({jobs, filteredJobs}) => {
-    
+const JobList = ({jobs, filteredJobs, modalJobs}) => {
+
     const renderItem = ({ item }) => {
         return <JobItem job={item}/>;
     }
     
+    const selectCorrectFilter = () =>{
+      if(modalJobs && modalJobs.length > 0){
+        return modalJobs
+      }else if(filteredJobs && filteredJobs.length > 0){
+        return filteredJobs
+      }
+      return jobs
+    }
     return (
         <FlatList
-            //data={filteredJobs}
-            data={filteredJobs && filteredJobs.length > 0 ? filteredJobs : jobs}
+            data={selectCorrectFilter()}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />
