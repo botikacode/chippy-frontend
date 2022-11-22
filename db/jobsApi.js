@@ -42,6 +42,11 @@ export const updateJob = async (id, object) => {
   return res;
 };
 
+export const getJobsUser = async (id) => {
+  const res = await fetch(`${API + '-User'}/${id}/`);
+  return await res.json();
+}
+
 //Dada la id de un Job devuelve las Pets asiganadas a dicho Job
 export const getPetsJob = async (id) => {
   const res = await fetch(`${API + '-Pets'}/${id}/`);

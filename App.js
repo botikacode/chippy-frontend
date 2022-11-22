@@ -11,6 +11,7 @@ import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import TabNavigator from './components/TabNavigator';
 import UploadImageScreen from './screens/UploadImageScreen';
 import AddPet from './screens/AddPet';
+import MyReqJobsScreen from './screens/MyReqJobsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="StartScreen"> 
-        
+          
         <Stack.Screen options={{headerShown: false}} name="StartScreen" component={StartScreen} />
         <Stack.Screen options={{title: " "}} name="LoginScreen" component={LoginScreen} />
         <Stack.Screen options={{title: " "}} name="RegisterScreen" component={RegisterScreen} />
@@ -27,6 +28,7 @@ const App = () => {
         <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="UploadImageScreen" component={UploadImageScreen} options={{ title: 'Subir Imagen' }} /> 
         <Stack.Screen options={{title: " "}} name="AddPet" component={AddPet} /> 
+        <Stack.Screen name="MyReqJobsScreen" component={MyReqJobsScreen} options={{ title: 'Mis trabajos' }}/>
       </Stack.Navigator>
     </NavigationContainer>);
 }
