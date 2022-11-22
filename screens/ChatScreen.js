@@ -30,7 +30,7 @@ const ChatScreen = () => {
     const interval = setInterval(() => {
       console.log('Cargando mensajes...');
       loadMessages();
-    }, 5000);
+    }, 100000);
     return () => clearInterval(interval);
   }, []);
 
