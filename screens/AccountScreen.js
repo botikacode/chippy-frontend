@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
 import { getCurrentUser } from '../persistentData'
-import Button from '../components/ButtonType0'
+import ButtonType0 from '../components/ButtonType0'
 import MyReqJobsScreen from '../screens/MyReqJobsScreen'
 
 import Button from 'react-native'
@@ -68,11 +68,12 @@ const AccountScreen = ({ navigation, route }) => {
       <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
           <Text style={styles.buttonText}>Cerrar sesión</Text>
       </TouchableOpacity>
-    </View>    <Button>
+    </View>    
+    <ButtonType0>
     <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
       <Text>{'Mis trabajos'}</Text>
     </TouchableOpacity>
-    </Button>
+    </ButtonType0>
 
     <View style={styles.dogPortrait}>
       <View style={styles.line}/>
