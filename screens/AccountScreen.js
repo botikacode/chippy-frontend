@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import UploadImageScreen from '../screens/UploadImageScreen';
 
@@ -79,6 +79,10 @@ const AccountScreen = ({ navigation, route }) => {
           <CommentsList comments={comments}/>
       </View>
     </View>
+    <TouchableOpacity style={styles.buttonCeleste} 
+        onPress={() => navigation.navigate("AddPet")}>
+      <Text style={styles.buttonText}>Añadir Mascota</Text>
+    </TouchableOpacity>
 
 
 
