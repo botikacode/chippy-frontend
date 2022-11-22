@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 
 import Layout from '../components/Layout'
 import JobList from '../components/JobList'
-import { getJobs } from '../db/jobsApi'
+import { getJobsUser } from '../db/jobsApi'
+import { getCurrentUser } from '../persistentData'
 
 const MyReqJobsScreen = () => {
 
@@ -12,7 +13,7 @@ const MyReqJobsScreen = () => {
   const [filteredJobs, setFilteredJobs] = useState(jobs)
 
   const loadJobs = async () => {
-    const data = await getJobs()
+    const data = await getJobsUser(await getCurrentUser())
     setJobs(data)
   }
 
