@@ -1,27 +1,43 @@
-import { View, Text, StyleSheet, Button, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { Messaje } from "../components/Messaje";
 import { InputText } from "primereact/inputtext";
-import {getMessages} from '../db/MessagesApi'
+import { getMessages, saveMessage } from "../db/MessagesApi";
+import { getCurrentUser } from "../persistentData";
+import { getCustomer } from "../db/customersApi";
 
 const fullWidth = Dimensions.get("window").width;
 
-// Cambiar
-const currentUser = 1;
-
 const ChatScreen = () => {
-
   const [chatInputValue, setChatInputValue] = useState("");
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([]);
+  const [currentCustomer, setCustomer] = useState([]);
 
-  useEffect(() =>{
-    loadMessages()
-  }, [])
+  useEffect(() => {
+    loadMessages();
+    loadCustomer();
+  }, []);
 
-  const loadMessages = async () =>{
-    const data = await getMessages()
-    setMessages(data)
-  }
+  useEffect(() => {
+    // Obtener los mensajes cada 5s
+    const interval = setInterval(() => {
+      console.log('Cargando mensajes...');
+      loadMessages();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const loadMessages = async () => {
+    const data = await getMessages();
+    setMessages(data);
+  };
 
   const handleChange = (event) => {
     const chatInputValue = event.target.value;
@@ -29,28 +45,43 @@ const ChatScreen = () => {
   };
 
   const handleKeyDown = (e) => {
-    if(e.nativeEvent.key == "Enter"){
+    if (e.nativeEvent.key == "Enter") {
       clickEnviar();
     }
-  }
+  };
 
   const clickEnviar = () => {
     let newMsg = {
       id: messages.length + 1,
       content: chatInputValue,
-      userId: currentUser,
+      userId: currentCustomer,
       date: new Date().toLocaleString(),
     };
-    setMessages(messages => [...messages, newMsg]);
+    setMessages((messages) => [...messages, newMsg]);
+    saveMessage(newMsg);
     setChatInputValue("");
+  };
+
+  const loadCustomer = async () => {
+    let user = await getCurrentUser();
+    if (user) {
+      const data = await getCustomer(user);
+      setCustomer(data.id);
+    }
   };
 
   return (
     <View style={styles.height}>
       <View style={styles.flex}>
-        {messages.map((elem) => (
-          <Messaje data={elem} key={elem.id} currentUser={currentUser}></Messaje>
-        ))}
+        <ScrollView>
+          {messages.map((elem) => (
+            <Messaje
+              data={elem}
+              key={elem.id}
+              currentUser={currentCustomer}
+            ></Messaje>
+          ))}
+        </ScrollView>
       </View>
       <View style={styles.viewInput}>
         <InputText
