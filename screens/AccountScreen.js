@@ -1,25 +1,37 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import UploadImageScreen from '../screens/UploadImageScreen';
 
 import {getCustomer} from '../db/customersApi'
+import {getUserComments} from '../db/commentsApi'
 import Layout from '../components/Layout'
-import JobList from '../components/JobList'
+import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
+import { getCurrentUser } from '../persistentData'
 import Button from '../components/ButtonType0'
 import MyReqJobsScreen from '../screens/MyReqJobsScreen'
 
+import Button from 'react-native'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const AccountScreen = ({ navigation }) => {
+const AccountScreen = ({ navigation, route }) => {
   const [customer, setData] = useState([])
+  const [comments, setDataComments] = useState([])
 
-
-
+  const loadComments = async () =>{
+    let user = await getCurrentUser()
+    if(user){
+      const data = await getUserComments(user)
+      setDataComments(data)
+    }
+  }
   const loadCustomer = async () =>{
-    const data = await getCustomer(1) // Insertar aquí la id del User logeado
-    setData(data)
+    let user = await getCurrentUser()
+    if(user){
+      const data = await getCustomer(user) // Insertar aquí la id del User logeado
+      setData(data)
+    }
   }
 
   const Stack = createNativeStackNavigator();
@@ -27,20 +39,36 @@ const AccountScreen = ({ navigation }) => {
   useEffect(() =>{
     loadCustomer()
   }, [])
+  useEffect(() =>{
+    loadComments()
+  }, [])
 
   var myImage = getImageUrl(customer);
 
+  function getImageUrl(customer){
+    var myImage = require('../assets/accountImage.jpg')
+
+    if(customer.image && customer.image != 'URLImage'){
+      myImage = require('../assets/'+customer.image);
+    }
+    return myImage;
+  }
+
   return (
 
-  <Layout>
+  <ScrollView>
+
     <View style = {styles.imageNameContainer}>
     <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
       <Image source={myImage} style = {styles.itemImage}/>
     </TouchableOpacity>
     <Text style={styles.input}>{customer.firstName} {customer.lastName}</Text>
     </View>
-
-    <Button>
+    <View style={styles.commentContainer}>
+      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
+          <Text style={styles.buttonText}>Cerrar sesión</Text>
+      </TouchableOpacity>
+    </View>    <Button>
     <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
       <Text>{'Mis trabajos'}</Text>
     </TouchableOpacity>
@@ -51,11 +79,21 @@ const AccountScreen = ({ navigation }) => {
       <View style={{padding: 100}}/>
       <View style={styles.line}/>
     </View>
-
     <View style={styles.commentContainer}>
       <Text style={styles.commentTextTitle}>Comentarios recientes: </Text>
+      <View>
+          <CommentsList comments={comments}/>
+      </View>
     </View>
-  </Layout>
+    <TouchableOpacity style={styles.buttonCeleste} 
+        onPress={() => navigation.navigate("AddPet")}>
+      <Text style={styles.buttonText}>Añadir Mascota</Text>
+    </TouchableOpacity>
+
+
+
+  </ScrollView>
+
   )
 }
 
@@ -102,6 +140,10 @@ input: {
   flex: 1,
   padding: 10,
 },
+buttonText: {
+  color: "#fff",
+  textAlign: "center",
+},
 dogContainer: {
   display: 'flex',
   flexDirection: "row",
@@ -110,8 +152,23 @@ dogContainer: {
   padding:150,
   borderRadius: 6,
 },
+outContainer: {
+  justifyContent: 'center',
+  alignItems: 'center',
+},
 commentContainer: {
-
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+buttonCeleste: {
+  paddingTop: 10,
+  paddingBottom: 10,
+  borderRadius: 5,
+  marginBottom: 3,
+  backgroundColor: "#0094FF",
+  width: "50%",
+  justifyContent: 'center',
+  alignItems: 'center',
 },
 commentTextTitle: {
   fontSize: 20,

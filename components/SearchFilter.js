@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 const SearchFilter = ({jobs, setFilteredJobs}) => {
 
     const [jobsInputValue, setJobsInputValue] = React.useState("")
-    
+
     const handleChange = (event) => {
         const newJobsInputValue = event.target.value
         setJobsInputValue(newJobsInputValue)
@@ -17,7 +17,6 @@ const SearchFilter = ({jobs, setFilteredJobs}) => {
             listaFiltrada = listaFiltradaAUX
         }
         setFilteredJobs(listaFiltrada)
-        console.log(listaFiltrada)
     }
 
     return (
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#2471A3',
         borderRadius: 10,
+        width: "90%"
     }
 })
 
