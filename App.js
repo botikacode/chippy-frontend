@@ -12,6 +12,7 @@ import TabNavigator from './components/TabNavigator';
 import UploadImageScreen from './screens/UploadImageScreen';
 import AddPet from './screens/AddPet';
 import MyReqJobsScreen from './screens/MyReqJobsScreen';
+import ChatScreen from './screens/ChatScreen';
 import ListPetsScreen from './screens/ListPetsScreen';
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ const App = () => {
         <Stack.Screen name="UploadImageScreen" component={UploadImageScreen} options={{ title: 'Subir Imagen' }} />
         <Stack.Screen options={{title: " "}} name="AddPet" component={AddPet} />
         <Stack.Screen name="MyReqJobsScreen" component={MyReqJobsScreen} options={{ title: 'Mis trabajos' }}/>
+        <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ title: 'Chat' }}/>
         <Stack.Screen name="ListPetsScreen" component={ListPetsScreen} options={{ title: 'Mis mascotas' }}/>
       </Stack.Navigator>
     </NavigationContainer>);
