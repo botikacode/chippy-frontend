@@ -55,10 +55,10 @@ const ChatScreen = ({ route, navigation }) => {
 
   const clickEnviar = () => {
     let newMsg = {
-      id: messages.length + 1,
       content: chatInputValue,
-      userId: currentCustomer,
-      date: new Date().toLocaleString(),
+      userId: currentCustomer.id,
+      mDate: new Date().toLocaleString(),
+      chatId: chat
     };
     setMessages((messages) => [...messages, newMsg]);
     saveMessage(newMsg);
