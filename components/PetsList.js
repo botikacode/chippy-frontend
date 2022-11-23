@@ -1,21 +1,21 @@
 import { View, Text, FlatList} from 'react-native'
 import React from 'react'
 
-import Comment from './Comment'
+import Pet from './Pet'
 
-const CommentsList = ({comments}) => {
+const PetsList = ({pets}) => {
 
     const renderItem = ({ item }) => {
-        return <Comment com={item}/>;
+        return <Pet pet={item}/>;
     }
 
     return (
         <FlatList
-            data={comments}
+            data={pets}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />
     )
 }
 
-export default CommentsList
+export default PetsList
