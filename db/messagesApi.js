@@ -1,6 +1,15 @@
 export {host} from '../config'
 const API = 'http://localhost:3000' + '/messages'
 
+export const getUserMessages = async (id) => {
+  const res = await fetch(`${API}/${id}`)
+  return await res.json();
+};
+
+export const getChatMessages = async (id) => {
+  const res = await fetch(`${API}/chat/${id}`)
+  return await res.json();
+};
 
 export const getMessages = async () => {
   const res = await fetch(API)

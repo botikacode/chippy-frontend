@@ -9,33 +9,36 @@ import {
 import React, { useState, useEffect } from "react";
 import { Messaje } from "../components/Messaje";
 import { InputText } from "primereact/inputtext";
-import { getMessages, saveMessage } from "../db/MessagesApi";
+import { getChatMessages, saveMessage } from "../db/MessagesApi";
 import { getCurrentUser } from "../persistentData";
 import { getCustomer } from "../db/customersApi";
 
 const fullWidth = Dimensions.get("window").width;
 
-const ChatScreen = () => {
+const ChatScreen = ({ route, navigation }) => {
   const [chatInputValue, setChatInputValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [currentCustomer, setCustomer] = useState([]);
 
+  const { chat } = route.params;
+
   useEffect(() => {
     loadMessages();
     loadCustomer();
+    console.log(chat);
   }, []);
 
   useEffect(() => {
     // Obtener los mensajes cada 5s
     const interval = setInterval(() => {
       console.log('Cargando mensajes...');
-      //loadMessages();
+      loadMessages();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   const loadMessages = async () => {
-    const data = await getMessages();
+    const data = await getChatMessages(chat);
     setMessages(data);
   };
 
