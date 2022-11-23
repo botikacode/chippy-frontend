@@ -68,7 +68,7 @@ const AccountScreen = ({ navigation, route }) => {
       <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
           <Text style={styles.buttonText}>Cerrar sesión</Text>
       </TouchableOpacity>
-    </View>    
+    </View>
     <ButtonType0>
     <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
       <Text>{'Mis trabajos'}</Text>
@@ -77,7 +77,11 @@ const AccountScreen = ({ navigation, route }) => {
 
     <View style={styles.dogPortrait}>
       <View style={styles.line}/>
-      <View style={{padding: 100}}/>
+      <TouchableOpacity style={styles.buttonCeleste}
+          onPress={() => navigation.navigate("ListPetsScreen")}>
+        <Text style={styles.buttonText}>Ver mis mascotas</Text>
+      </TouchableOpacity>
+      <View style={{padding: 50}}/>
       <View style={styles.line}/>
     </View>
     <View style={styles.commentContainer}>
@@ -86,7 +90,7 @@ const AccountScreen = ({ navigation, route }) => {
           <CommentsList comments={comments}/>
       </View>
     </View>
-    <TouchableOpacity style={styles.buttonCeleste} 
+    <TouchableOpacity style={styles.buttonCeleste}
         onPress={() => navigation.navigate("AddPet")}>
       <Text style={styles.buttonText}>Añadir Mascota</Text>
     </TouchableOpacity>

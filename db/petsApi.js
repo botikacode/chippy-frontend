@@ -6,6 +6,11 @@ export const getPets = async () => {
   return await res.json();
 };
 
+export const getUserPets = async (id) => {
+  const res = await fetch(`${API}/user-pets/${id}`)
+  return await res.json();
+};
+
 export const getPet = async (id) => {
   const res = await fetch(`${API}/${id}`);
   return await res.json();
