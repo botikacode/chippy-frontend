@@ -10,22 +10,10 @@ export const getCustomers = async () => {
 export const getCustomer = async (id) => {
   const res = await fetch(`${API}/${id}`);
     return await res.json();
-  /*
-  let result;
-  try{
-    result = await res.json()
-  }catch(error){
-    return undefined
-  }
-
-  return JSON.stringify(result.id);
-  */
 };
 export const setActiveUser = async (email, password) => {
 
   const res = await fetch(`${API}/${email.value}/${password.value}`)
-      console.log("respuesta")
-      console.log(res);
       let result;
       try{
         result = await res.json()

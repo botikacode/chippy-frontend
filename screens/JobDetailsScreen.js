@@ -13,19 +13,15 @@ const JobDetailsScreen = ({route, navigation}) => {
   const loadParams = async () => {
 
     setJob(route.params)
-    console.log("Peto en getCustomer")
-    console.log(route.params)
-    let customer = await getCustomer(route.params.id)
+    let customer = await getCustomer(route.params.requesterId)
     setRequesterUser(customer)
   }
 
   const acceptWork = async () => {
-  console.log("Peto en currentUser")
     let user = await getCurrentUser()
     if(user){
       job.interestedId =  user
     }
-    console.log("Peto en update")
     await updateJob(job.id, job)
     navigation.navigate('JobsScreen')
   }
