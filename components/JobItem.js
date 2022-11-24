@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const JobItem = ({job}) => {
+const JobItem = ({job, navigation}) => {
   return (
+    <TouchableOpacity onPress={() => navigation.navigate('JobDetailsScreen', job)}>
     <View style = {styles.itemMainContainer}>
       <View style = {styles.itemRightContainer}>
         <Image source={require('../assets/accountImage.jpg')} style = {styles.itemImage}/>
       </View>
       <View style={styles.itemLeftContainer}>
-        <Text style={styles.itemTitle}>{job.title}</Text>
+          <Text style={styles.itemTitle}>{job.title}</Text>
         <Text style={styles.itemText}>{job.description}</Text>
         <View style={styles.itemFooter }>
           <Text style={styles.itemText}><Ionicons name="star" style={{ color: 'yellow' }}/>{'(Val.)'}</Text>
@@ -18,6 +19,7 @@ const JobItem = ({job}) => {
         </View>
       </View>
     </View>
+  </TouchableOpacity>
   )
 }
 
