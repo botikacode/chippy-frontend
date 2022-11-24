@@ -15,6 +15,7 @@ import MyReqJobsScreen from './screens/MyReqJobsScreen';
 import ChatScreen from './screens/ChatScreen';
 import ListPetsScreen from './screens/ListPetsScreen';
 import JobDetailsScreen from './screens/JobDetailsScreen';
+import NewJobScreen from './screens/NewJobScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const App = () => {
         <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ title: 'Chat' }}/>
         <Stack.Screen name="ListPetsScreen" component={ListPetsScreen} options={{ title: 'Mis mascotas' }}/>
         <Stack.Screen name="JobDetailsScreen" component={JobDetailsScreen} options={{ title: 'Detalle de la tarea' }}/>
+        <Stack.Screen name="NewJobScreen" component={NewJobScreen} options={{ title: 'Detalle de la tarea' }}/>
       </Stack.Navigator>
     </NavigationContainer>);
 }
