@@ -6,11 +6,12 @@ import JobList from '../components/JobList'
 import { getJobsUser } from '../db/jobsApi'
 import { getCurrentUser } from '../persistentData'
 
-const MyReqJobsScreen = () => {
+const MyReqJobsScreen = ({navigation, route}) => {
 
   const [jobs, setJobs] = useState([])
 
   const [filteredJobs, setFilteredJobs] = useState(jobs)
+
 
   const loadJobs = async () => {
     const data = await getJobsUser(await getCurrentUser())
@@ -23,7 +24,7 @@ const MyReqJobsScreen = () => {
 
   return (
     <Layout>
-      <JobList jobs={jobs} filteredJobs={filteredJobs}/>
+      <JobList jobs={jobs} filteredJobs={filteredJobs} navigation={navigation}/>
     </Layout>
   )
 }
