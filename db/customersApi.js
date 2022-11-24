@@ -9,12 +9,11 @@ export const getCustomers = async () => {
 
 export const getCustomer = async (id) => {
   const res = await fetch(`${API}/${id}`);
-  return await res.json();
+    return await res.json();
 };
 export const setActiveUser = async (email, password) => {
 
   const res = await fetch(`${API}/${email.value}/${password.value}`)
-
       let result;
       try{
         result = await res.json()
