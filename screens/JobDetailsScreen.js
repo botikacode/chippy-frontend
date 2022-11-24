@@ -15,7 +15,7 @@ const JobDetailsScreen = ({route, navigation}) => {
     setJob(route.params)
     console.log("Peto en getCustomer")
     console.log(route.params)
-    let customer = await getCustomer(JSON.stringify(route.params.id))
+    let customer = await getCustomer(route.params.id)
     setRequesterUser(customer)
   }
 
