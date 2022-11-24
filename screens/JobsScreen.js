@@ -47,7 +47,7 @@ const JobsScreen = ({ navigation, route }) => {
       <JobList jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
       <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
       <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
-      <TouchableOpacity style={styles.fabLocationBL}>
+      <TouchableOpacity style={styles.fabLocationBL} onPress={() => navigation.navigate('NewJobScreen')}>
           <View style={styles.fab}>
             <Text style={styles.fabText}>Tarea (+)</Text>
           </View>
