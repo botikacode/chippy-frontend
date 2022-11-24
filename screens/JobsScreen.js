@@ -37,7 +37,9 @@ const JobsScreen = ({ navigation, route }) => {
       <TouchableOpacity style={styles.fabLocationBL}>
 
           <View style={styles.fab}>
-            <Text style={styles.fabText}>Tarea (+)</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("AddJobs")}>
+              <Text style={styles.fabText}>Tarea (+)</Text>
+            </TouchableOpacity>
           </View>
       </TouchableOpacity>
     </Layout>
