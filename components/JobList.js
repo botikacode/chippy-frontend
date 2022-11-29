@@ -3,12 +3,12 @@ import React from 'react'
 
 import JobItem from './JobItem'
 
-const JobList = ({jobs, filteredJobs, modalJobs}) => {
+const JobList = ({jobs, filteredJobs, modalJobs, navigation}) => {
 
     const renderItem = ({ item }) => {
-        return <JobItem job={item}/>;
+        return <JobItem job={item} navigation={navigation}/>;
     }
-    
+
     const selectCorrectFilter = () =>{
       if(modalJobs && modalJobs.length > 0){
         return modalJobs
