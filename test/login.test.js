@@ -1,30 +1,38 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {render, screen} from '@testing-library/react-native'
-// import userEvent from '@testing-library/user-event'
+import {render, screen, fireEvent} from '@testing-library/react-native'
 // import '@testing-library/jest-dom'
 import LoginScreen from '../screens/LoginScreen';
 import StartScreen from '../screens/StartScreen';
+import { Alert } from 'react-native';
 
-test('renders Login Screen correctly', () => {
+test('Renderiza Login Screen correctamente', () => {
   const tree = renderer.create(<LoginScreen />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-test('renders Start Screen correctly', () => {
+test('Renderiza Start Screen correctamente', () => {
   const tree = renderer.create(<StartScreen />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-test('finds text input', async () => {
-    // ARRANGE
-    render(<StartScreen />)
+test('Se logea bien como usuario', async () => {
+
+    render(<LoginScreen />)
   
-    // ACT
-    // await userEvent.click(screen.getByText('Ya tengo una cuenta'))
-    //await screen.findByRole('heading')
-  
-    // ASSERT
-    //expect(screen.getByRole('heading')).toHaveTextContent('hello there')
-    //expect(screen.getByRole('button')).toBeDisabled()
+    const email = screen.getByPlaceholderText('Email');
+    const contraseña = screen.getByPlaceholderText('Contraseña');
+
+    fireEvent.changeText(email, "JohnDoe@gmail.com");
+    fireEvent.changeText(contraseña, "1234");
+
+    expect(email.props.value).toBe("JohnDoe@gmail.com")
+    expect(contraseña.props.value).toBe("1234")
+
+    // Hace click en Iniciar Sesión
+    fireEvent.press(screen.getByText("Iniciar Sesión"))
+
+    jest.spyOn(Alert, 'alert');
+
+    expect(Alert.alert).toHaveBeenCalledWith('Datos de login incorrectos')
 })

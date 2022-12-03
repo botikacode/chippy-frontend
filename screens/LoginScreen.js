@@ -30,7 +30,7 @@ export default function LoginScreen({ navigation }) {
     if(data){
       navigation.navigate('TabNavigator')
     }else{
-      alert('Datos de login incorrectos');
+      Alert.alert('Datos de login incorrectos');
     }
   }
 
