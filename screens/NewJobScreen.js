@@ -13,7 +13,7 @@ const NewJobScreen = ({navigation}) => {
     const [jobType, setJobType] = useState()
     const [jobPrice, setJobPrice] = useState()
     const [jobDescription, setJobDescription] = useState()
-    const [customer, setData] = useState([])
+    const [customer, setData] = useState()
 
     const inputRef = useRef(null)
 
