@@ -25,7 +25,6 @@ const ChatScreen = ({ route, navigation }) => {
   useEffect(() => {
     loadMessages();
     loadCustomer();
-    console.log(chat);
   }, []);
 
   useEffect(() => {
