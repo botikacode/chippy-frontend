@@ -5,6 +5,7 @@ import {
   Button,
   Dimensions,
   ScrollView,
+  TouchableHighlight
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Messaje } from "../components/Messaje";
@@ -12,6 +13,8 @@ import { InputText } from "primereact/inputtext";
 import { getChatMessages, saveMessage } from "../db/MessagesApi";
 import { getCurrentUser } from "../persistentData";
 import { getCustomer } from "../db/customersApi";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 const fullWidth = Dimensions.get("window").width;
 
@@ -92,12 +95,12 @@ const ChatScreen = ({ route, navigation }) => {
           onChange={handleChange}
           onKeyPress={handleKeyDown}
         ></InputText>
-        <Button
+        <TouchableHighlight 
           style={styles.enviar}
-          color="rgb(36, 113, 163)"
-          title="Enviar"
           onPress={clickEnviar}
-        ></Button>
+        >
+          <Ionicons name="send" style={styles.enviarIcon}></Ionicons>
+        </TouchableHighlight >
       </View>
     </View>
   );
@@ -114,16 +117,24 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    width: fullWidth,
+    width: '100%',
+    height: '5%'
   },
   input: {
-    width: fullWidth - fullWidth / 5,
+    width: '80%',
   },
   enviar: {
-    width: fullWidth / 5,
+    width: '20%',
     borderRadius: 5,
+    backgroundColor:'#51A8BB',
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
   },
+  enviarIcon:{
+    color:"white",
+    fontSize: 20
+  }
 });
 
 export default ChatScreen;

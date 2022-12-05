@@ -36,7 +36,7 @@ const ChatList = ({ navigation, route }) => {
         <Image source={require('../assets/estrellita2.png')} style = {styles.estrellita}/>
       </View>
       <View style={styles.alignLeft}>
-        <Text style={styles.titulo}>Chat</Text>
+        <Text style={styles.titulo}>Tu lista de chats</Text>
       </View>
       <ScrollView style={styles.chatList}>
         {messages.map((elem) => {
