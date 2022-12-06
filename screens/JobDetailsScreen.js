@@ -9,6 +9,7 @@ import {getCustomer} from '../db/customersApi'
 const JobDetailsScreen = ({route, navigation}) => {
   const [job, setJob] = useState([])
   const [requesterUser, setRequesterUser] = useState([])
+  const [enableButton, setEnableButton] = useState()
 
   const loadParams = async () => {
 
@@ -19,6 +20,7 @@ const JobDetailsScreen = ({route, navigation}) => {
 
   const acceptWork = async () => {
     let user = await getCurrentUser()
+    delete job.enableButton
     if(user){
       job.interestedId =  user
     }
@@ -36,11 +38,16 @@ const JobDetailsScreen = ({route, navigation}) => {
       <Text>{job.jobType}</Text>
       <Text>{job.description}</Text>
       <Text>{job.price}€</Text>
+      <Text>{job.startDate}</Text>
+      <Text>{job.endDate}</Text>
       <Text>{requesterUser.firstName} {requesterUser.lastName}</Text>
-      <TouchableOpacity style={styles.buttonCeleste}
-          onPress={() => acceptWork()}>
-        <Text style={styles.buttonText}>Aceptar trabajo</Text>
-      </TouchableOpacity>
+      <Text>{job.enableButton}</Text>
+      <div style={job.enableButton ? styles.visibleDiv : styles.hiddenDiv}>
+        <TouchableOpacity  style={styles.buttonCeleste}
+            onPress={() => acceptWork()}>
+          <Text style={styles.buttonText}>Aceptar trabajo</Text>
+        </TouchableOpacity>
+      </div>
     </Layout>
   )
 }
@@ -55,6 +62,20 @@ buttonCeleste: {
   width: "50%",
   justifyContent: 'center',
   alignItems: 'center',
-}
+},
+visibleDiv: {
+  paddingTop: 10,
+  paddingBottom: 10,
+  borderRadius: 5,
+  marginBottom: 3,
+  width: "100%",
+  justifyContent: 'center',
+  alignItems: 'center',
+  alignSelf: 'center',
+  visibility: "visible"
+},
+hiddenDiv: {
+visibility: "hidden"
+},
 });
 export default JobDetailsScreen
