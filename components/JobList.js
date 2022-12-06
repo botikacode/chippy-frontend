@@ -3,10 +3,10 @@ import React from 'react'
 
 import JobItem from './JobItem'
 
-const JobList = ({jobs, filteredJobs, modalJobs, navigation}) => {
+const JobList = ({jobs, filteredJobs, modalJobs, navigation, enableButton}) => {
 
     const renderItem = ({ item }) => {
-        return <JobItem job={item} navigation={navigation}/>;
+        return <JobItem job={item} navigation={navigation} enableButton={enableButton}/>;
     }
 
     const selectCorrectFilter = () =>{

@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import SwitchSelector from "react-native-switch-selector";
 
@@ -14,12 +14,12 @@ import { getCustomer } from '../db/customersApi'
 
 const NewJobScreen = ({navigation}) => {
     const [jobTitle, setJobTitle] = useState()
-    const [jobType, setJobType] = useState()
+    const [jobType, setJobType] = useState("walk")
     const [jobPrice, setJobPrice] = useState()
     const [jobDescription, setJobDescription] = useState()
     const [customer, setData] = useState()
 
-    const [visibleSnowFlakes, setSnowFlakesVisibility] = useState(true)
+    const [visibleSnowFlakes, setSnowFlakesVisibility] = useState(false)
     const [rellenoSnowFlake1, setRellenoSnowFlake1] = useState()
     const [rellenoSnowFlake2, setRellenoSnowFlake2] = useState()
     const [rellenoSnowFlake3, setRellenoSnowFlake3] = useState()
@@ -29,7 +29,9 @@ const NewJobScreen = ({navigation}) => {
     const [startHour, setStartHour] = useState()
     const [endHour, setEndHour] = useState()
 
-    const inputRef = useRef(null)
+    const [remunerationType, setRemunerationType] = useState("paid")
+
+    const priceRef = useRef(null)
 
     const loadCustomer = async () => {
         let user = await getCurrentUser()
@@ -38,12 +40,10 @@ const NewJobScreen = ({navigation}) => {
             setData(data)
         }
     }
-    const changeDatePickerVisibility = () =>{
-      setDatePickerVisibility(!datePickerVisible)
-    }
+
     useEffect(() =>{
       loadCustomer()
-    }, [startDate])
+    }, [])
 
 
 
@@ -65,23 +65,27 @@ const NewJobScreen = ({navigation}) => {
           console.log(error);
         }
     };
-
     const onAddPressed = () => {
+      if(!jobTitle || !jobPrice || !jobDescription || !startDate || !endDate || !endDate || !endHour) alert('Quedan campos sin rellenar')
+      else{
+        let counter = 0;
+        let snowFlakesArray = [rellenoSnowFlake1, rellenoSnowFlake2, rellenoSnowFlake3]
+        snowFlakesArray.forEach(value => {if(value) counter++})
         const custom = {
-            title: jobTitle,
+            title: jobTitle.target.value,
             jobType: jobType,
-            price: jobPrice,
-            description: jobDescription,
+            price: jobPrice.target.value,
+            description: jobDescription.target.value,
             requesterId: customer.id,
+            startDate: startDate + " " + startHour,
+            endDate: endDate + " " + endHour,
+            snowFlakes: counter
         }
-
-        //alert(custom.ownerId)
-        //alert(custom.petType)
         handleSubmit(custom)
-        //navigation.navigate("AccountScreen")
-    }
 
-    const updateSnowFlakes = (value, comesFrom) => {
+      }
+    }
+    const updateSnowFlakes = (value, comesFrom, remuneration) => {
       let res;
       let endDateTime;
       let startDateTime
@@ -117,18 +121,35 @@ const NewJobScreen = ({navigation}) => {
           res = endDateTime.getTime() - startDateTime.getTime()
         }
       }
-      if(res > 0){
+      if(res < 0) alert('Fechas incorrectas')
+      if(remunerationType == "snowFlake" && res > 0){
         fillSnowFlakes(res/3600000)
       }else{
         setRellenoSnowFlake1(false); setRellenoSnowFlake2(false); setRellenoSnowFlake3(false)
       }
 
+
+    }
+    const setUpData = (value) => {
+      setRemunerationType(value)
+      priceRef.current.value = '0'
+      setSnowFlakesVisibility(!visibleSnowFlakes)
+      if(value == "snowFlake" && endDate && endHour && startDate && startHour){
+        let endDateTime = new Date(endDate + " " + endHour)
+        let startDateTime = new Date(startDate + " " + startHour)
+        let res = endDateTime.getTime() - startDateTime.getTime()
+        if(res>0){
+          fillSnowFlakes(res/3600000)
+        }else {
+          setRellenoSnowFlake1(false); setRellenoSnowFlake2(false); setRellenoSnowFlake3(false)
+        }
+      }
     }
 
     const fillSnowFlakes = (hours) => {
-      if(hours < 24){setRellenoSnowFlake1(true); setRellenoSnowFlake2(false); setRellenoSnowFlake3(false)}
-      if(hours >= 24 && hours < 48) {setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(false)}
-      if(hours >= 48){setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(true)}
+      if(hours < 24*7){setRellenoSnowFlake1(true); setRellenoSnowFlake2(false); setRellenoSnowFlake3(false)}
+      if(hours >= 24*7 && hours < 24*14) {setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(false)}
+      if(hours >= 24*14){setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(true)}
     }
 
     return (
@@ -144,8 +165,7 @@ const NewJobScreen = ({navigation}) => {
                     placeholderTextColor="#576574"
                     label="Titulo"
                     returnKeyType="next"
-                    value={jobTitle}
-                    onChangeText={(text) => setJobTitle(text)}
+                    onBlur={(text, e) => setJobTitle(text)}
                 />
 
                 <TextInput
@@ -154,8 +174,7 @@ const NewJobScreen = ({navigation}) => {
                     placeholderTextColor="#576574"
                     label="Descripción"
                     returnKeyType="next"
-                    value={jobDescription}
-                    onChangeText={(text) => setJobDescription(text)}
+                    onBlur={(text) => setJobDescription(text)}
 
                 />
 
@@ -164,23 +183,22 @@ const NewJobScreen = ({navigation}) => {
                     placeholder="Precio"
                     placeholderTextColor="#576574"
                     label="Precio"
+                    editable={!visibleSnowFlakes ? true : false}
+                    ref={priceRef}
                     returnKeyType="next"
-                    value={jobPrice}
-                    onChangeText={(text) => setJobPrice(text)}
+                    onBlur={(text) => setJobPrice(text)}
                 />
 
                 <SwitchSelector style={styles.switch}
                     options={jobTypeOptions}
                     initial={0}
                     onPress={value => setJobType(value)}
-                    //onPress = {value => alert(value)}
                     buttonColor='#0094FF'
                 />
                 <SwitchSelector style={styles.switch}
                     options={paymentType}
                     initial={0}
-                    onChange={() => setSnowFlakesVisibility(false)}
-                    //onPress = {value => alert(value)}
+                    onPress={value =>{setUpData(value)}}
                     buttonColor='#0094FF'
                 />
                 <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
@@ -192,7 +210,7 @@ const NewJobScreen = ({navigation}) => {
                   defaultValue="Fecha inicio">Inicio de la tarea</Text>
                 <View style={{flexDirection:"row"}}>
                   <DatePicker
-                  onChange={(value,e) => { updateSnowFlakes(value,"startDate")} }
+                  onChange={(value) => { updateSnowFlakes(value,"startDate")} }
                   style={{flex:1}}
                   />
                   <TimePicker onChange={(value,e) => {updateSnowFlakes(value,"startHour")} }style={{flex:1}}/>
@@ -240,6 +258,19 @@ const styles = StyleSheet.create({
       color: "#000000",
       padding: 4,
       borderRadius: 5,
+    },
+    inputPrice: {
+      width: "70%",
+      marginBottom: 4,
+      marginTop: 10,
+      fontSize: 14,
+      borderWidth: 1,
+      borderColor: "#ced4da",
+      height: 30,
+      color: "#000000",
+      padding: 4,
+      borderRadius: 5,
+      hiddenInput: "true"
     },
     buttonCeleste: {
       paddingTop: 10,

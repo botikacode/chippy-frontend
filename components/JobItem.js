@@ -2,7 +2,8 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const JobItem = ({job, navigation}) => {
+const JobItem = ({job, navigation, enableButton}) => {
+  job.enableButton = enableButton
   return (
     <TouchableOpacity onPress={() => navigation.navigate('JobDetailsScreen', job)}>
     <View style = {styles.itemMainContainer}>
