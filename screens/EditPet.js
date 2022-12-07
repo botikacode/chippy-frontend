@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, TextInput } from 'react-native'
 import { nameValidator } from '../helpers/nameValidator'
-import SwitchSelector from "react-native-switch-selector";
+//import SwitchSelector from "react-native-switch-selector";
 import { updatePet } from '../db/petsApi';
+import Layout from '../components/Layout'
+
 
 
 const EditPet = ({navigation, route}) => {
@@ -79,16 +81,6 @@ return (
        
       />
       {petDescription.error ? <Text style={styles.error}>{petDescription.error }</Text> : null}
-     
-      <SwitchSelector
-        options = {petTypeOptions}
-        initial={0}
-        onPress={value => setPetType(value)}
-        textColor = '#0094FF'
-        buttonColor='#0094FF'
-        selectedColor= {white}
-        hasPadding
-        />
      
        </View>
       <TouchableOpacity style={styles.buttonCeleste}  onPress={onAddPressed}>

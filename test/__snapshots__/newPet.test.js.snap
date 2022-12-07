@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renderiza pet Screen correctamente 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#0094FF",
+        "fontSize": 20,
+        "marginBottom": 10,
+      }
+    }
+  >
+    Añadir Mascota
+  </Text>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "marginVertical": 5,
+        "width": "100%",
+      }
+    }
+  >
+    <TextInput
+      error={false}
+      errorText=""
+      label="Nombre"
+      onChangeText={[Function]}
+      placeholder="Nombre"
+      placeholderTextColor="#576574"
+      returnKeyType="next"
+      style={
+        {
+          "borderColor": "#ced4da",
+          "borderRadius": 5,
+          "borderWidth": 1,
+          "color": "#000000",
+          "fontSize": 14,
+          "height": 30,
+          "marginBottom": 4,
+          "marginTop": 10,
+          "padding": 4,
+          "width": "70%",
+        }
+      }
+      value=""
+    />
+    <TextInput
+      error={false}
+      errorText=""
+      label="Descripción"
+      onChangeText={[Function]}
+      placeholder="Descripción"
+      placeholderTextColor="#576574"
+      returnKeyType="next"
+      style={
+        {
+          "borderColor": "#ced4da",
+          "borderRadius": 5,
+          "borderWidth": 1,
+          "color": "#000000",
+          "fontSize": 14,
+          "height": 30,
+          "marginBottom": 4,
+          "marginTop": 10,
+          "padding": 4,
+          "width": "70%",
+        }
+      }
+      value=""
+    />
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "backgroundColor": "#0094FF",
+        "borderRadius": 5,
+        "marginBottom": 3,
+        "marginTop": 24,
+        "opacity": 1,
+        "paddingBottom": 10,
+        "paddingTop": 10,
+        "width": "50%",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#fff",
+          "textAlign": "center",
+        }
+      }
+    >
+      Añadir Mascota
+    </Text>
+  </View>
+</View>
+`;

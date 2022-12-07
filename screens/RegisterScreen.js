@@ -52,7 +52,7 @@ export default function RegisterScreen({ navigation, route}) {
   }
     
     handleSubmit(custom)
-    navigation.navigate('Dashboard')
+    //navigation.navigate('Dashboard')
   } 
 
   return (
