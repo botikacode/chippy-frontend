@@ -157,16 +157,46 @@ const NewJobScreen = ({navigation}) => {
 
 
             <View style={styles.container}>
-                <Text style={styles.title} >Añadir Tarea</Text>
+                <Text style={styles.title} >Nueva Tarea</Text>
+            </View>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Titulo"
-                    placeholderTextColor="#576574"
-                    label="Titulo"
-                    returnKeyType="next"
-                    onBlur={(text, e) => setJobTitle(text)}
-                />
+            <TextInput
+                style={styles.input}
+                placeholder="Titulo"
+                placeholderTextColor="#576574"
+                label="Titulo"
+                returnKeyType="next"
+                onBlur={(text, e) => setJobTitle(text)}
+            />
+
+            <Text
+              style={styles.input}
+              defaultValue="Fecha inicio">Inicio de la tarea</Text>
+            <View style={{flexDirection:"row"}}>
+              <DatePicker
+              onChange={(value) => { updateSnowFlakes(value,"startDate")} }
+              style={{flex:1}}
+              />
+              <TimePicker onChange={(value,e) => {updateSnowFlakes(value,"startHour")} }style={{flex:1}}/>
+            </View>
+            <Text
+              style={styles.input}
+              defaultValue="Fecha fin">Fin de la tarea</Text>
+              <View View style={{flexDirection:"row"}}>
+                <DatePicker onChange={(value,e) => {updateSnowFlakes(value,"endDate")} }style={{flex:1}}/>
+                <TimePicker onChange={value => {updateSnowFlakes(value, "endHour")} } style={{flex:1}}/>
+              </View>
+              <Text>Trabajo pagado en...</Text>
+              <SwitchSelector style={styles.switch}
+                  options={paymentType}
+                  initial={0}
+                  onPress={value =>{setUpData(value)}}
+                  buttonColor='#0094FF'
+              />
+              
+              <Text>Categoría</Text>
+
+
 
                 <TextInput
                     style={styles.input}
@@ -177,6 +207,7 @@ const NewJobScreen = ({navigation}) => {
                     onBlur={(text) => setJobDescription(text)}
 
                 />
+                /* Se verá solo cuando se seleccione ese tipo de pago, y al lado del selector */
 
                 <TextInput
                     style={styles.input}
@@ -195,35 +226,11 @@ const NewJobScreen = ({navigation}) => {
                     onPress={value => setJobType(value)}
                     buttonColor='#0094FF'
                 />
-                <SwitchSelector style={styles.switch}
-                    options={paymentType}
-                    initial={0}
-                    onPress={value =>{setUpData(value)}}
-                    buttonColor='#0094FF'
-                />
+
                 <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
-                    <Text style={styles.buttonText}>Añadir Tarea</Text>
+                    <Text style={styles.buttonText}>Aceptar</Text>
                 </TouchableOpacity>
 
-                <Text
-                  style={styles.input}
-                  defaultValue="Fecha inicio">Inicio de la tarea</Text>
-                <View style={{flexDirection:"row"}}>
-                  <DatePicker
-                  onChange={(value) => { updateSnowFlakes(value,"startDate")} }
-                  style={{flex:1}}
-                  />
-                  <TimePicker onChange={(value,e) => {updateSnowFlakes(value,"startHour")} }style={{flex:1}}/>
-                </View>
-                <Text
-                  style={styles.input}
-                  defaultValue="Fecha fin">Fin de la tarea</Text>
-                  <View View style={{flexDirection:"row"}}>
-                    <DatePicker onChange={(value,e) => {updateSnowFlakes(value,"endDate")} }style={{flex:1}}/>
-                    <TimePicker onChange={value => {updateSnowFlakes(value, "endHour")} } style={{flex:1}}/>
-                  </View>
-
-            </View>
             <SnowFlakes visibility={visibleSnowFlakes} relleno1={rellenoSnowFlake1} relleno2={rellenoSnowFlake2} relleno3={rellenoSnowFlake3}/>
         </ScrollView>
     )
