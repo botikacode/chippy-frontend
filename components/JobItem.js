@@ -1,16 +1,18 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
+const numColumns = 2;
+const screenWidth = Dimensions.get("window").width - 50;
+const tileSize = screenWidth / numColumns;
 
 const JobItem = ({job}) => {
   return (
     <View style = {styles.itemMainContainer}>
       <View style = {styles.itemRightContainer}>
-        <Image source={require('../assets/accountImage.jpg')} style = {styles.itemImage}/>
       </View>
       <View style={styles.itemLeftContainer}>
         <Text style={styles.itemTitle}>{job.title}</Text>
-        <Text style={styles.itemText}>{job.description}</Text>
         <View style={styles.itemFooter }>
           <Text style={styles.itemText}><Ionicons name="star" style={{ color: 'yellow' }}/>{'(Val.)'}</Text>
           <Text style={styles.itemText}><Ionicons name="time-outline" style={{ color: 'lightblue' }}/>{'(Tiem.)'}</Text>
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: "row",
     justifyContent: 'space-between',
-    marginHorizontal: 10,
+    marginHorizontal: 16,
     alignItems: 'center'
   },
   itemImage:{
@@ -38,14 +40,16 @@ const styles = StyleSheet.create({
   itemMainContainer: {
     display: 'flex',
     flexDirection: "row",
-    backgroundColor: '#2471A3',
+    backgroundColor: '#51A8BB',
+    height: tileSize, 
+    width: tileSize,
     marginVertical: 2,
     marginHorizontal:2,
     padding:10,
-    borderRadius: 6,
+    borderRadius: 24,
   },
   itemRightContainer:{
-    marginRight:20,
+    marginRight:10,
   },
   itemLeftContainer:{
     flex: 1,

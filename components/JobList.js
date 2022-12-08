@@ -1,4 +1,4 @@
-import { View, Text, FlatList} from 'react-native'
+import { View, Text, FlatList, Dimensions} from 'react-native'
 import React from 'react'
 
 import JobItem from './JobItem'
@@ -6,7 +6,7 @@ import JobItem from './JobItem'
 const JobList = ({jobs, filteredJobs}) => {
     
     const renderItem = ({ item }) => {
-        return <JobItem job={item}/>;
+        return <JobItem job = {item}/>;
     }
     
     return (
@@ -14,7 +14,9 @@ const JobList = ({jobs, filteredJobs}) => {
             //data={filteredJobs}
             data={filteredJobs && filteredJobs.length > 0 ? filteredJobs : jobs}
             keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <View style={{ height: 3 }} />}
             renderItem={renderItem}
+            numColumns={2}
         />
     )
 }
