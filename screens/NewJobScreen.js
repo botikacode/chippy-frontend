@@ -7,15 +7,18 @@ import Layout from '../components/Layout'
 import DatePicker from '../components/DatePicker'
 import TimePicker from '../components/TimePicker'
 import SnowFlakes from '../components/SnowFlakes'
+import SelectionButtons from '../components/SelectionButtons'
 
 import { saveJob } from '../db/jobsApi'
 import { getCurrentUser } from '../persistentData'
 import { getCustomer } from '../db/customersApi'
 
+//NO SE ESCRIBEN LAS QUE ESTAN EN Cuidar
+//SI NO PONGO NADA EN EL PRICE ME DICE QUE RELLENE TODOSS CAMPOS
 const NewJobScreen = ({navigation}) => {
     const [jobTitle, setJobTitle] = useState()
-    const [jobType, setJobType] = useState("walk")
-    const [jobPrice, setJobPrice] = useState()
+    const [jobType, setJobType] = useState()
+    const [jobPrice, setJobPrice] = useState(0)
     const [jobDescription, setJobDescription] = useState()
     const [customer, setData] = useState()
 
@@ -31,7 +34,8 @@ const NewJobScreen = ({navigation}) => {
 
     const [remunerationType, setRemunerationType] = useState("paid")
 
-    const priceRef = useRef(null)
+    const snowFlakeIcon = require("../assets/snowFlake_icon.png")
+    const coinIcon = require("../assets/coin.png")
 
     const loadCustomer = async () => {
         let user = await getCurrentUser()
@@ -45,16 +49,25 @@ const NewJobScreen = ({navigation}) => {
       loadCustomer()
     }, [])
 
+    const onChanged = (text) => {
+        let newText = '';
+        let numbers = '0123456789';
 
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
 
-    const jobTypeOptions = [
-        { label: "Pasear", value: "walk" },
-        { label: "Cuidar", value: "keep" }
-    ];
+            }
+            else {
+                alert("please enter numbers only");
+            }
+        }
+        setJobPrice(newText);
+    }
 
     const paymentType = [
-        { label: "Remunerado", value: "paid" },
-        { label: "Copos de Nieve", value: "snowFlake" }
+        { value: "paid", imageIcon: coinIcon},
+        { value: "snowFlake", imageIcon: snowFlakeIcon}
     ];
 
     const handleSubmit = async (newJob) => {
@@ -66,7 +79,10 @@ const NewJobScreen = ({navigation}) => {
         }
     };
     const onAddPressed = () => {
-      if(!jobTitle || !jobPrice || !jobDescription || !startDate || !endDate || !endDate || !endHour) alert('Quedan campos sin rellenar')
+      if(!jobTitle || !jobType || !jobDescription || !startDate || !startHour || !endDate || !endHour){
+        console.log(jobTitle); console.log(jobDescription);console.log(startDate); console.log(startHour); console.log(endDate); console.log(endHour)
+        alert('Quedan campos sin rellenar')
+       }
       else{
         let counter = 0;
         let snowFlakesArray = [rellenoSnowFlake1, rellenoSnowFlake2, rellenoSnowFlake3]
@@ -74,7 +90,7 @@ const NewJobScreen = ({navigation}) => {
         const custom = {
             title: jobTitle.target.value,
             jobType: jobType,
-            price: jobPrice.target.value,
+            price: jobPrice,
             description: jobDescription.target.value,
             requesterId: customer.id,
             startDate: startDate + " " + startHour,
@@ -131,17 +147,19 @@ const NewJobScreen = ({navigation}) => {
 
     }
     const setUpData = (value) => {
-      setRemunerationType(value)
-      priceRef.current.value = '0'
-      setSnowFlakesVisibility(!visibleSnowFlakes)
-      if(value == "snowFlake" && endDate && endHour && startDate && startHour){
-        let endDateTime = new Date(endDate + " " + endHour)
-        let startDateTime = new Date(startDate + " " + startHour)
-        let res = endDateTime.getTime() - startDateTime.getTime()
-        if(res>0){
-          fillSnowFlakes(res/3600000)
-        }else {
-          setRellenoSnowFlake1(false); setRellenoSnowFlake2(false); setRellenoSnowFlake3(false)
+      if((value == "snowFlake" && !visibleSnowFlakes) || (value == "paid" && visibleSnowFlakes)){
+        setRemunerationType(value)
+        setJobPrice(0)
+        setSnowFlakesVisibility(!visibleSnowFlakes)
+        if(value == "snowFlake" && endDate && endHour && startDate && startHour){
+          let endDateTime = new Date(endDate + " " + endHour)
+          let startDateTime = new Date(startDate + " " + startHour)
+          let res = endDateTime.getTime() - startDateTime.getTime()
+          if(res>0){
+            fillSnowFlakes(res/3600000)
+          }else {
+            setRellenoSnowFlake1(false); setRellenoSnowFlake2(false); setRellenoSnowFlake3(false)
+          }
         }
       }
     }
@@ -154,7 +172,6 @@ const NewJobScreen = ({navigation}) => {
 
     return (
         <ScrollView>
-
 
             <View style={styles.container}>
                 <Text style={styles.title} >Nueva Tarea</Text>
@@ -170,8 +187,9 @@ const NewJobScreen = ({navigation}) => {
             />
 
             <Text
-              style={styles.input}
-              defaultValue="Fecha inicio">Inicio de la tarea</Text>
+              style={{paddingBottom: 10}}
+              defaultValue="Fecha inicio">Inicio</Text>
+
             <View style={{flexDirection:"row"}}>
               <DatePicker
               onChange={(value) => { updateSnowFlakes(value,"startDate")} }
@@ -179,65 +197,75 @@ const NewJobScreen = ({navigation}) => {
               />
               <TimePicker onChange={(value,e) => {updateSnowFlakes(value,"startHour")} }style={{flex:1}}/>
             </View>
+
             <Text
-              style={styles.input}
-              defaultValue="Fecha fin">Fin de la tarea</Text>
+              style={{paddingBottom: 10, paddingTop: 10}}
+              defaultValue="Fecha fin">Fin</Text>
               <View View style={{flexDirection:"row"}}>
                 <DatePicker onChange={(value,e) => {updateSnowFlakes(value,"endDate")} }style={{flex:1}}/>
                 <TimePicker onChange={value => {updateSnowFlakes(value, "endHour")} } style={{flex:1}}/>
               </View>
-              <Text>Trabajo pagado en...</Text>
-              <SwitchSelector style={styles.switch}
-                  options={paymentType}
-                  initial={0}
-                  onPress={value =>{setUpData(value)}}
-                  buttonColor='#0094FF'
+
+              <Text style={{paddingTop: 10}}>Descripción</Text>
+              <TextInput
+                  style={styles.input}
+                  placeholder="Descripción"
+                  placeholderTextColor="#576574"
+                  label="Descripción"
+                  returnKeyType="next"
+                  onBlur={(text) => setJobDescription(text)}
               />
-              
-              <Text>Categoría</Text>
 
-
-
-                <TextInput
-                    style={styles.input}
-                    placeholder="Descripción"
-                    placeholderTextColor="#576574"
-                    label="Descripción"
-                    returnKeyType="next"
-                    onBlur={(text) => setJobDescription(text)}
-
-                />
-                /* Se verá solo cuando se seleccione ese tipo de pago, y al lado del selector */
-
-                <TextInput
-                    style={styles.input}
-                    placeholder="Precio"
-                    placeholderTextColor="#576574"
-                    label="Precio"
-                    editable={!visibleSnowFlakes ? true : false}
-                    ref={priceRef}
-                    returnKeyType="next"
-                    onBlur={(text) => setJobPrice(text)}
-                />
-
-                <SwitchSelector style={styles.switch}
-                    options={jobTypeOptions}
+              <Text style={{paddingTop: 10}}>Modo de remuneración</Text>
+              <View style={styles.viewContainer}>
+                <SwitchSelector
+                    style={styles.switch}
+                    options={paymentType}
                     initial={0}
-                    onPress={value => setJobType(value)}
+                    onPress={value =>{setUpData(value)}}
                     buttonColor='#0094FF'
                 />
 
-                <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
-                    <Text style={styles.buttonText}>Aceptar</Text>
-                </TouchableOpacity>
+                {visibleSnowFlakes && <SnowFlakes visibility={true} relleno1={rellenoSnowFlake1} relleno2={rellenoSnowFlake2} relleno3={rellenoSnowFlake3}/>}
 
-            <SnowFlakes visibility={visibleSnowFlakes} relleno1={rellenoSnowFlake1} relleno2={rellenoSnowFlake2} relleno3={rellenoSnowFlake3}/>
+                <div style={{visibility: !visibleSnowFlakes ? "visible" : "hidden", marginTop: 20}}>
+                <Text>Precio  </Text>
+                  <TextInput
+                      style={styles.input}
+                      keyboardType = 'numeric'
+                      placeholder="Precio"
+                      placeholderTextColor="#576574"
+                      value={jobPrice}
+                      onChangeText={text => onChanged(text)}
+                      label="Precio"
+                      editable={!visibleSnowFlakes ? true : false}
+                      returnKeyType="next"
+                  />
+               </div>
+
+              </View>
+
+              <Text style={{marginTop: 30}}>Categoría</Text>
+              <View style={{alignSelf: "center"}}>
+                <SelectionButtons setType={setJobType} name1="Pasear" name2="Cuidar"/>
+              </View>
+
+              <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
+                  <Text style={styles.buttonText}>Aceptar</Text>
+              </TouchableOpacity>
+
+
         </ScrollView>
     )
 
 }
 
 const styles = StyleSheet.create({
+  viewContainer: {
+    flexDirection:"row",
+    gap: "50px",
+    paddingLeft: 20
+  },
   dateStyle: {
     alignSelf: "flex-start"
   },
@@ -288,6 +316,8 @@ const styles = StyleSheet.create({
       marginLeft: 10,
       backgroundColor: "#0094FF",
       width: "50%",
+      alignSelf: "center",
+      borderRadius: 30
     },
     buttonText: {
       color: "#fff",
@@ -308,8 +338,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       textColor: '#0094FF',
       selectedColor: '#FFFFFF',
-      width: '80%',
-      paddingTop: 10,
+      width: '40%',
+      paddingTop: 30,
   },
   datePicker: {
     justifyContent: 'center',
