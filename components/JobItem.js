@@ -3,7 +3,8 @@ import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const numColumns = 2;
-const screenWidth = Dimensions.get("window").width - 50;
+const itemHPadding = 1;
+const screenWidth = Dimensions.get("window").width - (40 + (itemHPadding*4));; //20+20 layout hpadding of layout
 const tileSize = screenWidth / numColumns;
 
 const JobItem = ({job}) => {
@@ -12,12 +13,7 @@ const JobItem = ({job}) => {
       <View style = {styles.itemRightContainer}>
       </View>
       <View style={styles.itemLeftContainer}>
-        <Text style={styles.itemTitle}>{job.title}</Text>
-        <View style={styles.itemFooter }>
-          <Text style={styles.itemText}><Ionicons name="star" style={{ color: 'yellow' }}/>{'(Val.)'}</Text>
-          <Text style={styles.itemText}><Ionicons name="time-outline" style={{ color: 'lightblue' }}/>{'(Tiem.)'}</Text>
-          <Text style={styles.itemText}><Ionicons name="cash" style={{ color: '#C3FF67' }}/>{job.price}€</Text>
-        </View>
+        <Text style={styles.itemTitle}>{job.title}</Text>       
       </View>
     </View>
   )
@@ -43,9 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#51A8BB',
     height: tileSize, 
     width: tileSize,
-    marginVertical: 2,
-    marginHorizontal:2,
-    padding:10,
+    marginBottom: 2,
+    marginHorizontal: itemHPadding,
+    padding: 10,
     borderRadius: 24,
   },
   itemRightContainer:{

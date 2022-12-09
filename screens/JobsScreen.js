@@ -4,7 +4,7 @@ import {getJobs} from '../db/jobsApi'
 import Layout from '../components/Layout'
 import JobList from '../components/JobList'
 import SearchFilter from '../components/SearchFilter'
-import CollapsibleHeader from '../components/CollapsibleHeader'
+import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
 import { View } from 'react-native-web'
 
 const JobsScreen = () => {
@@ -24,11 +24,9 @@ const JobsScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-    <CollapsibleHeader>
-    </CollapsibleHeader>
-    <Layout>
+    <LayoutWithCollapsibleHeader>
       <JobList jobs={jobs} filteredJobs={filteredJobs}/>
-    </Layout>
+    </LayoutWithCollapsibleHeader>
     </View>  
   )
 }

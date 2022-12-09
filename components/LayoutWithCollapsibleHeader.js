@@ -1,12 +1,11 @@
 import React, { useRef } from "react";
-import { View, Animated, Image, ScrollView, Text } from "react-native";
-import {layout} from "../components/Layout";
+import { View, Animated, Image, ScrollView, Text, StyleSheet, SafeAreaView, StatusBar } from "react-native";
 
-const H_MAX_HEIGHT = 232;
+const H_MAX_HEIGHT = 200;
 const H_MIN_HEIGHT = 52;
 const H_SCROLL_DISTANCE = H_MAX_HEIGHT - H_MIN_HEIGHT;
 
-const CollapsibleHeader = () => {
+const LayoutWithCollapsibleHeader = ({ children }) => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const headerScrollHeight = scrollOffsetY.interpolate({
     inputRange: [0, H_SCROLL_DISTANCE],
@@ -15,30 +14,19 @@ const CollapsibleHeader = () => {
   });
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <ScrollView 
         onScroll={Animated.event([
             { nativeEvent: { contentOffset: { y: scrollOffsetY } } }
           ])}
         scrollEventThrottle={16}
+        style={styles.containerScroll}
       >
         <View style={{ paddingTop: H_MAX_HEIGHT }}>
           {/** Page contant goes here **/}
-
-          <View style={{ padding: 20 }}>
-            <Text>React Native Collapsible Header</Text>
-          </View>
-
-          <View style={{ padding: 20, height: 200, backgroundColor: "red" }}>
-            <Text>View 1</Text>
-          </View>
-
-          <View style={{ padding: 20, height: 200, backgroundColor: "yellow" }}>
-            <Text>View 1</Text>
-          </View>
-
-          <View style={{ padding: 20, height: 200, backgroundColor: "green" }}>
-            <Text>View 1</Text>
+          <View style={styles.container}>
+            <StatusBar backgroundColor="#51A8BB" />
+            {children}
           </View>
         </View>
       </ScrollView>
@@ -66,13 +54,26 @@ const CollapsibleHeader = () => {
         }}
         >
         <Image
-          source={require('../assets/pngfind.com-flying-cat-png-1089138.png')}
+          source={require('../assets/chippy_Welcome.gif')}
           style={{ flex: 1 }}
           resizeMode={"contain"}
         />
       </Animated.View>
-    </View>
+    </SafeAreaView>
   )
 }
 
-export default CollapsibleHeader;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  containerScroll: {
+    borderRadius: 24,
+    paddingTop: 24,
+    paddingHorizontal: 20,
+  }
+
+});
+
+export default LayoutWithCollapsibleHeader;
