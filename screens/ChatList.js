@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { getUserMessages } from "../db/MessagesApi";
 import { getCurrentUser } from "../persistentData";
 import { getCustomer } from "../db/customersApi";
+import { MapScreen } from "../components/MapScreen";
 
 const ChatList = ({ navigation, route }) => {
   const [chatInputValue, setChatInputValue] = useState("");
@@ -30,18 +31,7 @@ const ChatList = ({ navigation, route }) => {
   };
 
   return (
-    <View>
-      <ScrollView>
-        {messages.map((elem) => {
-          // Obtenemos los chats no duplicados
-          if (!uniqueChats.includes(elem.chatId)) {
-            uniqueChats.push(elem.chatId)
-            return <Text onPress={() => navigation.navigate('ChatScreen',{ chat: elem.chatId })} key={elem.id} style={styles.chatListItem}>Chat nº{elem.chatId}</Text>
-          }
-        }
-        )}
-      </ScrollView>
-    </View>
+    <MapScreen/>
   );
 };
 
