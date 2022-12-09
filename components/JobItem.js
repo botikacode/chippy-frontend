@@ -1,6 +1,11 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
+const numColumns = 2;
+const itemHPadding = 1;
+const screenWidth = Dimensions.get("window").width - (40 + (itemHPadding*4));; //20+20 layout hpadding of layout
+const tileSize = screenWidth / numColumns;
 
 const JobItem = ({job, navigation, enableButton}) => {
   job.enableButton = enableButton
@@ -8,16 +13,9 @@ const JobItem = ({job, navigation, enableButton}) => {
     <TouchableOpacity onPress={() => navigation.navigate('JobDetailsScreen', job)}>
     <View style = {styles.itemMainContainer}>
       <View style = {styles.itemRightContainer}>
-        <Image source={require('../assets/accountImage.jpg')} style = {styles.itemImage}/>
       </View>
       <View style={styles.itemLeftContainer}>
-          <Text style={styles.itemTitle}>{job.title}</Text>
-        <Text style={styles.itemText}>{job.description}</Text>
-        <View style={styles.itemFooter }>
-          <Text style={styles.itemText}><Ionicons name="star" style={{ color: 'yellow' }}/>{'(Val.)'}</Text>
-          <Text style={styles.itemText}><Ionicons name="time-outline" style={{ color: 'lightblue' }}/>{'(Tiem.)'}</Text>
-          <Text style={styles.itemText}><Ionicons name="cash" style={{ color: '#C3FF67' }}/>{job.price}€</Text>
-        </View>
+        <Text style={styles.itemTitle}>{job.title}</Text>       
       </View>
     </View>
   </TouchableOpacity>
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: "row",
     justifyContent: 'space-between',
-    marginHorizontal: 10,
+    marginHorizontal: 16,
     alignItems: 'center'
   },
   itemImage:{
@@ -41,14 +39,16 @@ const styles = StyleSheet.create({
   itemMainContainer: {
     display: 'flex',
     flexDirection: "row",
-    backgroundColor: '#2471A3',
-    marginVertical: 2,
-    marginHorizontal:2,
-    padding:10,
-    borderRadius: 6,
+    backgroundColor: '#51A8BB',
+    height: tileSize, 
+    width: tileSize,
+    marginBottom: 2,
+    marginHorizontal: itemHPadding,
+    padding: 10,
+    borderRadius: 24,
   },
   itemRightContainer:{
-    marginRight:20,
+    marginRight:10,
   },
   itemLeftContainer:{
     flex: 1,

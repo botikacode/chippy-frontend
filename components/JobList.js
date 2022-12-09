@@ -1,4 +1,4 @@
-import { View, Text, FlatList} from 'react-native'
+import { View, Text, FlatList, Dimensions} from 'react-native'
 import React from 'react'
 
 import JobItem from './JobItem'
@@ -6,6 +6,7 @@ import JobItem from './JobItem'
 const JobList = ({jobs, filteredJobs, modalJobs, navigation, enableButton}) => {
 
     const renderItem = ({ item }) => {
+<<<<<<< HEAD
         return <JobItem job={item} navigation={navigation} enableButton={enableButton}/>;
     }
 
@@ -16,12 +17,17 @@ const JobList = ({jobs, filteredJobs, modalJobs, navigation, enableButton}) => {
         return filteredJobs
       }
       return jobs
+=======
+        return <JobItem job = {item}/>;
+>>>>>>> diseñoLA
     }
     return (
         <FlatList
             data={selectCorrectFilter()}
             keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <View style={{ height: 3 }} />}
             renderItem={renderItem}
+            numColumns={2}
         />
     )
 }
