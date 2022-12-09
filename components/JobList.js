@@ -6,7 +6,6 @@ import JobItem from './JobItem'
 const JobList = ({jobs, filteredJobs, modalJobs, navigation, enableButton}) => {
 
     const renderItem = ({ item }) => {
-<<<<<<< HEAD
         return <JobItem job={item} navigation={navigation} enableButton={enableButton}/>;
     }
 
@@ -17,9 +16,7 @@ const JobList = ({jobs, filteredJobs, modalJobs, navigation, enableButton}) => {
         return filteredJobs
       }
       return jobs
-=======
-        return <JobItem job = {item}/>;
->>>>>>> diseñoLA
+
     }
     return (
         <FlatList

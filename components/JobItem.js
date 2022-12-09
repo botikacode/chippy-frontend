@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -15,7 +15,7 @@ const JobItem = ({job, navigation, enableButton}) => {
       <View style = {styles.itemRightContainer}>
       </View>
       <View style={styles.itemLeftContainer}>
-        <Text style={styles.itemTitle}>{job.title}</Text>       
+        <Text style={styles.itemTitle}>{job.title}</Text>
       </View>
     </View>
   </TouchableOpacity>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: "row",
     backgroundColor: '#51A8BB',
-    height: tileSize, 
+    height: tileSize,
     width: tileSize,
     marginBottom: 2,
     marginHorizontal: itemHPadding,
