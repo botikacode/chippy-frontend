@@ -10,6 +10,7 @@ import CustomModal from '../components/Modal'
 import JobDetaisScreen from '../screens/JobDetailsScreen'
 import {initialFilter} from '../data/initialFilter'
 import { getCurrentUser } from '../persistentData'
+import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
 
 const JobsScreen = ({ navigation, route }) => {
 
@@ -42,7 +43,8 @@ const JobsScreen = ({ navigation, route }) => {
   }, [])
 
   return (
-    <Layout>
+    <View style={{ flex: 1 }}>
+    <LayoutWithCollapsibleHeader>
       <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
       <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
@@ -52,7 +54,8 @@ const JobsScreen = ({ navigation, route }) => {
             <Text style={styles.fabText}>Tarea (+)</Text>
           </View>
       </TouchableOpacity>
-    </Layout>
+    </LayoutWithCollapsibleHeader>
+    </View>
   )
 }
 
