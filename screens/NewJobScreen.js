@@ -36,8 +36,7 @@ const NewJobScreen = ({navigation}) => {
     const loadCustomer = async () => {
         let user = await getCurrentUser()
         if (user) {
-            const data = await getCustomer(user) // Insertar aquí la id del User logeado
-            setData(data)
+            setData(user)
         }
     }
 

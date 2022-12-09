@@ -18,8 +18,7 @@ const AddPet = ({navigation, route}) => {
     const loadCustomer = async () =>{
       let user = await getCurrentUser()
       if(user){
-        const data = await getCustomer(user) // Insertar aquí la id del User logeado
-        setData(data)
+        setData(user)
       }
     }
 
@@ -31,7 +30,7 @@ const AddPet = ({navigation, route}) => {
       useEffect(() =>{
         loadCustomer()
       }, [])
-      
+
 
     const handleSubmit = async (newPet) => {
         try {
@@ -42,8 +41,8 @@ const AddPet = ({navigation, route}) => {
           console.log(error);
         }
       };
-    
-    
+
+
       const onAddPressed = () => {
         const petNameError = nameValidator(petName.value)
         const petDescriptionError = descriptionValidator(petDescription.value)
@@ -59,17 +58,17 @@ const AddPet = ({navigation, route}) => {
         image: "",
         ownerId: customer.id,
       }
-      
+
         //alert(custom.ownerId)
         //alert(custom.petType)
         handleSubmit(custom)
         //navigation.navigate("AccountScreen")
-      } 
+      }
 
 return (
     <ScrollView>
-    
-      
+
+
       <View style={styles.container}>
         <Text style={styles.title} >Añadir Mascota</Text>
 
@@ -85,7 +84,7 @@ return (
         errorText={petName.error}
       />
       {petName.error ? <Text style={styles.error}>{petName.error }</Text> : null}
-     
+
       <TextInput
         style={styles.input}
         placeholder="Descripción"
@@ -96,10 +95,10 @@ return (
         onChangeText={(text) => setPetDescription({ value: text, error: '' })}
         error={!!petDescription.error}
         errorText={petDescription.error}
-       
+
       />
       {petDescription.error ? <Text style={styles.error}>{petDescription.error }</Text> : null}
-     
+
       <SwitchSelector style={styles.switch}
         options = {petTypeOptions}
         initial={0}
@@ -107,8 +106,8 @@ return (
         //onPress = {value => alert(value)}
         buttonColor ='#0094FF'
         />
-     
-       
+
+
       <TouchableOpacity style={styles.buttonCeleste}  onPress={onAddPressed}>
           <Text style={styles.buttonText}>Añadir Mascota</Text>
       </TouchableOpacity>
@@ -139,7 +138,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     padding: 4,
     borderRadius: 5,
-  }, 
+  },
   buttonCeleste: {
     paddingTop: 10,
     marginTop: 24,

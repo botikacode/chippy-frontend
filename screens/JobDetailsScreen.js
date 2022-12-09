@@ -22,7 +22,7 @@ const JobDetailsScreen = ({route, navigation}) => {
     let user = await getCurrentUser()
     delete job.enableButton
     if(user){
-      job.interestedId =  user
+      job.interestedId =  user.id
     }
     await updateJob(job.id, job)
     navigation.navigate('JobsScreen')

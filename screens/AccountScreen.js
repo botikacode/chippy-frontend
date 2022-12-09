@@ -22,15 +22,14 @@ const AccountScreen = ({ navigation, route }) => {
   const loadComments = async () =>{
     let user = await getCurrentUser()
     if(user){
-      const data = await getUserComments(user)
+      const data = await getUserComments(user.id)
       setDataComments(data)
     }
   }
   const loadCustomer = async () =>{
     let user = await getCurrentUser()
     if(user){
-      const data = await getCustomer(user) // Insertar aquí la id del User logeado
-      setData(data)
+      setData(user)
     }
   }
 
@@ -71,7 +70,7 @@ const AccountScreen = ({ navigation, route }) => {
     </View>
     <ButtonType0>
     <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
-      <Text>{'Mis trabajos'}</Text>
+      <Text>{'Mis tareas'}</Text>
     </TouchableOpacity>
     </ButtonType0>
 
