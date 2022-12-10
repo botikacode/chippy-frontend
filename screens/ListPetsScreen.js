@@ -11,8 +11,11 @@ const ListPetsScreen = () => {
   const [pets, setPets] = useState([])
 
   const loadPets = async () => {
-    const data = await getUserPets(await getCurrentUser())
-    setPets(data)
+    const user = await getCurrentUser()
+    if(user){
+      const data = await getUserPets(user.id)
+      setPets(data)
+  }
   }
 
   useEffect(() => {

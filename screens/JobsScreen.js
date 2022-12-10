@@ -27,7 +27,7 @@ const JobsScreen = ({ navigation, route }) => {
 
       let user = await getCurrentUser()
       if(user){
-        const data = await getJobsNotUser(user)
+        const data = await getJobsNotUser(user.id)
         setJobs(data)
       }
   }

@@ -3,7 +3,17 @@ import Logo from '../components/Logo'
 import Layout from '../components/Layout'
 
 import { TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {getCustomer} from '../db/customersApi'
+import { setCurrentUser} from '../persistentData'
+
 export default function StartScreen({ navigation }) {
+
+  const developerMode = async () =>{
+    const john = await getCustomer(1)
+    const data = await setCurrentUser(john)
+    navigation.navigate('TabNavigator')
+  }
+
   return (
     <Layout>
       <Logo />
@@ -15,13 +25,17 @@ export default function StartScreen({ navigation }) {
           <Text style={styles.buttonTextCeleste}>Registrarme</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity style={styles.buttonBlanco} onPress={() => developerMode()}>
+          <Text style={styles.buttonTextCeleste}>Developer Mode</Text>
+      </TouchableOpacity>
+
 
     </Layout>
   )
 }
 
 const styles = StyleSheet.create({
-  
+
   buttonCeleste: {
     paddingTop: 10,
     paddingBottom: 10,
@@ -52,5 +66,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  
+
 })
