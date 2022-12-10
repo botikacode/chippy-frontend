@@ -11,6 +11,7 @@ import JobDetaisScreen from '../screens/JobDetailsScreen'
 import {initialFilter} from '../data/initialFilter'
 import { getCurrentUser } from '../persistentData'
 import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
+import JobListHeaderComponent from '../components/JobListHeaderComponent'
 
 const JobsScreen = ({ navigation, route }) => {
 
@@ -41,10 +42,10 @@ const JobsScreen = ({ navigation, route }) => {
       loadJobs();
     });
   }, [])
-
+  var jobListHeaderComponent = <JobListHeaderComponent/>
   return (
     <View style={{ flex: 1 }}>
-    <LayoutWithCollapsibleHeader imageRoute={require('../assets/chippy_Welcome.gif')}>
+    <LayoutWithCollapsibleHeader component={jobListHeaderComponent}>
       <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
       <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
