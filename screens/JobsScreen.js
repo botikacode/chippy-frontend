@@ -44,7 +44,7 @@ const JobsScreen = ({ navigation, route }) => {
 
   return (
     <View style={{ flex: 1 }}>
-    <LayoutWithCollapsibleHeader>
+    <LayoutWithCollapsibleHeader imageRoute={require('../assets/chippy_Welcome.gif')}>
       <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
       <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>

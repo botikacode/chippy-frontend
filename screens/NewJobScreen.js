@@ -8,10 +8,12 @@ import DatePicker from '../components/DatePicker'
 import TimePicker from '../components/TimePicker'
 import SnowFlakes from '../components/SnowFlakes'
 import SelectionButtons from '../components/SelectionButtons'
+import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
 
 import { saveJob } from '../db/jobsApi'
 import { getCurrentUser } from '../persistentData'
 import { getCustomer } from '../db/customersApi'
+
 
 //NO SE ESCRIBEN LAS QUE ESTAN EN Cuidar
 //SI NO PONGO NADA EN EL PRICE ME DICE QUE RELLENE TODOSS CAMPOS
@@ -172,20 +174,8 @@ const NewJobScreen = ({navigation}) => {
 
     return (
         <ScrollView>
-
-            <View style={styles.container}>
-                <Text style={styles.title} >Nueva Tarea</Text>
-            </View>
-
-            <TextInput
-                style={styles.input}
-                placeholder="Titulo"
-                placeholderTextColor="#576574"
-                label="Titulo"
-                returnKeyType="next"
-                onBlur={(text, e) => setJobTitle(text)}
-            />
-
+          <LayoutWithCollapsibleHeader title="Nueva Tarea" setJobTitle={setJobTitle}>
+            
             <Text
               style={{paddingBottom: 10}}
               defaultValue="Fecha inicio">Inicio</Text>
@@ -253,7 +243,7 @@ const NewJobScreen = ({navigation}) => {
               <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
                   <Text style={styles.buttonText}>Aceptar</Text>
               </TouchableOpacity>
-
+          </LayoutWithCollapsibleHeader>
 
         </ScrollView>
     )
