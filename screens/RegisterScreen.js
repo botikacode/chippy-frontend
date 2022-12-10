@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, TextInput } from 'react-native'
 import Logo from '../components/Logo'
 import Layout from '../components/Layout'
+import SwitchSelector from "react-native-switch-selector"
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
@@ -13,8 +14,12 @@ export default function RegisterScreen({ navigation, route}) {
   const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-  
-  
+  const [userType, setUserType] = useState(false)
+
+  const userTypeSelector = [
+      { label: "Personal", value: false },
+      { label: "Organización", value: true }
+    ];
 
   const handleSubmit = async (customer) => {
     try {
@@ -48,19 +53,33 @@ export default function RegisterScreen({ navigation, route}) {
     email: email.value,
     password: password.value,
     web: "",
-    isShelter: false,
+    isShelter: userType,
   }
-    
+
     handleSubmit(custom)
     navigation.navigate('Dashboard')
-  } 
+  }
 
   return (
     <Layout>
       <Logo />
       <Text style={styles.crearCuenta} >Crear Cuenta</Text>
-      
+
       <View style={styles.container}>
+
+      <SwitchSelector style={styles.switch}
+        options = {userTypeSelector}
+        initial={0}
+        onPress={value => setUserType(value)}
+        options={[
+          style: {
+
+          }
+        ]}
+        //onPress = {value => alert(value)}
+        buttonColor ='#0094FF'
+        />
+
       <TextInput
         style={styles.input}
         placeholder="Nombre"
@@ -73,7 +92,7 @@ export default function RegisterScreen({ navigation, route}) {
         errorText={name.error}
       />
       {name.error ? <Text style={styles.error}>{name.error }</Text> : null}
-     
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -90,7 +109,7 @@ export default function RegisterScreen({ navigation, route}) {
         keyboardType="email-address"
       />
       {email.error ? <Text style={styles.error}>{email.error }</Text> : null}
-     
+
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
@@ -104,12 +123,12 @@ export default function RegisterScreen({ navigation, route}) {
         secureTextEntry
       />
       {password.error ? <Text style={styles.error}>{password.error }</Text> : null}
-     
+
        </View>
       <TouchableOpacity style={styles.buttonCeleste}  onPress={onSignUpPressed}>
           <Text style={styles.buttonText}>Aceptar</Text>
       </TouchableOpacity>
-   
+
     </Layout>
   )
 }
@@ -138,7 +157,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     padding: 4,
     borderRadius: 5,
-  }, 
+  },
   buttonCeleste: {
     paddingTop: 10,
     marginTop: 24,

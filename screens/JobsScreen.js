@@ -27,7 +27,7 @@ const JobsScreen = ({ navigation, route }) => {
 
       let user = await getCurrentUser()
       if(user){
-        const data = await getJobsNotUser(user)
+        const data = await getJobsNotUser(user.id)
         setJobs(data)
       }
   }
@@ -44,17 +44,18 @@ const JobsScreen = ({ navigation, route }) => {
 
   return (
     <View style={{ flex: 1 }}>
-    <LayoutWithCollapsibleHeader>
+    <LayoutWithCollapsibleHeader imageRoute={require('../assets/chippy_Welcome.gif')}>
       <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
       <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
       <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
-      <TouchableOpacity style={styles.fabLocationBL} onPress={() => navigation.navigate('NewJobScreen')}>
-          <View style={styles.fab}>
-            <Text style={styles.fabText}>Tarea (+)</Text>
-          </View>
-      </TouchableOpacity>
+
     </LayoutWithCollapsibleHeader>
+    <TouchableOpacity style={styles.fabLocationBL} onPress={() => navigation.navigate('NewJobScreen')}>
+        <View style={styles.fab}>
+          <Text style={styles.fabText}>Tarea (+)</Text>
+        </View>
+    </TouchableOpacity>
     </View>
   )
 }

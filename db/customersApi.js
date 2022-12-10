@@ -20,9 +20,7 @@ export const setActiveUser = async (email, password) => {
       }catch(error){
         return undefined
       }
-
-      const jsonValue = JSON.stringify(result.id);
-      await setCurrentUser(jsonValue);
+      await setCurrentUser(result);
 
       return true;
 }

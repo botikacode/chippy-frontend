@@ -3,17 +3,15 @@ import Logo from '../components/Logo'
 import Layout from '../components/Layout'
 
 import { TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
-import {getCustomer, setActiveUser} from '../db/customersApi'
-import { setCurrentUser } from '../persistentData'
+import {getCustomer} from '../db/customersApi'
+import { setCurrentUser} from '../persistentData'
 
 export default function StartScreen({ navigation }) {
 
   const developerMode = async () =>{
-
-    //const data = await setActiveUser(email, password)
-    const data = await setCurrentUser(1)
-    //setLoggedCustomer(data)
-      navigation.navigate('TabNavigator')
+    const john = await getCustomer(1)
+    const data = await setCurrentUser(john)
+    navigation.navigate('TabNavigator')
   }
 
   return (

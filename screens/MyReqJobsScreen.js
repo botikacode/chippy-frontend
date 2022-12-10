@@ -14,8 +14,11 @@ const MyReqJobsScreen = ({navigation, route}) => {
 
 
   const loadJobs = async () => {
-    const data = await getJobsUser(await getCurrentUser())
-    setJobs(data)
+    const user = await getCurrentUser()
+    if(user){
+      const data = await getJobsUser(user.id)
+      setJobs(data)
+    }
   }
 
   useEffect(() => {

@@ -9,13 +9,11 @@ const SnowFlakes = ({relleno1, relleno2, relleno3, visibility}) => {
 
 
   return(
-    <View style={styles.viewContainer}>
     <div style={visibility ? styles.visibleDiv : styles.hiddenDiv}>
       <SnowFlakeIcon visible={false} name="snowflake-o" style={ relleno1 ? styles.FilledSnowFlake : styles.EmptySnowFlake}/>
       <SnowFlakeIcon name="snowflake-o" style={ relleno2 ? styles.FilledSnowFlake : styles.EmptySnowFlake}/>
       <SnowFlakeIcon name="snowflake-o" style={ relleno3 ? styles.FilledSnowFlake : styles.EmptySnowFlake}/>
-      </div>
-    </View>
+    </div>
   )
 }
 
@@ -34,12 +32,12 @@ const styles = StyleSheet.create({
 },
   EmptySnowFlake: {
     flex: 1,
-    fontSize: "64px",
+    fontSize: "40px",
     color: "grey"
   },
   FilledSnowFlake: {
     flex: 1,
-    fontSize: "64px",
+    fontSize: "40px",
     color: "black"
   }
 });

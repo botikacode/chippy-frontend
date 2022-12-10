@@ -68,8 +68,7 @@ const ChatScreen = ({ route, navigation }) => {
   const loadCustomer = async () => {
     let user = await getCurrentUser();
     if (user) {
-      const data = await getCustomer(user);
-      setCustomer(data);
+      setCustomer(user);
     }
   };
 
