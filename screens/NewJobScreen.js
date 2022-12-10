@@ -169,7 +169,7 @@ const NewJobScreen = ({navigation}) => {
       if(hours >= 24*7 && hours < 24*14) {setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(false)}
       if(hours >= 24*14){setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(true)}
     }
-    var newJobHeaderComponent = <NewJobHeaderComponent/>
+    var newJobHeaderComponent = <NewJobHeaderComponent setJobTitle={setJobTitle}/>
     return (
         <ScrollView>
           <LayoutWithCollapsibleHeader component={newJobHeaderComponent}>

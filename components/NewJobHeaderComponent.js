@@ -5,7 +5,7 @@ const H_MAX_HEIGHT = 200;
 const H_MIN_HEIGHT = 52;
 const H_SCROLL_DISTANCE = H_MAX_HEIGHT - H_MIN_HEIGHT;
 
-const NewJobHeaderComponent = () => {
+const NewJobHeaderComponent = ({setJobTitle}) => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const headerScrollHeight = scrollOffsetY.interpolate({
     inputRange: [0, H_SCROLL_DISTANCE],
@@ -41,6 +41,7 @@ const NewJobHeaderComponent = () => {
             placeholderTextColor="#FAFAFA"
             label="Titulo"
             returnKeyType="next"
+            onBlur={(text) => setJobTitle(text)}
         />
 
       </Animated.View>
