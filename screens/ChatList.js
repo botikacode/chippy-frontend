@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     height: '15%',
   },
   titulo:{
-    fontWeigh: 700,
+    fontWeigh: "700",
     fontSize: 24,
     color: '#2A6D7A',
     marginTop: 10,
