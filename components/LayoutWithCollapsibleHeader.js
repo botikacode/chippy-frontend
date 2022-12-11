@@ -1,9 +1,6 @@
 import React, { useRef } from "react";
 import { View, Animated, Image, ScrollView, Text, StyleSheet, SafeAreaView, StatusBar, TextInput } from "react-native";
-
-const H_MAX_HEIGHT = 200;
-const H_MIN_HEIGHT = 52;
-const H_SCROLL_DISTANCE = H_MAX_HEIGHT - H_MIN_HEIGHT;
+import {H_MIN_HEIGHT, H_MAX_HEIGHT, H_SCROLL_DISTANCE} from "../data/HeaderData"
 
 const LayoutWithCollapsibleHeader = ({ children, setJobTitle, component}) => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
