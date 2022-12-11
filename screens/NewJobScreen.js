@@ -9,14 +9,13 @@ import TimePicker from '../components/TimePicker'
 import SnowFlakes from '../components/SnowFlakes'
 import SelectionButtons from '../components/SelectionButtons'
 import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
+import NewJobHeaderComponent from '../components/NewJobHeaderComponent'
 
 import { saveJob } from '../db/jobsApi'
 import { getCurrentUser } from '../persistentData'
 import { getCustomer } from '../db/customersApi'
 
 
-//NO SE ESCRIBEN LAS QUE ESTAN EN Cuidar
-//SI NO PONGO NADA EN EL PRICE ME DICE QUE RELLENE TODOSS CAMPOS
 const NewJobScreen = ({navigation}) => {
     const [jobTitle, setJobTitle] = useState()
     const [jobType, setJobType] = useState()
@@ -170,11 +169,11 @@ const NewJobScreen = ({navigation}) => {
       if(hours >= 24*7 && hours < 24*14) {setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(false)}
       if(hours >= 24*14){setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(true)}
     }
-
+    var newJobHeaderComponent = <NewJobHeaderComponent setJobTitle={setJobTitle}/>
     return (
         <ScrollView>
-          <LayoutWithCollapsibleHeader title="Nueva Tarea" setJobTitle={setJobTitle}>
-            
+          <LayoutWithCollapsibleHeader component={newJobHeaderComponent}>
+
             <Text
               style={{paddingBottom: 10}}
               defaultValue="Fecha inicio">Inicio</Text>
