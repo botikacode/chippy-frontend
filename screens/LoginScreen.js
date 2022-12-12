@@ -5,8 +5,7 @@ import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import {getCustomers, setActiveUser} from '../db/customersApi'
 
-import Layout from '../components/Layout'
-import Logo from '../components/Logo'
+import NewLogo from '../components/NewLogo'
 
 
 export default function LoginScreen({ navigation }) {
@@ -73,10 +72,10 @@ export default function LoginScreen({ navigation }) {
   }
   return (
     <View style={styles.main}>
-      <Logo style={styles.logo} />
+      <NewLogo style={styles.logo} />
 
       <View style={styles.viewToLeft}>
-        <Text style={{...styles.inicioSesion, ...styles.titulo}} >Inicio de sesión</Text>
+        <Text style={{...styles.inicioSesion, ...styles.titulo}} >Iniciar de sesión</Text>
       </View>
 
       <View style={styles.container}>
