@@ -162,8 +162,8 @@ buttonText: {
 outContainer: {
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: 15,
-  marginRight: 15,
+  marginLeft: 10,
+  marginRight: 10,
 },
 buttonCeleste: {
   alignContent: 'center',

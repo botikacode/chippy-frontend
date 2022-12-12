@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'rea
 import React, {useEffect, useState} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
+
 import {getCustomer} from '../db/customersApi'
 
 const numColumns = 2;
@@ -13,17 +14,18 @@ const tileSize = screenWidth / numColumns;
 const Pet = ({pet}) => {
   useEffect(() =>{
   }, [])
-
+  var myImage = null
+  if(pet.petType=="Gato"){myImage = require('../assets/gatoFormulario.png')}
+  else{myImage = require('../assets/perroFormulario.png')}
+ 
  return (
+    
     <TouchableOpacity onPress={() => navigation.navigate('EditPet')}>
     <View style = {styles.itemMainContainer}>
-      <View style = {styles.itemRightContainer}>
-      </View>
-      <View style={styles.itemLeftContainer}>
+        <Image source={myImage} style = {styles.itemImage}/>
         <Text style={styles.itemText}>{pet.petName}</Text>
         <Text style={styles.itemText}>{"   "}</Text>
         <Text style={styles.itemText}>{pet.petType}</Text>
-      </View>
     </View>
     </TouchableOpacity>
   )
@@ -39,21 +41,20 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemImage:{
-    width: 40,
-    height:20,
+    width: 70,
+    height:55,
     color:"#ffffff",
     borderRadius:100,
   },
   itemMainContainer: {
     display: 'flex',
-    flexDirection: "row",
     backgroundColor: '#51A8BB',
     height: tileSize/2,
     width: tileSize,
     marginBottom: 2,
     marginHorizontal: itemHPadding,
-    padding: 10,
-    borderRadius: 24,
+    borderRadius: 50,
+    alignItems: 'center',
   },
   itemRightContainer:{
     marginRight:20,
@@ -76,3 +77,17 @@ const styles = StyleSheet.create({
 });
 
 export default Pet
+
+
+/* <TouchableOpacity onPress={() => navigation.navigate('EditPet')}>
+    <View style = {styles.itemMainContainer}>
+      <View style = {styles.itemRightContainer}>
+        <Image source={pet.Image} style = {styles.itemImage}/>
+      </View>
+      <View style={styles.itemLeftContainer}>
+        <Text style={styles.itemText}>{pet.petName}</Text>
+        <Text style={styles.itemText}>{"   "}</Text>
+        <Text style={styles.itemText}>{pet.petType}</Text>
+      </View>
+    </View>
+    </TouchableOpacity> */
