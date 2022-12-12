@@ -6,7 +6,7 @@ import {getCustomer} from '../db/customersApi'
 
 const numColumns = 2;
 const itemHPadding = 1;
-const screenWidth = Dimensions.get("window").width - (40 + (itemHPadding*4));; //20+20 layout hpadding of layout
+const screenWidth = Dimensions.get("window").width - (80 + (itemHPadding*4));; //20+20 layout hpadding of layout
 const tileSize = screenWidth / numColumns;
 
 
@@ -21,6 +21,7 @@ const Pet = ({pet}) => {
       </View>
       <View style={styles.itemLeftContainer}>
         <Text style={styles.itemText}>{pet.petName}</Text>
+        <Text style={styles.itemText}>{"   "}</Text>
         <Text style={styles.itemText}>{pet.petType}</Text>
       </View>
     </View>
@@ -38,8 +39,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemImage:{
-    width: 80,
-    height:80,
+    width: 40,
+    height:20,
     color:"#ffffff",
     borderRadius:100,
   },
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: "row",
     backgroundColor: '#51A8BB',
-    height: tileSize,
+    height: tileSize/2,
     width: tileSize,
     marginBottom: 2,
     marginHorizontal: itemHPadding,
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
   },
   itemLeftContainer:{
     flex: 1,
+    textAlign: 'center',
   },
   itemTitle: {
     fontSize: 16,
