@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import JobsScreen from '../screens/JobsScreen';
 import ChatList from '../screens/ChatList';
 import AccountScreen from '../screens/AccountScreen';
+import MapsScreen from '../screens/MapsScreen';
 
 
 function TabNavigator({navigation,route}) {
@@ -25,7 +26,10 @@ function TabNavigator({navigation,route}) {
       if (route.name === "JobsScreen") {
         iconName = focused ? 'home' : 'home-outline';
 
-      } else if (route.name === "ChatList") {
+      }if (route.name === "MapsScreen") {
+        iconName = focused ? 'map' : 'map-outline';
+      }
+       else if (route.name === "ChatList") {
         iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline';
 
       } else if (route.name === "AccountScreen") {
@@ -40,6 +44,7 @@ function TabNavigator({navigation,route}) {
   return(
     <Tab.Navigator initialRouteName={"JobsScreen"} screenOptions={screenOptions}>
         <Tab.Screen name="ChatList" component={ChatList} />
+        <Tab.Screen name="MapsScreen" component={MapsScreen} />
         <Tab.Screen name="JobsScreen" initialParams={{ idSesion: 1 }}  /* initialParams={{ idSesion: route.params.idSesion }}  */component={JobsScreen} />
         <Tab.Screen name="AccountScreen" initialParams={{ idSesion: 1 }} component={AccountScreen} /> 
     </Tab.Navigator>
