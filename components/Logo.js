@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     minWidth: 200,
-    marginBottom: 10,
-    
+    marginBottom: 10
   },
 })

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, TextInput } from 'react-native'
 import Logo from '../components/Logo'
-import Layout from '../components/Layout'
+import NewLogo from '../components/NewLogo'
 import SwitchSelector from "react-native-switch-selector"
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
@@ -13,6 +13,7 @@ export default function RegisterScreen({ navigation, route}) {
 
   const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
+  const [phone, setPhone] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [userType, setUserType] = useState(false)
 
@@ -29,6 +30,22 @@ export default function RegisterScreen({ navigation, route}) {
       console.log(error);
     }
   };
+
+  function onPhoneChanged (phone) {
+    // code to remove non-numeric characters from text
+    let newText = '';
+    let numbers = '0123456789';
+
+    for (var i=0; i < phone.length; i++) {
+        if(numbers.indexOf(phone[i]) > -1 ) {
+            newText = newText + phone[i];
+            setPhone(newText)
+            console.log(phone)
+        }else{
+          alert("Solo pueden haber datos númericos en el campo de teléfono");
+        }
+    }
+  }
 
 
   const onSignUpPressed = () => {
@@ -61,9 +78,12 @@ export default function RegisterScreen({ navigation, route}) {
   }
 
   return (
-    <Layout>
-      <Logo />
-      <Text style={styles.crearCuenta} >Crear Cuenta</Text>
+    <View style={styles.main}>
+      <NewLogo />
+
+      <View style={styles.viewToLeft}>
+        <Text style={{...styles.crearCuenta, ...styles.titulo}} >Crear nueva Cuenta</Text>
+      </View>
 
       <View style={styles.container}>
 
@@ -71,19 +91,22 @@ export default function RegisterScreen({ navigation, route}) {
         options = {userTypeSelector}
         initial={0}
         onPress={value => setUserType(value)}
-        options={[
-          style: {
-
-          }
-        ]}
+        selectedColor='#FAFAFA'
+        //options={[]}
         //onPress = {value => alert(value)}
-        buttonColor ='#0094FF'
+        buttonColor ='#2A6D7A'
+        borderColor = '#123036'
+        textColor = '#2A6D7A'
         />
+
+      <View style={styles.viewToLeft}>
+          <Text style={styles.subtitulo}>Nombre</Text>
+      </View>
 
       <TextInput
         style={styles.input}
-        placeholder="Nombre"
-        placeholderTextColor="#576574"
+        placeholder="Introduce tu nombre..."
+        placeholderTextColor="#FAFAFA"
         label="Nombre"
         returnKeyType="next"
         value={name.value}
@@ -93,10 +116,14 @@ export default function RegisterScreen({ navigation, route}) {
       />
       {name.error ? <Text style={styles.error}>{name.error }</Text> : null}
 
+      <View style={styles.viewToLeft}>
+          <Text style={styles.subtitulo}>Correo</Text>
+      </View>
+
       <TextInput
         style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#576574"
+        placeholder="Introduce tu correo..."
+        placeholderTextColor="#FAFAFA"
         label="Email"
         returnKeyType="next"
         value={email.value}
@@ -110,10 +137,14 @@ export default function RegisterScreen({ navigation, route}) {
       />
       {email.error ? <Text style={styles.error}>{email.error }</Text> : null}
 
+      <View style={styles.viewToLeft}>
+          <Text style={styles.subtitulo}>Contraseña</Text>
+      </View>
+
       <TextInput
         style={styles.input}
-        placeholder="Contraseña"
-        placeholderTextColor="#576574"
+        placeholder="Introduce tu contraseña..."
+        placeholderTextColor="#FAFAFA"
         label="Contraseña"
         returnKeyType="done"
         value={password.value}
@@ -124,16 +155,61 @@ export default function RegisterScreen({ navigation, route}) {
       />
       {password.error ? <Text style={styles.error}>{password.error }</Text> : null}
 
+      <View style={styles.viewToLeft}>
+          <Text style={styles.subtitulo}>Confirmar Contraseña</Text>
+      </View>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Vuelve a introducir tu contraseña..."
+        placeholderTextColor="#FAFAFA"
+        label="Contraseña2"
+        returnKeyType="done"
+        //value={password.value}
+        // onChangeText={(text) => setPassword({ value: text, error: '' })}
+        //error={!!password.error}
+        //errorText={password.error}
+        secureTextEntry
+      />
+      {password.error ? <Text style={styles.error}>{password.error }</Text> : null}
+
+      <View style={styles.viewToLeft}>
+          <Text style={styles.subtitulo}>Teléfono</Text>
+      </View>
+
+
+      <TextInput
+
+        style={styles.input}
+        placeholder="Introduce tu teléfono..."
+        placeholderTextColor="#FAFAFA"
+        label="Teléfono"
+        returnKeyType="done"
+        keyboardType = {'phone-pad'}
+        value={phone.value}
+        onChangeText = {(phone)=> onPhoneChanged(phone)}
+        //error={!!password.error}
+        //errorText={password.error}
+        //secureTextEntry
+      />
+
        </View>
       <TouchableOpacity style={styles.buttonCeleste}  onPress={onSignUpPressed}>
           <Text style={styles.buttonText}>Aceptar</Text>
       </TouchableOpacity>
 
-    </Layout>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  main:{
+    backgroundColor:'#FAFAFA',
+    display:'flex',
+    alignItems:'center',
+    flexDirection:'column',
+    height: '100%'
+  },
   row: {
     flexDirection: 'row',
     marginTop: 4,
@@ -147,24 +223,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   input: {
-    width: "70%",
-    marginBottom: 4,
-    marginTop: 10,
+    width: "80%",
+    marginBottom: 7,
     fontSize: 14,
     borderWidth: 1,
     borderColor: "#ced4da",
     height: 30,
-    color: "#000000",
     padding: 4,
     borderRadius: 5,
+    backgroundColor: '#B1D8DE',
+    color:'#FAFAFA'
   },
   buttonCeleste: {
     paddingTop: 10,
-    marginTop: 24,
     paddingBottom: 10,
-    borderRadius: 5,
+    marginTop: 10,
+    borderRadius: 20,
     marginBottom: 3,
-    backgroundColor: "#0094FF",
+    backgroundColor: "#51A8BB",
     width: "50%",
   },
   buttonText: {
@@ -177,9 +253,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   error: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#f13a59',
     paddingBottom:5,
+    fontWeight: '700'
   },
-
+  viewToLeft:{
+    width:'80%',
+  },
+  titulo:{
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#2A6D7A',
+    marginTop: 10,
+    marginBottom: 5
+  },
+  subtitulo:{
+    color: '#2A6D7A',
+    marginTop: 10,
+    marginBottom: 5,
+    fontSize: 14,
+    fontWeight: "700"
+  },
+  switch:{
+    width:'70%',
+    marginBottom:10
+  }
 })
