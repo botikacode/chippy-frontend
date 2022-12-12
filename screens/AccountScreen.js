@@ -69,17 +69,17 @@ const AccountScreen = ({ navigation, route }) => {
 
   return (
 
-  <ScrollView>
+  <View>
     <View style={styles.outContainer}>
       <View style={styles.cabecera}>
         <View style = {styles.imageNameContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
             <Image source={myImage} style = {styles.itemImage}/>
           </TouchableOpacity>
-          <Text style={styles.nameText}>{customer.firstName} {customer.lastName}</Text>
+          <Text style={styles.nameText}>{customer.firstName +" "+ customer.lastName}</Text>
         </View>
       </View>
-      <Text style={styles.titulosText}>Mis Mascotas: </Text>
+      <Text style={styles.titulosText}>Mis Mascotas</Text>
       <ScrollView>
       <View style={styles.innerContainer}>
         <View style={{ flex: 1 }}>
@@ -89,9 +89,9 @@ const AccountScreen = ({ navigation, route }) => {
       </ScrollView>
       <TouchableOpacity style={styles.buttonCeleste}
         onPress={() => navigation.navigate("AddPet")}>
-        <Text style={styles.buttonText}>Añadir Mascota</Text>
+        <Text style={styles.buttonText}>Mascota (+)</Text>
       </TouchableOpacity>
-      <Text style={styles.titulosText}>Comentarios recientes: </Text>
+      <Text style={styles.titulosText}>Comentarios recientes</Text>
       <ScrollView>
         <View style={styles.innerContainer}>
           <View style={{ flex: 1 }}>
@@ -103,14 +103,14 @@ const AccountScreen = ({ navigation, route }) => {
             <Text style={styles.buttonText}>Cerrar sesión</Text>
         </TouchableOpacity>
 
-        <ButtonType0>
-      <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
-        <Text>{'Mis tareas'}</Text>
+      
+      <TouchableOpacity style={styles.buttonTareas} onPress={() => navigation.navigate('MyReqJobsScreen')}>
+        <Text style={styles.buttonText}>MisTareas</Text>
       </TouchableOpacity>
-      </ButtonType0>
+      
 
     </View>
-  </ScrollView>
+  </View>
 
   )
 }
@@ -127,10 +127,12 @@ function getImageUrl(customer){
 const styles = StyleSheet.create({
 
 cabecera: {
+  alignContent: 'center',
   backgroundColor:'#51A8BB',
-  borderBottomEndRadius: 25,
-  borderBottomStartRadius: 25,
-  paddingBottom: 10,
+  borderBottomEndRadius: 40,
+  borderBottomStartRadius: 40,
+  paddingBottom: 20,
+  width:'100%',
 },
 imageNameContainer: {
   display: 'flex',
@@ -144,13 +146,12 @@ itemImage:{
   width: 120,
   height:120,
   borderRadius:100,
+  marginLeft:10,
+  marginTop:10,
 },
 nameText: {
-  fontSize: 25,
-  borderRadius: 10,
-  MarginRight: 100,
-  height: 40,
-  margin: 30,
+  fontSize: 30,
+  margin: 40,
   flex: 1,
   padding: 10,
   color: '#FAFAFA',
@@ -162,30 +163,40 @@ buttonText: {
 outContainer: {
   justifyContent: 'center',
   alignItems: 'center',
-  marginLeft: 10,
-  marginRight: 10,
 },
 buttonCeleste: {
   alignContent: 'center',
-  marginTop: 25,
-  paddingTop: 20,
-  paddingBottom: 10,
+  marginTop: 10,
+  paddingTop: 7,
+  paddingBottom: 7,
   borderRadius: 5,
   marginBottom: 3,
-  backgroundColor: "#0094FF",
-  width: "90%",
+  backgroundColor: "#51A8BB",
+  width: "25%",
+},
+buttonTareas: {
+  alignContent: 'center',
+  marginTop: 5,
+  paddingTop: 7,
+  paddingBottom: 7,
+  borderRadius: 5,
+  marginBottom: 3,
+  backgroundColor: "#51A8BB",
+  width: "25%",
 },
 titulosText: {
-  fontSize: 20,
-  padding: 30,
+  fontWeight: "bold",
+  fontSize: 16,
+  padding: 10,
   textAlign: "left",
-  color: "#2A6D7A",
+  color: "#51A8BB",
 },
 innerContainer: {
   justifyContent: 'center',
   alignItems: 'center',
-  height: 250,
-  width: 300,
+  alignSelf:'baseline',
+  maxHeight:200,
+  maxWidth:'100%',
 }
 
 });
@@ -196,5 +207,5 @@ export default AccountScreen
 /* <TouchableOpacity style={styles.buttonCeleste}
           onPress={() => navigation.navigate("ListPetsScreen")}>
         <Text style={styles.buttonText}>Ver mis mascotas</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>    "#2A6D7A"       "#0094FF"
  */

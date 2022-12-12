@@ -17,29 +17,21 @@ const Pet = ({pet}) => {
   var myImage = null
   if(pet.petType=="Gato"){myImage = require('../assets/gatoFormulario.png')}
   else{myImage = require('../assets/perroFormulario.png')}
+
+  //onPress={() => navigation.navigate('EditPet')} (onPress del touchable)
  
  return (
     
-    <TouchableOpacity onPress={() => navigation.navigate('EditPet')}>
+    <TouchableOpacity>
     <View style = {styles.itemMainContainer}>
         <Image source={myImage} style = {styles.itemImage}/>
-        <Text style={styles.itemText}>{pet.petName}</Text>
-        <Text style={styles.itemText}>{"   "}</Text>
-        <Text style={styles.itemText}>{pet.petType}</Text>
+        <Text style={{fontSize: 14,paddingBottom: 2,color:'white',}}>{pet.petName}</Text>
     </View>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  itemFooter:{
-    marginTop: 20,
-    display: 'flex',
-    flexDirection: "row",
-    justifyContent: 'space-between',
-    marginHorizontal: 10,
-    alignItems: 'center'
-  },
   itemImage:{
     width: 70,
     height:55,
@@ -51,43 +43,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#51A8BB',
     height: tileSize/2,
     width: tileSize,
-    marginBottom: 2,
-    marginHorizontal: itemHPadding,
-    borderRadius: 50,
+    marginBottom: itemHPadding,
+    marginHorizontal: itemHPadding*2,
+    borderRadius: 24,
     alignItems: 'center',
   },
-  itemRightContainer:{
-    marginRight:20,
-  },
-  itemLeftContainer:{
-    flex: 1,
-    textAlign: 'center',
-  },
-  itemTitle: {
-    fontSize: 16,
-  },
-  itemText: {
-    fontSize: 12,
-  },
-  itemPrice: {
-    textAlign: 'right',
-    color:"#ffffff",
-    fontSize: 12,
-  }
 });
 
 export default Pet
-
-
-/* <TouchableOpacity onPress={() => navigation.navigate('EditPet')}>
-    <View style = {styles.itemMainContainer}>
-      <View style = {styles.itemRightContainer}>
-        <Image source={pet.Image} style = {styles.itemImage}/>
-      </View>
-      <View style={styles.itemLeftContainer}>
-        <Text style={styles.itemText}>{pet.petName}</Text>
-        <Text style={styles.itemText}>{"   "}</Text>
-        <Text style={styles.itemText}>{pet.petType}</Text>
-      </View>
-    </View>
-    </TouchableOpacity> */
