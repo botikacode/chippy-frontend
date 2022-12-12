@@ -25,8 +25,7 @@ const ChatList = ({ navigation, route }) => {
   const loadCustomer = async () => {
     let user = await getCurrentUser();
     if (user) {
-      const data = await getCustomer(user);
-      setCustomer(data.id);
+      setCustomer(user.id);
     }
   };
 
