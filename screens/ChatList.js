@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { getUserMessages } from "../db/MessagesApi";
 import { getCurrentUser } from "../persistentData";
 import { getCustomer } from "../db/customersApi";
-import { MapScreen } from "../components/MapScreen";
+import MapScreen from "../components/MapScreen";
 
 const ChatList = ({ navigation, route }) => {
   const [chatInputValue, setChatInputValue] = useState("");

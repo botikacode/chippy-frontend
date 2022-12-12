@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View} from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, { PROVIDER_GOOGLE } from 'react-native-web-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
 
-const styles = {
+const styles = StyleSheet.create({
  container: {
    flex: 1,
    height: 400,
@@ -14,22 +14,24 @@ const styles = {
  map: {
    flex: 1,
  },
-}
+})
 
 const MapScreen = () => {
-   <View style={styles.container}>
-     <MapView
-       provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-       style={styles.map}
-       region={{
-         latitude: 37.78825,
-         longitude: -122.4324,
-         latitudeDelta: 0.015,
-         longitudeDelta: 0.0121,
-       }}
-     >
-     </MapView>
-   </View>
+  return (
+    <View style={styles.container}>
+      <MapView
+        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+         style={styles.map}
+        region={{
+           latitude: 37.78825,
+           longitude: -122.4324,
+           latitudeDelta: 0.015,
+           longitudeDelta: 0.0121,
+         }}
+      >  
+       </MapView>
+    </View>
+  )
 }
 
 export default MapScreen
