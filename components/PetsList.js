@@ -13,7 +13,9 @@ const PetsList = ({pets}) => {
         <FlatList
             data={pets}
             keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <View style={{ height: 3 }} />}
             renderItem={renderItem}
+            numColumns={2}
         />
     )
 }

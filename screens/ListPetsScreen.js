@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 import PetsList from '../components/PetsList'
 import { getUserPets } from '../db/petsApi'
 import { getCurrentUser } from '../persistentData'
+import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
 
 const ListPetsScreen = () => {
 
@@ -23,10 +24,11 @@ const ListPetsScreen = () => {
   }, [])
 
   return (
-    <Layout>
+    <View style={{ flex: 1 }}>
     <PetsList pets={pets}/>
-    </Layout>
+    </View>
   )
 }
+
 
 export default ListPetsScreen

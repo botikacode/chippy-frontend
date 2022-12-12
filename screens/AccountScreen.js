@@ -10,6 +10,7 @@ import SearchFilter from '../components/SearchFilter'
 import { getCurrentUser } from '../persistentData'
 import ButtonType0 from '../components/ButtonType0'
 import MyReqJobsScreen from '../screens/MyReqJobsScreen'
+import PetsList from '../components/PetsList'
 
 import Button from 'react-native'
 
@@ -64,9 +65,7 @@ const AccountScreen = ({ navigation, route }) => {
     <Text style={styles.input}>{customer.firstName} {customer.lastName}</Text>
     </View>
     <View style={styles.commentContainer}>
-      <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
-          <Text style={styles.buttonText}>Cerrar sesión</Text>
-      </TouchableOpacity>
+      
     </View>
     <ButtonType0>
     <TouchableOpacity onPress={() => navigation.navigate('MyReqJobsScreen')}>
@@ -80,6 +79,11 @@ const AccountScreen = ({ navigation, route }) => {
           onPress={() => navigation.navigate("ListPetsScreen")}>
         <Text style={styles.buttonText}>Ver mis mascotas</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.buttonCeleste}
+        onPress={() => navigation.navigate("AddPet")}>
+      <Text style={styles.buttonText}>Añadir Mascota</Text>
+    </TouchableOpacity>
       <View style={{padding: 50}}/>
       <View style={styles.line}/>
     </View>
@@ -89,13 +93,10 @@ const AccountScreen = ({ navigation, route }) => {
           <CommentsList comments={comments}/>
       </View>
     </View>
-    <TouchableOpacity style={styles.buttonCeleste}
-        onPress={() => navigation.navigate("AddPet")}>
-      <Text style={styles.buttonText}>Añadir Mascota</Text>
-    </TouchableOpacity>
-
-
-
+    <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
+          <Text style={styles.buttonText}>Cerrar sesión</Text>
+      </TouchableOpacity>
+    
   </ScrollView>
 
   )
@@ -165,14 +166,13 @@ commentContainer: {
   alignItems: 'center',
 },
 buttonCeleste: {
+  alignContent: 'center',
   paddingTop: 10,
   paddingBottom: 10,
   borderRadius: 5,
   marginBottom: 3,
   backgroundColor: "#0094FF",
-  width: "50%",
-  justifyContent: 'center',
-  alignItems: 'center',
+  width: "90%",
 },
 commentTextTitle: {
   fontSize: 20,

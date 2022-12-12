@@ -1,19 +1,30 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {getCustomer} from '../db/customersApi'
 
+const numColumns = 2;
+const itemHPadding = 1;
+const screenWidth = Dimensions.get("window").width - (40 + (itemHPadding*4));; //20+20 layout hpadding of layout
+const tileSize = screenWidth / numColumns;
+
+
 const Pet = ({pet}) => {
   useEffect(() =>{
   }, [])
 
-  return (
+ return (
+    <TouchableOpacity onPress={() => navigation.navigate('EditPet')}>
     <View style = {styles.itemMainContainer}>
+      <View style = {styles.itemRightContainer}>
+      </View>
       <View style={styles.itemLeftContainer}>
         <Text style={styles.itemText}>{pet.petName}</Text>
+        <Text style={styles.itemText}>{pet.petType}</Text>
       </View>
     </View>
+    </TouchableOpacity>
   )
 }
 
@@ -35,10 +46,13 @@ const styles = StyleSheet.create({
   itemMainContainer: {
     display: 'flex',
     flexDirection: "row",
-    marginVertical: 2,
-    marginHorizontal:2,
-    padding:10,
-    borderRadius: 6,
+    backgroundColor: '#51A8BB',
+    height: tileSize,
+    width: tileSize,
+    marginBottom: 2,
+    marginHorizontal: itemHPadding,
+    padding: 10,
+    borderRadius: 24,
   },
   itemRightContainer:{
     marginRight:20,
