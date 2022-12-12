@@ -147,6 +147,8 @@ export default function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   main:{
+    width: '100%',
+    height: '100%',
     backgroundColor:'#FAFAFA',
     display:'flex',
     alignItems:'center',
