@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView} from 'react-native'
 import React, {useEffect, useState} from 'react'
-import UploadImageScreen from '../screens/UploadImageScreen';
 
 import {getCustomer} from '../db/customersApi'
 import {getUserComments} from '../db/commentsApi'
@@ -10,7 +9,6 @@ import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
 import { getCurrentUser } from '../persistentData'
 import ButtonType0 from '../components/ButtonType0'
-import MyReqJobsScreen from '../screens/MyReqJobsScreen'
 import PetsList from '../components/PetsList'
 
 import Button from 'react-native'
@@ -20,18 +18,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const AccountScreen = ({ navigation, route }) => {
   const [customer, setData] = useState([])
   const [comments, setDataComments] = useState([])
-
   const [pets, setPets] = useState([])
+
   const loadPets = async () => {
     const user = await getCurrentUser()
     if(user){
       const data = await getUserPets(user.id)
       setPets(data)
+    }
   }
-  }
-  useEffect(() => {
-    loadPets()
-  }, [])
 
   const loadComments = async () =>{
     let user = await getCurrentUser()
@@ -40,6 +35,7 @@ const AccountScreen = ({ navigation, route }) => {
       setDataComments(data)
     }
   }
+
   const loadCustomer = async () =>{
     let user = await getCurrentUser()
     if(user){
@@ -47,19 +43,16 @@ const AccountScreen = ({ navigation, route }) => {
     }
   }
 
-  const Stack = createNativeStackNavigator();
-
-  useEffect(() =>{
+  useEffect(() => {
+    loadPets()
     loadCustomer()
-  }, [])
-  useEffect(() =>{
     loadComments()
   }, [])
 
-  var myImage = getImageUrl(customer);
+  let myImage = getImageUrl(customer);
 
   function getImageUrl(customer){
-    var myImage = require('../assets/accountImage.jpg')
+    myImage = require('../assets/accountImage.jpg')
 
     if(customer.image && customer.image != 'URLImage'){
       myImage = require('../assets/'+customer.image);
@@ -68,7 +61,6 @@ const AccountScreen = ({ navigation, route }) => {
   }
 
   return (
-
   <View>
     <View style={styles.outContainer}>
       <View style={styles.cabecera}>
@@ -109,17 +101,7 @@ const AccountScreen = ({ navigation, route }) => {
 
     </View>
   </View>
-
   )
-}
-
-function getImageUrl(customer){
-  var myImage = require('../assets/accountImage.jpg')
-
-  if(customer.image && customer.image != 'URLImage'){
-    myImage = require('../assets/'+customer.image);
-  }
-  return myImage;
 }
 
 const styles = StyleSheet.create({
@@ -201,10 +183,3 @@ innerContainer: {
 });
 
 export default AccountScreen
-
-
-/* <TouchableOpacity style={styles.buttonCeleste}
-          onPress={() => navigation.navigate("ListPetsScreen")}>
-        <Text style={styles.buttonText}>Ver mis mascotas</Text>
-      </TouchableOpacity>    "#2A6D7A"       "#0094FF"
- */
