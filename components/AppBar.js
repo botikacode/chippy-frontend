@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   top: {
     display: 'flex',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255, 159, 69, 0.4)',
     marginTop: 0,
+    color:'#ff6019'
   },
 });

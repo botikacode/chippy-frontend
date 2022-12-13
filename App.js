@@ -17,6 +17,7 @@ import ListPetsScreen from './screens/ListPetsScreen';
 import JobDetailsScreen from './screens/JobDetailsScreen';
 import NewJobScreen from './screens/NewJobScreen';
 import PetDetailsScreen from './screens/PetDetailsScreen';
+import MapsScreen from './screens/MapsScreen';
 
 console.reportErrorsAsExceptions = false;
 
@@ -41,6 +42,7 @@ const App = () => {
         <Stack.Screen name="ListPetsScreen" component={ListPetsScreen} options={{ title: 'Mis mascotas' }}/>
         <Stack.Screen name="JobDetailsScreen" component={JobDetailsScreen} options={{ title: 'Detalle de la tarea' }}/>
         <Stack.Screen name="NewJobScreen" component={NewJobScreen} options={{ title: 'Detalle de la tarea' }}/>
+        <Stack.Screen name="MapsScreen" component={MapsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>);
 }
