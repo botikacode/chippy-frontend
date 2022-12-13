@@ -36,7 +36,7 @@ const NewJobScreen = ({navigation}) => {
     const [remunerationType, setRemunerationType] = useState("paid")
 
     const snowFlakeIcon = require("../assets/snowFlake_icon.png")
-    const coinIcon = require("../assets/coin.png")
+    const coinIcon =  require("../assets/coin.png")
 
     const loadCustomer = async () => {
         let user = await getCurrentUser()

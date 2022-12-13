@@ -19,10 +19,10 @@ const Comment = ({com}) => {
   var myImage = getImageUrl(commentator);
 
   function getImageUrl(commentator){
-    var myImage = require('../assets/accountImage.jpg')
+   // var myImage = require('../assets/accountImage.jpg')
 
     if(commentator.image && commentator.image != 'URLImage'){
-      myImage = require('../assets/'+commentator.image);
+     // myImage = require('../assets/'+commentator.image);
     }
     return myImage;
   }

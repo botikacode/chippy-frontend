@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { Messaje } from "../components/Messaje";
 import { InputText } from "primereact/inputtext";
-import { getChatMessages, saveMessage } from "../db/MessagesApi";
+import { getChatMessages, saveMessage } from "../db/messagesApi";
 import { getCurrentUser } from "../persistentData";
 import { getCustomer } from "../db/customersApi";
 import Ionicons from 'react-native-vector-icons/Ionicons';

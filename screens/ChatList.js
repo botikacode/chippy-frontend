@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, ScrollView, Image, TouchableHighlight } from "react-native";
-import { getUserMessages } from "../db/MessagesApi";
+import { getUserMessages } from "../db/messagesApi";
 import { getCurrentUser } from "../persistentData";
 import { getCustomer } from "../db/customersApi";
 
