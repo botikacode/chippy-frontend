@@ -181,10 +181,9 @@ const NewJobScreen = ({navigation}) => {
       if(hours >= 24*7 && hours < 24*14) {setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(false)}
       if(hours >= 24*14){setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(true)}
     }
-    var newJobHeaderComponent = <NewJobHeaderComponent setJobTitle={setJobTitle}/>
     return (
         <ScrollView>
-          <LayoutWithCollapsibleHeader component={newJobHeaderComponent}>
+          <NewJobHeaderComponent setJobTitle={setJobTitle}>
           <SelectList
               setSelected={(val) => setSelected(val)}
               data={customerPets}
@@ -196,7 +195,7 @@ const NewJobScreen = ({navigation}) => {
               style={{paddingBottom: 10, color: "#2A6D7A"}}
               defaultValue="Fecha inicio">Inicio</Text>
 
-            <View style={{flexDirection:"row"}}>
+            <View style={{flexDirection:"row", paddingLeft:1}}>
               <DatePicker
               onChange={(value) => { updateSnowFlakes(value,"startDate")} }
               style={{flex:1}}
@@ -207,7 +206,7 @@ const NewJobScreen = ({navigation}) => {
             <Text
               style={{paddingBottom: 10, paddingTop: 10, color: "#2A6D7A"}}
               defaultValue="Fecha fin">Fin</Text>
-              <View View style={{flexDirection:"row"}}>
+              <View View style={{flexDirection:"row", paddingLeft:1}}>
                 <DatePicker onChange={(value,e) => {updateSnowFlakes(value,"endDate")} }style={{flex:1}}/>
                 <TimePicker onChange={value => {updateSnowFlakes(value, "endHour")} } style={{flex:1}}/>
               </View>
@@ -259,8 +258,7 @@ const NewJobScreen = ({navigation}) => {
               <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
                   <Text style={styles.buttonText}>Aceptar</Text>
               </TouchableOpacity>
-          </LayoutWithCollapsibleHeader>
-
+          </NewJobHeaderComponent>
         </ScrollView>
     )
 
