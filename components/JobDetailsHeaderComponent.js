@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { View, Animated, Image, ScrollView, Text, StyleSheet, SafeAreaView, StatusBar, TextInput } from "react-native";
 import {H_MIN_HEIGHT, H_MAX_HEIGHT, H_SCROLL_DISTANCE} from "../data/HeaderData"
 
-const NewJobHeaderComponent = ({setJobTitle}) => {
+const JobDetailsHeaderComponent = ({title, type, startDate, endDate}) => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const headerScrollHeight = scrollOffsetY.interpolate({
     inputRange: [0, H_SCROLL_DISTANCE],
@@ -27,19 +27,17 @@ const NewJobHeaderComponent = ({setJobTitle}) => {
           backgroundColor: "#51A8BB"
         }}
         >
-        <Text
-          style={styles.title}
-          resizeMode={"contain"}
-          >Nueva Tarea</Text>
+        <View>
+          <Text
+            style={styles.title}
+            resizeMode={"contain"}
+            >{title}</Text>
+          <View style={{flexDirection:"row"}}>
+            <Text style={styles.textType}>{type}</Text>
+            <Text style={styles.textDate}>{startDate}  {endDate}</Text>
+          </View>
 
-        <TextInput
-            style={styles.input}
-            placeholder="Titulo"
-            placeholderTextColor="#FAFAFA"
-            label="Titulo"
-            returnKeyType="next"
-            onBlur={(text) => setJobTitle(text)}
-        />
+       </View>
 
       </Animated.View>
   )
@@ -56,24 +54,48 @@ const styles = StyleSheet.create({
     top: 60,
     fontFamily: 'Nunito',
     fontWeight: 700,
-    fontSize: 24,
+    fontSize: 40,
     lineHeight: 33,
     display: 'flex',
     alignItems: 'center',
-    color: '#FAFAFA'
+    color: '#FAFAFA',
+    justifyContent: 'center'
   },
-  input: {
-    width: "70%",
+  textTitle: {
+    width: "280px",
+    height: "48px",
+    top: "188px",
+    left: "48px",
+    fontFamily: 'Nunito',
+    fontWeight: 700,
+    fontSize: 24,
+    lineHeight: "24px",
+    color: "#FAFAFA"
+  },
+  textType: {
     position: 'absolute',
+    width: 177,
+    height: 33,
     left: 24,
-    top: 90,
-    fontSize: 14,
-    textColor: "#FAFAFA",
-    borderWidth: 1,
-    borderColor: "#ced4da",
-    height: 30,
-    color:"#FAFAFA",
-    border: 'none'
+    top: 150,
+    marginRight: 10,
+    fontFamily: 'Nunito',
+    fontWeight: 700,
+    fontSize: 18,
+    lineHeight: "22px",
+    color: "#FAFAFA"
+  },
+  textDate: {
+    position: 'absolute',
+    width: 177,
+    height: 33,
+    left: 100,
+    top: 150,
+    fontFamily: 'Nunito',
+    fontWeight: 700,
+    fontSize: 18,
+    lineHeight: "22px",
+    color: "#FAFAFA"
   },
   containerScroll: {
     borderRadius: 24,
@@ -83,4 +105,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default NewJobHeaderComponent
+export default JobDetailsHeaderComponent

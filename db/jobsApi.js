@@ -21,6 +21,7 @@ export const saveJob = async (object) => {
     },
     body: JSON.stringify(object),
   });
+  return res
   return await res.json();
 };
 
@@ -49,6 +50,11 @@ export const getJobsUser = async (id) => {
 
 export const getJobsNotUser = async (id) => {
   const res = await fetch(`${API + '-Not-User'}/${id}/`);
+  return await res.json();
+}
+
+export const getJobsCount = async () => {
+  const res = await fetch(`${API}/Count`);
   return await res.json();
 }
 
