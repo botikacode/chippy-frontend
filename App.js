@@ -16,6 +16,10 @@ import ChatScreen from './screens/ChatScreen';
 import ListPetsScreen from './screens/ListPetsScreen';
 import JobDetailsScreen from './screens/JobDetailsScreen';
 import NewJobScreen from './screens/NewJobScreen';
+import PetDetailsScreen from './screens/PetDetailsScreen';
+import MapsScreen from './screens/MapsScreen';
+
+console.reportErrorsAsExceptions = false;
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +29,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="StartScreen">
 
         <Stack.Screen options={{headerShown: false}} name="StartScreen" component={StartScreen} />
+        <Stack.Screen options={{title: "Detalles mascota"}} name="PetDetailsScreen" component={PetDetailsScreen} />
         <Stack.Screen options={{title: " "}} name="LoginScreen" component={LoginScreen} />
         <Stack.Screen options={{title: " "}} name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen options={{title: " "}} name="Dashboard" component={Dashboard} />
@@ -37,6 +42,7 @@ const App = () => {
         <Stack.Screen name="ListPetsScreen" component={ListPetsScreen} options={{ title: 'Mis mascotas' }}/>
         <Stack.Screen name="JobDetailsScreen" component={JobDetailsScreen} options={{ title: 'Detalle de la tarea' }}/>
         <Stack.Screen name="NewJobScreen" component={NewJobScreen} options={{ title: 'Detalle de la tarea' }}/>
+        <Stack.Screen name="MapsScreen" component={MapsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>);
 }

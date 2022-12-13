@@ -28,6 +28,7 @@
     "react-native-date-picker": "^4.2.6",
     "react-native-dropdown-picker": "^5.4.3",
     "react-native-dropdown-select-list": "^2.0.4",
+    "react-native-maps": "^0.31.1",
     "react-native-modal": "^13.0.1",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-paper": "^5.0.0-rc.10",

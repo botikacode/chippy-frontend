@@ -46,8 +46,6 @@ const JobsScreen = ({ navigation, route }) => {
     <LayoutWithCollapsibleHeader>
       <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
-      <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
-      <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
 
     </LayoutWithCollapsibleHeader>
     <TouchableOpacity style={styles.fabLocationBL} onPress={() => navigation.navigate('NewJobScreen')}>
@@ -61,16 +59,30 @@ const JobsScreen = ({ navigation, route }) => {
 
 
 const styles = StyleSheet.create({
+  inputJunto:{
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  modal:{
+    backgroundColor: '#B00B69',
+    flex:'20%',
+    margin:0,
+    padding: 0,
+    height: '100%',
+    width: '20%'
+  },
   fabLocationBL: {
     position: 'absolute',
     bottom: 25,
     right: 25
   },
   fab: {
-    backgroundColor: '#ff6019',
-    width: 80,
-    height: 45,
+    padding: 15,
     borderRadius: 100,
+    marginBottom: 3,
+    backgroundColor: "#51A8BB",
     justifyContent: 'center'
   },
   fabText: {
