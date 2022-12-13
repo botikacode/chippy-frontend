@@ -23,8 +23,8 @@ const AddPet = ({navigation, route}) => {
     }
 
     const petTypeOptions = [
-        { label: "Perro", value: "dog" },
-        { label: "Gato", value: "cat" }
+        { label: "Perro", value: "Perro" },
+        { label: "Gato", value: "Gato" }
       ];
 
       useEffect(() =>{
@@ -34,7 +34,7 @@ const AddPet = ({navigation, route}) => {
 
     const handleSubmit = async (newPet) => {
         try {
-            if (newPet.petType != "cat"){newPet.petType = "dog";}
+            if (newPet.petType != "Gato"){newPet.petType = "Perro";}
           await savePet(newPet);
           navigation.navigate("AccountScreen");
         } catch (error) {
