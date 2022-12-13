@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Dimensions} from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import Layout from '../components/Layout'
@@ -214,13 +214,10 @@ const styles = StyleSheet.create({
   itemGroup: {
     flexDirection:"row",
   },
-  buttonView: {
-    position: 'absolute',
-    top:250,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
 buttonCeleste: {
+  position: 'absolute',
+  top: 270,
+  left: 60,
   borderRadius: 15,
   backgroundColor: "#0094FF",
   width: "50%",
@@ -231,6 +228,11 @@ buttonCeleste: {
   marginBottom: 3,
   marginLeft: 10,
   width: "50%",
+  alignSelf: 'center'
+},
+buttonText: {
+  color: "#fff",
+  textAlign: "center"
 },
 visibleDiv: {
   paddingTop: 10,
