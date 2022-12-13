@@ -1,12 +1,12 @@
 import { View, Text, FlatList} from 'react-native'
 import React from 'react'
 
-import Pet from './Pet'
+import PetItem from './PetItem'
 
-const PetsList = ({pets}) => {
+const PetsList = ({pets, navigation}) => {
 
     const renderItem = ({ item }) => {
-        return <Pet pet={item}/>;
+        return <PetItem pet={item} navigation={navigation}/>;
     }
 
     return (

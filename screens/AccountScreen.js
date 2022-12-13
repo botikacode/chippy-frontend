@@ -82,8 +82,8 @@ const AccountScreen = ({ navigation, route }) => {
       <Text style={styles.titulosText}>Mis Mascotas</Text>
       <ScrollView>
       <View style={styles.innerContainer}>
-        <View style={{ flex: 1 }}>
-          <PetsList pets={pets}/>
+        <View>
+          <PetsList pets={pets} navigation={navigation}/>
         </View>
       </View>
       </ScrollView>
@@ -94,9 +94,7 @@ const AccountScreen = ({ navigation, route }) => {
       <Text style={styles.titulosText}>Comentarios recientes</Text>
       <ScrollView>
         <View style={styles.innerContainer}>
-          <View style={{ flex: 1 }}>
           <CommentsList comments={comments}/>
-          </View>
         </View>
       </ScrollView>
       <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
@@ -192,6 +190,7 @@ titulosText: {
   color: "#51A8BB",
 },
 innerContainer: {
+  flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
   alignSelf:'baseline',

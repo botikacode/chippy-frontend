@@ -1,9 +1,7 @@
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, { Component } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
-
-import {getCustomer} from '../db/customersApi'
+import PetDetailsScreen from '../screens/PetDetailsScreen'
 
 const numColumns = 2;
 const itemHPadding = 1;
@@ -11,18 +9,14 @@ const screenWidth = Dimensions.get("window").width - (80 + (itemHPadding*4));; /
 const tileSize = screenWidth / numColumns;
 
 
-const Pet = ({pet}) => {
-  useEffect(() =>{
-  }, [])
+const PetItem = ({pet, navigation}) => {
   var myImage = null
   if(pet.petType=="Gato"){myImage = require('../assets/gatoFormulario.png')}
   else{myImage = require('../assets/perroFormulario.png')}
 
-  //onPress={() => navigation.navigate('EditPet')} (onPress del touchable)
  
  return (
-    
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('PetDetailsScreen', pet)}>
     <View style = {styles.itemMainContainer}>
         <Image source={myImage} style = {styles.itemImage}/>
         <Text style={{fontSize: 14,paddingBottom: 2,color:'white',}}>{pet.petName}</Text>
@@ -50,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pet
+export default PetItem
