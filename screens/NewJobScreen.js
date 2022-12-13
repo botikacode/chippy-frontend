@@ -10,18 +10,23 @@ import SnowFlakes from '../components/SnowFlakes'
 import SelectionButtons from '../components/SelectionButtons'
 import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
 import NewJobHeaderComponent from '../components/NewJobHeaderComponent'
+import { SelectList } from 'react-native-dropdown-select-list'
 
-import { saveJob } from '../db/jobsApi'
+import { saveJob, getJobsCount } from '../db/jobsApi'
 import { getCurrentUser } from '../persistentData'
 import { getCustomer } from '../db/customersApi'
-
+import { getUserPets } from '../db/petsApi';
+import { savePetJob } from '../db/petJobsApi';
 
 const NewJobScreen = ({navigation}) => {
     const [jobTitle, setJobTitle] = useState()
     const [jobType, setJobType] = useState()
     const [jobPrice, setJobPrice] = useState(0)
     const [jobDescription, setJobDescription] = useState()
+
     const [customer, setData] = useState()
+    const [customerPets, setPets] = useState()
+    const [selected, setSelected] = useState(0);
 
     const [visibleSnowFlakes, setSnowFlakesVisibility] = useState(false)
     const [rellenoSnowFlake1, setRellenoSnowFlake1] = useState()
@@ -38,17 +43,23 @@ const NewJobScreen = ({navigation}) => {
     const snowFlakeIcon = require("../assets/snowFlake_icon.png")
     const coinIcon = require("../assets/coin.png")
 
-    const loadCustomer = async () => {
+    const loadCustomerAndPets = async () => {
         let user = await getCurrentUser()
         if (user) {
             setData(user)
         }
+        const data = await getUserPets(user.id)
+        loadPets(data)
     }
 
     useEffect(() =>{
-      loadCustomer()
+      loadCustomerAndPets()
     }, [])
-
+    const loadPets = (data) => {
+      let petList = [];
+      data.forEach( p => petList.push({"key": p.id, "value": p.petName}))
+      setPets(petList)
+    }
     const onChanged = (text) => {
         let newText = '';
         let numbers = '0123456789';
@@ -73,14 +84,15 @@ const NewJobScreen = ({navigation}) => {
     const handleSubmit = async (newJob) => {
         try {
           await saveJob(newJob);
+          let idLastJob = await getJobsCount();
+          savePetJob({"petId": selected, "jobId": idLastJob});
           navigation.navigate("JobsScreen");
         } catch (error) {
           console.log(error);
         }
     };
     const onAddPressed = () => {
-      if(!jobTitle || !jobType || !jobDescription || !startDate || !startHour || !endDate || !endHour){
-        console.log(jobTitle); console.log(jobDescription);console.log(startDate); console.log(startHour); console.log(endDate); console.log(endHour)
+      if(!jobTitle || !jobType || !jobDescription || !startDate || !startHour || !endDate || !endHour || selected==0){
         alert('Quedan campos sin rellenar')
        }
       else{
@@ -104,7 +116,7 @@ const NewJobScreen = ({navigation}) => {
     const updateSnowFlakes = (value, comesFrom, remuneration) => {
       let res;
       let endDateTime;
-      let startDateTime
+      let startDateTime;
       if(comesFrom == "startDate"){
         setStartDate(value.target.value)
         if(endDate && endHour && startHour){
@@ -173,9 +185,15 @@ const NewJobScreen = ({navigation}) => {
     return (
         <ScrollView>
           <LayoutWithCollapsibleHeader component={newJobHeaderComponent}>
+          <SelectList
+              setSelected={(val) => setSelected(val)}
+              data={customerPets}
+              save="key"
+              placeholder="Seleccione mascota"
+          />
 
             <Text
-              style={{paddingBottom: 10}}
+              style={{paddingBottom: 10, color: "#2A6D7A"}}
               defaultValue="Fecha inicio">Inicio</Text>
 
             <View style={{flexDirection:"row"}}>
@@ -187,14 +205,14 @@ const NewJobScreen = ({navigation}) => {
             </View>
 
             <Text
-              style={{paddingBottom: 10, paddingTop: 10}}
+              style={{paddingBottom: 10, paddingTop: 10, color: "#2A6D7A"}}
               defaultValue="Fecha fin">Fin</Text>
               <View View style={{flexDirection:"row"}}>
                 <DatePicker onChange={(value,e) => {updateSnowFlakes(value,"endDate")} }style={{flex:1}}/>
                 <TimePicker onChange={value => {updateSnowFlakes(value, "endHour")} } style={{flex:1}}/>
               </View>
 
-              <Text style={{paddingTop: 10}}>Descripción</Text>
+              <Text style={{paddingTop: 10, color: "#2A6D7A"}}>Descripción</Text>
               <TextInput
                   style={styles.input}
                   placeholder="Descripción"
@@ -204,7 +222,7 @@ const NewJobScreen = ({navigation}) => {
                   onBlur={(text) => setJobDescription(text)}
               />
 
-              <Text style={{paddingTop: 10}}>Modo de remuneración</Text>
+              <Text style={{paddingTop: 10, color: "#2A6D7A"}}>Modo de remuneración</Text>
               <View style={styles.viewContainer}>
                 <SwitchSelector
                     style={styles.switch}
@@ -233,7 +251,7 @@ const NewJobScreen = ({navigation}) => {
 
               </View>
 
-              <Text style={{marginTop: 30}}>Categoría</Text>
+              <Text style={{marginTop: 30, color: "#2A6D7A"}}>Categoría</Text>
               <View style={{alignSelf: "center"}}>
                 <SelectionButtons setType={setJobType} name1="Pasear" name2="Cuidar"/>
               </View>
@@ -265,10 +283,10 @@ const styles = StyleSheet.create({
       marginTop: 4,
     },
     title:{
-      color: "#0094FF",
       marginBottom: 10,
       fontSize: 20,
       alignText: 'center',
+      color: "#000000"
     },
     input: {
       width: "70%",
@@ -278,9 +296,9 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: "#ced4da",
       height: 30,
-      color: "#000000",
       padding: 4,
       borderRadius: 5,
+      color: "#000000"
     },
     inputPrice: {
       width: "70%",
@@ -290,10 +308,10 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: "#ced4da",
       height: 30,
-      color: "#000000",
       padding: 4,
       borderRadius: 5,
-      hiddenInput: "true"
+      hiddenInput: "true",
+      color: "#000000"
     },
     buttonCeleste: {
       paddingTop: 10,

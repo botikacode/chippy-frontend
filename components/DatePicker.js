@@ -18,15 +18,4 @@ const DatePicker = ({value, onChange, style}) => {
 )
 }
 
-const styles = StyleSheet.create({
-  itemFooter:{
-    marginTop: 20,
-    display: 'flex',
-    flexDirection: "row",
-    justifyContent: 'space-between',
-    marginHorizontal: 10,
-    alignItems: 'center'
-  }
-});
-
 export default DatePicker

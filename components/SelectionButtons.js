@@ -7,13 +7,13 @@ const SelectionButtons = ({name1, name2, setType}) => {
 
   const handleClick1 = () => {
     if(!active1 && active2) setActive2(!active2)
-    if(!active1) setType("walk")
+    if(!active1) setType("Pasear")
     setActive1(!active1)
   };
 
   const handleClick2 = () => {
     if(!active2 && active1) setActive1(!active1)
-    if(!active2) setType("keep")
+    if(!active2) setType("Cuidar")
     setActive2(!active2)
   };
 
