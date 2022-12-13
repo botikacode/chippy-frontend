@@ -59,7 +59,7 @@ const JobDetailsScreen = ({route, navigation}) => {
   const paintSnowFlakes = () => {
     if(route.params.snowFlakes == 1) {setSnowFlake1(true); setSnowFlake2(false); setSnowFlake3(false)}
     else if(route.params.snowFlakes == 2) {setSnowFlake1(true); setSnowFlake2(true); setSnowFlake3(false)}
-    else if(route.params.snowFlakes == 3) {setSnowFlake1(true); setSnowFlake2(true); setSnowFlake3(true); console.log("Entro")}
+    else if(route.params.snowFlakes == 3) {setSnowFlake1(true); setSnowFlake2(true); setSnowFlake3(true)}
     else {setSnowFlake1(false); setSnowFlake2(false); setSnowFlake3(false)}
   }
 
@@ -69,9 +69,8 @@ const JobDetailsScreen = ({route, navigation}) => {
     formatDateHour()
     paintSnowFlakes()
   }, [])
-  let jobDetailsHeaderComponent = <JobDetailsHeaderComponent title={job.title} type={job.jobType} startDate={startDate} endDate={endDate}/>
   return (
-    <LayoutWithCollapsibleHeader component={jobDetailsHeaderComponent}>
+    <JobDetailsHeaderComponent title={job.title} type={job.jobType} startDate={startDate} endDate={endDate}>
       <Text style={styles.textStartHour}>{startHour}</Text>
       <div style={{borderLeft: "1px solid blue", height: "20px", position:'absolute', top:93, left:265}}/>
       <Text style={styles.textEndHour}>{endHour}</Text>
@@ -107,7 +106,7 @@ const JobDetailsScreen = ({route, navigation}) => {
             <Text style={styles.buttonText}>Aceptar trabajo</Text>
           </TouchableOpacity>
         </div>
-    </LayoutWithCollapsibleHeader>
+    </JobDetailsHeaderComponent>
   )
 }
 

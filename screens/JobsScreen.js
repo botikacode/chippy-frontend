@@ -11,7 +11,6 @@ import JobDetaisScreen from '../screens/JobDetailsScreen'
 import {initialFilter} from '../data/initialFilter'
 import { getCurrentUser } from '../persistentData'
 import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
-import JobListHeaderComponent from '../components/JobListHeaderComponent'
 
 const JobsScreen = ({ navigation, route }) => {
 
@@ -42,15 +41,10 @@ const JobsScreen = ({ navigation, route }) => {
       loadJobs();
     });
   }, [])
-  var jobListHeaderComponent = <JobListHeaderComponent/>
   return (
-    <View style={{ flex: 1, display:'flex', width: '100%', height:'100%', backgroundColor:'#FAFAFA' }}>
-    <LayoutWithCollapsibleHeader component={jobListHeaderComponent}>
-      <View style={styles.inputJunto}>
-        <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
-        <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
-      </View>
-      <CustomModal style={styles.modal} modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
+    <View style={{ flex: 1 }}>
+    <LayoutWithCollapsibleHeader>
+      <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
 
     </LayoutWithCollapsibleHeader>
