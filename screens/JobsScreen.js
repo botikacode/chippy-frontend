@@ -44,12 +44,14 @@ const JobsScreen = ({ navigation, route }) => {
   }, [])
   var jobListHeaderComponent = <JobListHeaderComponent/>
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, display:'flex', width: '100%', height:'100%', backgroundColor:'#FAFAFA' }}>
     <LayoutWithCollapsibleHeader component={jobListHeaderComponent}>
-      <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
+      <View style={styles.inputJunto}>
+        <SearchFilter jobs={jobs} setFilteredJobs={setFilteredJobs}/>
+        <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+      </View>
+      <CustomModal style={styles.modal} modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
       <JobList enableButton={true} jobs={jobs} filteredJobs={filteredJobs} modalJobs={intermediateFilter} navigation={navigation}/>
-      <AppBar setModalVisible={setModalVisible} modalVisible={modalVisible}/>
-      <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} filter={filter} setFilter={setFilter} intermediateFilter={intermediateFilter} setIntermediateFilter={setIntermediateFilter} jobTypesResult={jobTypesResult} jobs={jobs}/>
 
     </LayoutWithCollapsibleHeader>
     <TouchableOpacity style={styles.fabLocationBL} onPress={() => navigation.navigate('NewJobScreen')}>
@@ -63,16 +65,30 @@ const JobsScreen = ({ navigation, route }) => {
 
 
 const styles = StyleSheet.create({
+  inputJunto:{
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  modal:{
+    backgroundColor: '#B00B69',
+    flex:'20%',
+    margin:0,
+    padding: 0,
+    height: '100%',
+    width: '20%'
+  },
   fabLocationBL: {
     position: 'absolute',
     bottom: 25,
     right: 25
   },
   fab: {
-    backgroundColor: '#ff6019',
-    width: 80,
-    height: 45,
+    padding: 15,
     borderRadius: 100,
+    marginBottom: 3,
+    backgroundColor: "#51A8BB",
     justifyContent: 'center'
   },
   fabText: {
