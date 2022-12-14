@@ -16,6 +16,8 @@ const AddPet = ({navigation, route}) => {
     const [petType, setPetType] = useState({ value: '', error: '' })
     const [petDescription, setPetDescription] = useState({ value: '', error: '' })
     const [petPhoto, setPetPhoto] = useState({ value: '', error: '' })
+    const [petAge, setPetAge] = useState({ value: '', error: '' })
+    const [petGender, setPetGender] = useState({ value: '', error: '' })
 
     const [customer, setData] = useState([])
     const loadCustomer = async () =>{
@@ -67,6 +69,8 @@ const AddPet = ({navigation, route}) => {
         petType: petType,
         description: petDescription.value,
         image: "",
+        age: petAge.value,
+        gender: petGender.value,
         ownerId: customer.id,
       }
 
@@ -107,12 +111,10 @@ return (
         buttonColor ='#51A8BB'
         hasPadding
         />
-        
-        
         <SwitchSelector style={styles.switch}
         options = {petGenderOptions}
         initial={0}
-        //onPress={value => setPetType(value)}
+        onPress={value => setPetGender(value)}
         //onPress = {value => alert(value)}
         buttonColor ='#51A8BB'
         hasPadding
@@ -122,6 +124,8 @@ return (
         style={styles.input}
         placeholder = 'Edad de tu mascota'
         keyboardType='numeric'
+        value={petAge.value}
+        onChangeText={(text) => setPetAge({ value: text, error: '' })}
         />
       {petName.error ? <Text style={styles.error}>{petName.error }</Text> : null}
       <Text style={{marginLeft: 60}}>Descripción</Text>

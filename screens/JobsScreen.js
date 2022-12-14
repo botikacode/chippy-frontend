@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 100,
     marginBottom: 3,
-    backgroundColor: "#51A8BB",
+    backgroundColor: "#E1A054",
     justifyContent: 'center'
   },
   fabText: {
