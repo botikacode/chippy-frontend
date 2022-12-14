@@ -7,9 +7,13 @@ import { getUserPets } from '../db/petsApi'
 import Layout from '../components/Layout'
 import CommentsList from '../components/CommentsList'
 import SearchFilter from '../components/SearchFilter'
+import { getJobsUser } from '../db/jobsApi'
 import { getCurrentUser } from '../persistentData'
+
 import ButtonType0 from '../components/ButtonType0'
 import PetsList from '../components/PetsList'
+
+import JobList from '../components/JobList'
 
 import Button from 'react-native'
 
@@ -19,12 +23,17 @@ const AccountScreen = ({ navigation, route }) => {
   const [customer, setData] = useState([])
   const [comments, setDataComments] = useState([])
   const [pets, setPets] = useState([])
+  const [jobs, setJobs] = useState([])
+  const [filteredJobs, setFilteredJobs] = useState(jobs)
 
-  const loadPets = async () => {
+  const loadUserData = async () => {
     const user = await getCurrentUser()
     if(user){
-      const data = await getUserPets(user.id)
-      setPets(data)
+      const pets = await getUserPets(user.id)
+      const jobs = await getJobsUser(user.id)
+      setJobs(jobs)
+      setPets(pets)
+      setData(user)
     }
   }
 
@@ -42,11 +51,16 @@ const AccountScreen = ({ navigation, route }) => {
       setData(user)
     }
   }
+  const loadJobs = async () => {
+    const user = await getCurrentUser()
+    if(user){
+      const jobs = await getJobsUser(user.id)
+      setJobs(jobs)
+    }
+  }
 
   useEffect(() => {
-    loadPets()
-    loadCustomer()
-    loadComments()
+    loadUserData()
   }, [])
 
   let myImage = getImageUrl(customer);
@@ -80,10 +94,10 @@ const AccountScreen = ({ navigation, route }) => {
         onPress={() => navigation.navigate("AddPet")}>
         <Text style={styles.buttonText}>Mascota (+)</Text>
       </TouchableOpacity>
-      <Text style={styles.titulosText}>Comentarios recientes</Text>
+      <Text style={styles.titulosText}>Mis Tareas</Text>
       <ScrollView>
         <View style={styles.innerContainer}>
-          <CommentsList comments={comments}/>
+        <JobList jobs={jobs} filteredJobs={filteredJobs} navigation={navigation}/>
         </View>
       </ScrollView>
       <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
