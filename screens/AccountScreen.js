@@ -61,7 +61,6 @@ const AccountScreen = ({ navigation, route }) => {
   }
 
   return (
-  <View>
     <View style={styles.outContainer}>
       <View style={styles.cabecera}>
         <View style = {styles.imageNameContainer}>
@@ -74,9 +73,7 @@ const AccountScreen = ({ navigation, route }) => {
       <Text style={styles.titulosText}>Mis Mascotas</Text>
       <ScrollView>
       <View style={styles.innerContainer}>
-        <View>
           <PetsList pets={pets} navigation={navigation}/>
-        </View>
       </View>
       </ScrollView>
       <TouchableOpacity style={styles.buttonCeleste}
@@ -100,7 +97,7 @@ const AccountScreen = ({ navigation, route }) => {
       
 
     </View>
-  </View>
+  
   )
 }
 
@@ -176,7 +173,7 @@ innerContainer: {
   justifyContent: 'center',
   alignItems: 'center',
   alignSelf:'baseline',
-  maxHeight:200,
+  maxHeight:190,
   maxWidth:'100%',
 }
 
