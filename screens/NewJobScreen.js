@@ -182,8 +182,12 @@ const NewJobScreen = ({navigation}) => {
       if(hours >= 24*14){setRellenoSnowFlake1(true); setRellenoSnowFlake2(true); setRellenoSnowFlake3(true)}
     }
     return (
+        
         <ScrollView>
-          <NewJobHeaderComponent setJobTitle={setJobTitle}>
+            <NewJobHeaderComponent setJobTitle={setJobTitle}>
+
+          
+          
           <SelectList
               setSelected={(val) => setSelected(val)}
               data={customerPets}
@@ -191,8 +195,10 @@ const NewJobScreen = ({navigation}) => {
               placeholder="Seleccione mascota"
           />
 
+          
+
             <Text
-              style={{paddingBottom: 10, color: "#2A6D7A"}}
+              style={{paddingBottom: 10, color: "#2A6D7A", marginTop: 5}}
               defaultValue="Fecha inicio">Inicio</Text>
 
             <View style={{flexDirection:"row", paddingLeft:1}}>
@@ -214,7 +220,7 @@ const NewJobScreen = ({navigation}) => {
               <Text style={{paddingTop: 10, color: "#2A6D7A"}}>Descripción</Text>
               <TextInput
                   style={styles.input}
-                  placeholder="Descripción"
+                  placeholder="Escribe una descripción... "
                   placeholderTextColor="#576574"
                   label="Descripción"
                   returnKeyType="next"
@@ -258,6 +264,7 @@ const NewJobScreen = ({navigation}) => {
               <TouchableOpacity style={styles.buttonCeleste} onPress={onAddPressed}>
                   <Text style={styles.buttonText}>Aceptar</Text>
               </TouchableOpacity>
+          
           </NewJobHeaderComponent>
         </ScrollView>
     )
@@ -287,7 +294,7 @@ const styles = StyleSheet.create({
       color: "#000000"
     },
     input: {
-      width: "70%",
+      width: "100%",
       marginBottom: 4,
       marginTop: 10,
       fontSize: 14,
@@ -331,6 +338,13 @@ const styles = StyleSheet.create({
       width: '100%',
       marginVertical: 5,
       alignItems: 'center',
+    },
+    viewradius: {
+      borderWidth: 5,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    flex: 0.3,
+      
     },
     error: {
       fontSize: 10,

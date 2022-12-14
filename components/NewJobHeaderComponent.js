@@ -40,7 +40,10 @@ const NewJobHeaderComponent = ({children, setJobTitle}) => {
 
           // STYLE
           padding: 0,
-          backgroundColor: "#51A8BB"
+          backgroundColor: "#51A8BB",
+          flex: 0.3,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
         }}
         >
         <Text
@@ -49,8 +52,8 @@ const NewJobHeaderComponent = ({children, setJobTitle}) => {
           >Nueva Tarea</Text>
 
         <TextInput
-            style={styles.input}
-            placeholder="Titulo"
+            style={styles.inputv2}
+            placeholder="Escribe un título..."
             placeholderTextColor="#FAFAFA"
             label="Titulo"
             returnKeyType="next"
@@ -91,6 +94,21 @@ const styles = StyleSheet.create({
     height: 30,
     color:"#FAFAFA",
     border: 'none'
+  },
+  inputv2: {
+    width: "70%",
+    position: 'absolute',
+    left: 24,
+    top: 90,
+    fontSize: 14,
+    textColor: "#FAFAFA",
+    height: 30,
+    color:"#FAFAFA",
+    marginTop: 5,
+    borderBottomColor: '#FAFAFA',
+    borderBottomWidth: 3,
+    
+    outlineStyle: 'none',
   },
   containerScroll: {
     borderRadius: 24,
