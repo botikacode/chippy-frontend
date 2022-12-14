@@ -6,6 +6,9 @@ import SwitchSelector from "react-native-switch-selector";
 import { savePet } from '../db/petsApi';
 import {getCustomer} from '../db/customersApi'
 import { getCurrentUser } from '../persistentData'
+import FirstPageGif from '../components/FirstPageGif'
+import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
+
 
 
 const AddPet = ({navigation, route}) => {
@@ -13,6 +16,8 @@ const AddPet = ({navigation, route}) => {
     const [petType, setPetType] = useState({ value: '', error: '' })
     const [petDescription, setPetDescription] = useState({ value: '', error: '' })
     const [petPhoto, setPetPhoto] = useState({ value: '', error: '' })
+    const [petAge, setPetAge] = useState({ value: '', error: '' })
+    const [petGender, setPetGender] = useState({ value: '', error: '' })
 
     const [customer, setData] = useState([])
     const loadCustomer = async () =>{
@@ -21,11 +26,18 @@ const AddPet = ({navigation, route}) => {
         setData(user)
       }
     }
-
+    const catImg = require('../assets/icono_gat.png')
+    const dogImg = require('../assets/icono_gos.png')
+    const maleImg = require('../assets/machoIcono.png')
+    const femaleImg = require('../assets/hembraIcono.png')
     const petTypeOptions = [
-        { label: "Perro", value: "Perro" },
-        { label: "Gato", value: "Gato" }
+        { label: "     Perro", value: "Perro", imageIcon: dogImg },
+        { label: "     Gato", value: "Gato", imageIcon: catImg }
       ];
+    const petGenderOptions = [
+        { label: "     Macho", value: "Macho", imageIcon: maleImg},
+        { label: "     Hembra", value: "Hembra", imageIcon: femaleImg}
+  ];
 
       useEffect(() =>{
         loadCustomer()
@@ -42,6 +54,7 @@ const AddPet = ({navigation, route}) => {
         }
       };
 
+      
 
       const onAddPressed = () => {
         const petNameError = nameValidator(petName.value)
@@ -56,6 +69,8 @@ const AddPet = ({navigation, route}) => {
         petType: petType,
         description: petDescription.value,
         image: "",
+        age: petAge.value,
+        gender: petGender.value,
         ownerId: customer.id,
       }
 
@@ -65,16 +80,20 @@ const AddPet = ({navigation, route}) => {
         //navigation.navigate("AccountScreen")
       }
 
+
 return (
-    <ScrollView>
-
-
+    <View>
+      <View style={{ flex: 1, display:'flex', width: '100%', height:'100%', backgroundColor:'#FAFAFA' }}>
+    <LayoutWithCollapsibleHeader/>
+    </View>
       <View style={styles.container}>
-        <Text style={styles.title} >Añadir Mascota</Text>
+        <Text style={styles.title} >Nueva Mascota</Text>
+      {petDescription.error ? <Text style={styles.error}>{petDescription.error }</Text> : null}
 
+      <Text style={{marginLeft: 60}}>Nombre</Text>
       <TextInput
         style={styles.input}
-        placeholder="Nombre"
+        placeholder="Nombre de tu mascota"
         placeholderTextColor="#576574"
         label="Nombre"
         returnKeyType="next"
@@ -83,11 +102,36 @@ return (
         error={!!petName.error}
         errorText={petName.error}
       />
-      {petName.error ? <Text style={styles.error}>{petName.error }</Text> : null}
 
-      <TextInput
+      <SwitchSelector style={styles.switch}
+        options = {petTypeOptions}
+        initial={0}
+        onPress={value => setPetType(value)}
+        //onPress = {value => alert(value)}
+        buttonColor ='#51A8BB'
+        hasPadding
+        />
+        <SwitchSelector style={styles.switch}
+        options = {petGenderOptions}
+        initial={0}
+        onPress={value => setPetGender(value)}
+        //onPress = {value => alert(value)}
+        buttonColor ='#51A8BB'
+        hasPadding
+        />
+      <Text style={{marginLeft: 60}}>Edad</Text>
+        <TextInput 
         style={styles.input}
-        placeholder="Descripción"
+        placeholder = 'Edad de tu mascota'
+        keyboardType='numeric'
+        value={petAge.value}
+        onChangeText={(text) => setPetAge({ value: text, error: '' })}
+        />
+      {petName.error ? <Text style={styles.error}>{petName.error }</Text> : null}
+      <Text style={{marginLeft: 60}}>Descripción</Text>
+      <TextInput
+        style={styles.descripcionInput}
+        placeholder="¿Cómo es tu mascota? Cuéntanos un poco mas"
         placeholderTextColor="#576574"
         label="Descripción"
         returnKeyType="next"
@@ -97,35 +141,38 @@ return (
         errorText={petDescription.error}
 
       />
-      {petDescription.error ? <Text style={styles.error}>{petDescription.error }</Text> : null}
-
-      <SwitchSelector style={styles.switch}
-        options = {petTypeOptions}
-        initial={0}
-        onPress={value => setPetType(value)}
-        //onPress = {value => alert(value)}
-        buttonColor ='#0094FF'
-        />
-
 
       <TouchableOpacity style={styles.buttonCeleste}  onPress={onAddPressed}>
-          <Text style={styles.buttonText}>Añadir Mascota</Text>
+          <Text style={styles.buttonText}>Añadir</Text>
       </TouchableOpacity>
         </View>
-    </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
+  cabecera: {
+    alignContent: 'center',
+    backgroundColor:'#51A8BB',
+    borderBottomEndRadius: 40,
+    borderBottomStartRadius: 40,
+    paddingBottom: 20,
+    width:'100%',
+  },
+  header:{
+    width: '100%',
+    height: '50%',
+    backgroundColor:'#FAFAFA',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
   },
   title:{
-    color: "#0094FF",
+    color: "#51A8BB",
+    fontWeight: 'bold',
     marginBottom: 10,
     fontSize: 20,
-    alignText: 'center',
+    alignSelf: 'center',
   },
   input: {
     width: "70%",
@@ -136,18 +183,34 @@ const styles = StyleSheet.create({
     borderColor: "#ced4da",
     height: 30,
     color: "#000000",
+    borderRadius: 5,
+    alignSelf: 'center',
+  },
+  descripcionInput: {
+    width: "70%",
+    marginBottom: 4,
+    marginTop: 10,
+    fontSize: 14,
+    borderWidth: 1,
+    borderColor: "#ced4da",
+    height: 'baseline',
+    minHeight: 60,
+    maxHeight: 350,
+    color: "#000000",
     padding: 4,
     borderRadius: 5,
+    alignSelf: 'center',
   },
   buttonCeleste: {
-    paddingTop: 10,
-    marginTop: 24,
-    paddingBottom: 10,
+    alignContent: 'center',
+    marginTop: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
     borderRadius: 5,
     marginBottom: 3,
-    marginLeft: 10,
-    backgroundColor: "#0094FF",
-    width: "50%",
+    backgroundColor: "#51A8BB",
+    width: "25%",
+    alignSelf: 'center',
   },
   buttonText: {
     color: "#fff",
@@ -156,7 +219,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginVertical: 5,
-    alignItems: 'center',
+    
   },
   error: {
     fontSize: 10,
@@ -164,10 +227,9 @@ const styles = StyleSheet.create({
     paddingBottom:5,
   },
   switch: {
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    textColor: '#0094FF',
-    selectedColor: '#FFFFFF',
     width: '80%',
     paddingTop: 10,
 }
