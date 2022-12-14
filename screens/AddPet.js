@@ -8,7 +8,6 @@ import {getCustomer} from '../db/customersApi'
 import { getCurrentUser } from '../persistentData'
 import FirstPageGif from '../components/FirstPageGif'
 import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
-import JobListHeaderComponent from '../components/JobListHeaderComponent'
 
 
 
@@ -76,12 +75,12 @@ const AddPet = ({navigation, route}) => {
         handleSubmit(custom)
         //navigation.navigate("AccountScreen")
       }
-      var jobListHeaderComponent = <JobListHeaderComponent/>
+
 
 return (
     <View>
       <View style={{ flex: 1, display:'flex', width: '100%', height:'100%', backgroundColor:'#FAFAFA' }}>
-    <LayoutWithCollapsibleHeader component={jobListHeaderComponent}/>
+    <LayoutWithCollapsibleHeader/>
     </View>
       <View style={styles.container}>
         <Text style={styles.title} >Nueva Mascota</Text>
