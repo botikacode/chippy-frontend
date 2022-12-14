@@ -9,7 +9,6 @@ const LayoutWithCollapsibleHeader = ({ children, setJobTitle, component}) => {
     outputRange: [H_MAX_HEIGHT, H_MIN_HEIGHT],
     extrapolate: "clamp"
   });
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -27,8 +26,27 @@ const LayoutWithCollapsibleHeader = ({ children, setJobTitle, component}) => {
           </View>
         </View>
       </ScrollView>
-
-    {component}
+      <Animated.View
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            height: headerScrollHeight,
+            width: "100%",
+            overflow: "hidden",
+            zIndex: 999,
+            // STYLE
+            padding: 0,
+            backgroundColor: "#51A8BB"
+          }}
+          >
+          <Image
+            source={require('../assets/chippy_Welcome.gif')}
+            style={{ flex: 1 }}
+            resizeMode={"contain"}
+          />
+        </Animated.View>
 
     </SafeAreaView>
   )
