@@ -103,13 +103,6 @@ const AccountScreen = ({ navigation, route }) => {
       <TouchableOpacity style={styles.buttonCeleste} onPress={() => navigation.navigate("StartScreen")}>
             <Text style={styles.buttonText}>Cerrar sesión</Text>
         </TouchableOpacity>
-
-      
-      <TouchableOpacity style={styles.buttonTareas} onPress={() => navigation.navigate('MyReqJobsScreen')}>
-        <Text style={styles.buttonText}>MisTareas</Text>
-      </TouchableOpacity>
-      
-
     </View>
   
   )

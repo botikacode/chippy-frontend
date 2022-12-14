@@ -7,6 +7,9 @@ import { savePet } from '../db/petsApi';
 import {getCustomer} from '../db/customersApi'
 import { getCurrentUser } from '../persistentData'
 import FirstPageGif from '../components/FirstPageGif'
+import LayoutWithCollapsibleHeader from '../components/LayoutWithCollapsibleHeader'
+import JobListHeaderComponent from '../components/JobListHeaderComponent'
+
 
 
 const AddPet = ({navigation, route}) => {
@@ -50,6 +53,7 @@ const AddPet = ({navigation, route}) => {
         }
       };
 
+      
 
       const onAddPressed = () => {
         const petNameError = nameValidator(petName.value)
@@ -72,39 +76,17 @@ const AddPet = ({navigation, route}) => {
         handleSubmit(custom)
         //navigation.navigate("AccountScreen")
       }
+      var jobListHeaderComponent = <JobListHeaderComponent/>
 
 return (
     <View>
-      <View style={styles.header}>
-          <FirstPageGif />
-        </View>
-
+      <View style={{ flex: 1, display:'flex', width: '100%', height:'100%', backgroundColor:'#FAFAFA' }}>
+    <LayoutWithCollapsibleHeader component={jobListHeaderComponent}/>
+    </View>
       <View style={styles.container}>
         <Text style={styles.title} >Nueva Mascota</Text>
       {petDescription.error ? <Text style={styles.error}>{petDescription.error }</Text> : null}
 
-      <SwitchSelector style={styles.switch}
-        options = {petTypeOptions}
-        initial={0}
-        onPress={value => setPetType(value)}
-        //onPress = {value => alert(value)}
-        buttonColor ='#51A8BB'
-        hasPadding
-        />
-        <Text style={{marginLeft: 60}}>Edad</Text>
-        <TextInput 
-        style={styles.input}
-        placeholder = 'Edad de tu mascota'
-        keyboardType='numeric'
-        />
-        <SwitchSelector style={styles.switch}
-        options = {petGenderOptions}
-        initial={0}
-        //onPress={value => setPetType(value)}
-        //onPress = {value => alert(value)}
-        buttonColor ='#51A8BB'
-        hasPadding
-        />
       <Text style={{marginLeft: 60}}>Nombre</Text>
       <TextInput
         style={styles.input}
@@ -117,6 +99,31 @@ return (
         error={!!petName.error}
         errorText={petName.error}
       />
+
+      <SwitchSelector style={styles.switch}
+        options = {petTypeOptions}
+        initial={0}
+        onPress={value => setPetType(value)}
+        //onPress = {value => alert(value)}
+        buttonColor ='#51A8BB'
+        hasPadding
+        />
+        
+        
+        <SwitchSelector style={styles.switch}
+        options = {petGenderOptions}
+        initial={0}
+        //onPress={value => setPetType(value)}
+        //onPress = {value => alert(value)}
+        buttonColor ='#51A8BB'
+        hasPadding
+        />
+      <Text style={{marginLeft: 60}}>Edad</Text>
+        <TextInput 
+        style={styles.input}
+        placeholder = 'Edad de tu mascota'
+        keyboardType='numeric'
+        />
       {petName.error ? <Text style={styles.error}>{petName.error }</Text> : null}
       <Text style={{marginLeft: 60}}>Descripción</Text>
       <TextInput
