@@ -22,9 +22,10 @@ const JobList = ({jobs, filteredJobs, modalJobs, navigation, enableButton}) => {
         <FlatList
             data={selectCorrectFilter()}
             keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <View style={{ height: 3 }} />}
+            ItemSeparatorComponent={() => <View style={{height: 3 }} />}
             renderItem={renderItem}
             numColumns={2}
+            style = {{flex: 1}}
         />
     )
 }
