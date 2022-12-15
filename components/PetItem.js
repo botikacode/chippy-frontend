@@ -16,12 +16,12 @@ const PetItem = ({pet, navigation}) => {
 
  
  return (
-    <TouchableOpacity onPress={() => navigation.navigate('PetDetailsScreen', pet)}>
+    
     <View style = {styles.itemMainContainer}>
         <Image source={myImage} style = {styles.itemImage}/>
         <Text style={{fontSize: 14,paddingBottom: 2,color:'white',}}>{pet.petName}</Text>
     </View>
-    </TouchableOpacity>
+    
   )
 }
 

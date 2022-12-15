@@ -78,9 +78,7 @@ const AccountScreen = ({ navigation, route }) => {
     <View style={styles.outContainer}>
       <View style={styles.cabecera}>
         <View style = {styles.imageNameContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('UploadImageScreen')}>
             <Image source={myImage} style = {styles.itemImage}/>
-          </TouchableOpacity>
           <Text style={styles.nameText}>{customer.firstName +" "+ customer.lastName}</Text>
         </View>
       </View>

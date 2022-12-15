@@ -27,9 +27,9 @@ function TabNavigator({navigation,route}) {
         iconName = focused ? 'home' : 'home-outline';
 
       
-      }else if (route.name === "MapsScreen") {
+      }/* else if (route.name === "MapsScreen") {
       iconName = focused ? 'map' : 'map-outline';
-      }     
+      }   */   
       else if (route.name === "ChatList") {
         iconName = focused ? 'chatbox-ellipses' : 'chatbox-ellipses-outline';
 
@@ -45,7 +45,7 @@ function TabNavigator({navigation,route}) {
   return(
     <Tab.Navigator initialRouteName={"JobsScreen"} screenOptions={screenOptions}>
         <Tab.Screen name="ChatList" component={ChatList} />
-        <Tab.Screen name="MapsScreen" component={MapsScreen} />
+        {/* <Tab.Screen name="MapsScreen" component={MapsScreen} /> */}
         <Tab.Screen name="JobsScreen" initialParams={{ idSesion: 1 }}  /* initialParams={{ idSesion: route.params.idSesion }}  */component={JobsScreen} />
         <Tab.Screen name="AccountScreen" initialParams={{ idSesion: 1 }} component={AccountScreen} /> 
     </Tab.Navigator>
